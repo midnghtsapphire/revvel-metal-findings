@@ -2,43 +2,14 @@
   "repo": "midnghtsapphire/revvel-metal-findings",
   "target": "midnghtsapphire/revvel-standards",
   "updated": "2026-08-22",
-  "scrape": "2026-08-22-p2",
+  "scrape": "2026-08-22-p3",
   "findings": [
-    {
-      "id": "xgrammar-2",
-      "path": "lanes/01-deterministic-ai/xgrammar-2.md",
-      "lane": "01-deterministic-ai",
-      "status": "active"
-    },
-    {
-      "id": "llama-cpp-gbnf",
-      "path": "lanes/01-deterministic-ai/llama-cpp-gbnf.md",
-      "lane": "01-deterministic-ai",
-      "status": "active"
-    },
-    {
-      "id": "wasmtime-wit",
-      "path": "lanes/00-near-metal/wasmtime-component-model.md",
-      "lane": "00-near-metal",
-      "status": "active"
-    },
-    {
-      "id": "cranelift",
-      "path": "lanes/00-near-metal/cranelift.md",
-      "lane": "00-near-metal",
-      "status": "active"
-    },
-    {
-      "id": "dspy-gepa-mipro",
-      "path": "lanes/04-spec-to-code/dspy-gepa-mipro.md",
-      "lane": "04-spec-to-code",
-      "status": "active"
-    },
-    {
-      "id": "tigerbeetle-dst",
-      "path": "lanes/02-formal-replay/tigerbeetle-dst.md",
-      "lane": "02-formal-replay",
-      "status": "active"
-    }
+    {"id": "issue-15507-closed-as-essay", "path": "lanes/04-spec-to-code/issue-15507-closed-as-essay.md", "lane": "04-spec-to-code", "status": "active"},
+    {"id": "xgrammar-2", "path": "lanes/01-deterministic-ai/xgrammar-2.md", "lane": "01-deterministic-ai", "status": "active"},
+    {"id": "llama-cpp-gbnf", "path": "lanes/01-deterministic-ai/llama-cpp-gbnf.md", "lane": "01-deterministic-ai", "status": "active"},
+    {"id": "dspy-gepa-mipro", "path": "lanes/04-spec-to-code/dspy-gepa-mipro.md", "lane": "04-spec-to-code", "status": "active"},
+    {"id": "wasmtime-wit", "path": "lanes/00-near-metal/wasmtime-component-model.md", "lane": "00-near-metal", "status": "active"},
+    {"id": "cranelift", "path": "lanes/00-near-metal/cranelift.md", "lane": "00-near-metal", "status": "active"},
+    {"id": "tigerbeetle-dst", "path": "lanes/02-formal-replay/tigerbeetle-dst.md", "lane": "02-formal-replay", "status": "active"}
   ]
 }
