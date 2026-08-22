@@ -1,5 +1,7 @@
 # 02 — formal / replay
 
-Seed in, same bug out. Simulation, TLA+, replay debuggers.
+Seed in, same bug out.
 
-Active: [tigerbeetle-dst](./tigerbeetle-dst.md)
+Active:
+- [tigerbeetle-dst](./tigerbeetle-dst.md)
+- [temporal](./temporal.md) (watching)
