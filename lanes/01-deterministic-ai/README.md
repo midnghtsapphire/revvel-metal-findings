@@ -1,5 +1,7 @@
 # 01 — deterministic AI
 
-Constrained decoding, grammars, seeds. The model may still pick among legal tokens. The **shape** must be impossible to break.
+Constrained decoding. Shape is impossible to break. Token choice among legal tokens is not always bit-identical.
 
-Active: [xgrammar-2](./xgrammar-2.md)
+Active:
+- [xgrammar-2](./xgrammar-2.md)
+- [llama-cpp-gbnf](./llama-cpp-gbnf.md)

@@ -2,39 +2,43 @@
   "repo": "midnghtsapphire/revvel-metal-findings",
   "target": "midnghtsapphire/revvel-standards",
   "updated": "2026-08-22",
-  "scrape": "2026-08-22",
+  "scrape": "2026-08-22-p2",
   "findings": [
     {
       "id": "xgrammar-2",
       "path": "lanes/01-deterministic-ai/xgrammar-2.md",
       "lane": "01-deterministic-ai",
-      "status": "active",
-      "urls": [
-        "https://github.com/mlc-ai/xgrammar/",
-        "https://blog.mlc.ai/2026/05/04/xgrammar-2-fast-customizable-structured-generation",
-        "https://arxiv.org/html/2601.04426v2"
-      ]
+      "status": "active"
+    },
+    {
+      "id": "llama-cpp-gbnf",
+      "path": "lanes/01-deterministic-ai/llama-cpp-gbnf.md",
+      "lane": "01-deterministic-ai",
+      "status": "active"
     },
     {
       "id": "wasmtime-wit",
       "path": "lanes/00-near-metal/wasmtime-component-model.md",
       "lane": "00-near-metal",
-      "status": "active",
-      "urls": [
-        "https://github.com/bytecodealliance/wasmtime",
-        "https://component-model.bytecodealliance.org/",
-        "https://github.com/extism/extism"
-      ]
+      "status": "active"
+    },
+    {
+      "id": "cranelift",
+      "path": "lanes/00-near-metal/cranelift.md",
+      "lane": "00-near-metal",
+      "status": "active"
+    },
+    {
+      "id": "dspy-gepa-mipro",
+      "path": "lanes/04-spec-to-code/dspy-gepa-mipro.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
     },
     {
       "id": "tigerbeetle-dst",
       "path": "lanes/02-formal-replay/tigerbeetle-dst.md",
       "lane": "02-formal-replay",
-      "status": "active",
-      "urls": [
-        "https://tigerbeetle.com/blog/2026-08-20-protocol-aware-dst/",
-        "https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/internals/vopr.md"
-      ]
+      "status": "active"
     }
   ]
 }
