@@ -19,6 +19,8 @@ CONTRACT + `orchestrate.js` only. Craft is in `scripts/`.
 | outlines | `scripts/research-engine.js` extractors |
 | type-constrained-codegen-pldi-2025 | coder output must typecheck before auto-merge |
 | dspy-gepa-mipro | research-complete → wr:code classifier |
+| compiled-ai | YAML-spec → four-stage gate on existing `openrouter-coder.yml` + `schemas/`; LLM out of control plane after compile |
+| plancompiler | `spec-approved` as CHECK 1–7 over `standards/shapes`; reject unknown primitives |
 | extism | mcp-product as signed Wasm; host stays orchestrate.js |
 | wasmtime-wit / cranelift | target ABI + lowering |
 | tigerbeetle-dst | seed-replay orchestrate.js label graph |
