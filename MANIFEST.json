@@ -1,12 +1,13 @@
 {
   "repo": "midnghtsapphire/revvel-metal-findings",
   "target": "midnghtsapphire/revvel-standards",
-  "updated": "2026-09-17",
-  "scrape": "2026-09-17",
+  "updated": "2026-09-18",
+  "scrape": "2026-09-18",
   "findings": [
     {"id": "issue-15507-closed-as-essay", "path": "lanes/04-spec-to-code/issue-15507-closed-as-essay.md", "lane": "04-spec-to-code", "status": "active"},
     {"id": "gh-aw-safe-outputs", "path": "lanes/04-spec-to-code/gh-aw-safe-outputs.md", "lane": "04-spec-to-code", "status": "active"},
     {"id": "compiled-ai", "path": "lanes/04-spec-to-code/compiled-ai.md", "lane": "04-spec-to-code", "status": "active"},
+    {"id": "spec-guard", "path": "lanes/04-spec-to-code/spec-guard.md", "lane": "04-spec-to-code", "status": "active"},
     {"id": "plancompiler", "path": "lanes/05-trials-papers/plancompiler.md", "lane": "05-trials-papers", "status": "active"},
     {"id": "specd", "path": "lanes/04-spec-to-code/specd.md", "lane": "04-spec-to-code", "status": "active"},
     {"id": "llguidance", "path": "lanes/01-deterministic-ai/llguidance.md", "lane": "01-deterministic-ai", "status": "active"},
@@ -14,6 +15,7 @@
     {"id": "pre3", "path": "lanes/01-deterministic-ai/pre3.md", "lane": "01-deterministic-ai", "status": "active"},
     {"id": "psc", "path": "lanes/05-trials-papers/psc.md", "lane": "05-trials-papers", "status": "active"},
     {"id": "glrmask", "path": "lanes/01-deterministic-ai/glrmask.md", "lane": "01-deterministic-ai", "status": "active"},
+    {"id": "vocab-mask-trie", "path": "lanes/01-deterministic-ai/vocab-mask-trie.md", "lane": "01-deterministic-ai", "status": "active"},
     {"id": "truncproof", "path": "lanes/05-trials-papers/truncproof.md", "lane": "05-trials-papers", "status": "active"},
     {"id": "chopchop", "path": "lanes/05-trials-papers/chopchop.md", "lane": "05-trials-papers", "status": "active"},
     {"id": "swyb", "path": "lanes/05-trials-papers/swyb.md", "lane": "05-trials-papers", "status": "active"},
