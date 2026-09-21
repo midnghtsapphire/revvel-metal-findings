@@ -15,6 +15,7 @@ CONTRACT + `orchestrate.js` only. Craft is in `scripts/`.
 | Finding | Touch |
 | --- | --- |
 | llguidance / xgrammar-2 | OpenRouter structured-output on `openrouter-coder.yml` + `OUTPUT_TYPE` enums |
+| cfgzip | Self-hosted XGrammar path only: preprocess static WR/code GBNF once; wrap existing mask — no second decoder |
 | llama-cpp-gbnf | `schemas/*.gbnf` + `scripts/local_llm.js` |
 | outlines | `scripts/research-engine.js` extractors |
 | type-constrained-codegen-pldi-2025 | coder output must typecheck before auto-merge |
