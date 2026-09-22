@@ -1,8 +1,8 @@
 {
   "repo": "midnghtsapphire/revvel-metal-findings",
   "target": "midnghtsapphire/revvel-standards",
-  "updated": "2026-09-21",
-  "scrape": "2026-09-21",
+  "updated": "2026-09-22",
+  "scrape": "2026-09-22",
   "findings": [
     {"id": "issue-15507-closed-as-essay", "path": "lanes/04-spec-to-code/issue-15507-closed-as-essay.md", "lane": "04-spec-to-code", "status": "active"},
     {"id": "gh-aw-safe-outputs", "path": "lanes/04-spec-to-code/gh-aw-safe-outputs.md", "lane": "04-spec-to-code", "status": "active"},

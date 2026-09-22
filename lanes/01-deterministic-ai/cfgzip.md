@@ -8,6 +8,7 @@
   "status": "active",
   "urls": [
     "https://github.com/mjs227/cfgzip",
+    "https://github.com/coli-saar/cfgzip-rust",
     "https://pypi.org/project/cfgzip/",
     "https://arxiv.org/abs/2605.29986",
     "https://github.com/coli-saar/cfgzip-experiments"
@@ -25,4 +26,4 @@ Offline **token-vocabulary compression** layer for CFG-constrained decoding. Pre
 
 **Revvel hit:** when a self-hosted coder already pins XGrammar (see **xgrammar-2**) on a stable WR/code GBNF, CFGzip is the drop-in accelerator — preprocess once, cache `EquivalenceClassData`, keep the same schema contract. Do **not** open a second structured-output path; wrap the existing mask engine. Vendor/OpenRouter paths stay on **llguidance**.
 
-**Honesty:** CAN-PARTIAL. Verified 2026-09-21: GitHub `mjs227/cfgzip` live (4★, Apache-2.0 LICENSE + pyproject), PyPI `cfgzip` 0.1.1 live, arXiv 2605.29986 live, experiments mirror `coli-saar/cfgzip-experiments` live. Backend today is **XGrammar2 only** (`BaseProcessor` extension point; llguidance planned). **Not** a native vLLM plugin — transformers generate path. Not a PSC successor. Offline precompute can take minutes; wrong tool for one-shot dynamic JSON schemas.
+**Honesty:** CAN-PARTIAL. Verified 2026-09-21: GitHub `mjs227/cfgzip` live (4★, Apache-2.0 LICENSE + pyproject), PyPI `cfgzip` 0.1.1 live, arXiv 2605.29986 live, experiments mirror `coli-saar/cfgzip-experiments` live. Re-verified 2026-09-22: companion **`coli-saar/cfgzip-rust`** live (Apache-2.0) — Rust CLI `cfgzip-preprocess` is now the recommended offline preprocessor; Python preprocess deprecated. Backend today is still **XGrammar2 only** (`BaseProcessor` extension point; llguidance planned). **Still not** a native vLLM/SGLang plugin — transformers generate path only. Not a PSC successor. Offline precompute can take minutes; wrong tool for one-shot dynamic JSON schemas.

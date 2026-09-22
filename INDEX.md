@@ -1,6 +1,6 @@
 # INDEX
 
-Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-09-21`.
+Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-09-22`.
 
 | rank | id | lane | status | why |
 | ---: | --- | --- | --- | --- |
