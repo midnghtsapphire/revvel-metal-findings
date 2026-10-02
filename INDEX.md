@@ -9,10 +9,10 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-02`.
 | 2 | compiled-ai | 04-spec-to-code | active | Compile WR once; LLM out of the control plane. |
 | 3 | spec-guard | 04-spec-to-code | active | Hash-bound human Approve/Authorize/Complete; MCP refuses skip. |
 | 4 | plancompiler | 05-trials-papers | active | Seven static checks = spec-approved before emit. |
-| 5 | agent-spec | 04-spec-to-code | active | Rust intent compiler: REQ IR \u2192 Task Contracts \u2192 lifecycle/guard. |
+| 5 | agent-spec | 04-spec-to-code | active | Rust intent compiler: REQ IR → Task Contracts → lifecycle/guard. |
 | 6 | specd | 04-spec-to-code | active | Compile specs into coder context; verify plan before implement. |
 | 7 | contract-agent | 04-spec-to-code | active | Spec-as-Source CEL guards refuse illegal tool/multi-turn transitions. |
-| 8 | governspec | 04-spec-to-code | active | One govern.yaml \u2192 tool artifacts + offline acceptance tests (MIT). |
+| 8 | governspec | 04-spec-to-code | active | One govern.yaml → tool artifacts + offline acceptance tests (MIT). |
 | 9 | aicontracts | 04-spec-to-code | active | Fail-closed YAML effects + CI check-verdict for deliver:* coder. |
 | 10 | homi-gate | 04-spec-to-code | active | CI completion bit + handoff contract + MCP allowlist for deliver:*. |
 | 11 | agent-gate | 04-spec-to-code | active | MCP fail-closed ship checklist + hash-chained receipts. |
@@ -46,7 +46,7 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-02`.
 | 39 | cranelift | 00-near-metal | active | Lowering. |
 | 40 | tigerbeetle-dst | 02-formal-replay | active | Seed-replay method (Zig-native reference). |
 | 41 | colm-2025-correctness-guaranteed-decode | 05-trials-papers | active | Grammar = public API. |
-| 42 | agentassert-abc | 04-spec-to-code | watching | MCP tool-call guard + ABC contracts; AGPL \u2014 prefer MIT contract-agent. |
+| 42 | agentassert-abc | 04-spec-to-code | watching | MCP tool-call guard + ABC contracts; AGPL — prefer MIT contract-agent. |
 | 43 | hlv | 04-spec-to-code | watching | Rust SDD proof binary + MCP; prefer agent-spec for wire. |
 | 44 | determinate | 03-agent-runtimes | watching | State-gated next-action + constrained structured output. |
 | 45 | openhands | 03-agent-runtimes | watching | Fallback coder. Gate on wr:code. |
