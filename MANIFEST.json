@@ -1,8 +1,8 @@
 {
   "repo": "midnghtsapphire/revvel-metal-findings",
   "target": "midnghtsapphire/revvel-standards",
-  "updated": "2026-10-05",
-  "scrape": "2026-10-05",
+  "updated": "2026-10-06",
+  "scrape": "2026-10-06",
   "findings": [
     {"id": "issue-15507-closed-as-essay", "path": "lanes/04-spec-to-code/issue-15507-closed-as-essay.md", "lane": "04-spec-to-code", "status": "active"},
     {"id": "gh-aw-safe-outputs", "path": "lanes/04-spec-to-code/gh-aw-safe-outputs.md", "lane": "04-spec-to-code", "status": "active"},
@@ -18,6 +18,7 @@
     {"id": "homi-gate", "path": "lanes/04-spec-to-code/homi-gate.md", "lane": "04-spec-to-code", "status": "active"},
     {"id": "agent-gate", "path": "lanes/04-spec-to-code/agent-gate.md", "lane": "04-spec-to-code", "status": "active"},
     {"id": "verax", "path": "lanes/04-spec-to-code/verax.md", "lane": "04-spec-to-code", "status": "active"},
+    {"id": "cadence", "path": "lanes/04-spec-to-code/cadence.md", "lane": "04-spec-to-code", "status": "active"},
     {"id": "llguidance", "path": "lanes/01-deterministic-ai/llguidance.md", "lane": "01-deterministic-ai", "status": "active"},
     {"id": "xgrammar-2", "path": "lanes/01-deterministic-ai/xgrammar-2.md", "lane": "01-deterministic-ai", "status": "active"},
     {"id": "cfgzip", "path": "lanes/01-deterministic-ai/cfgzip.md", "lane": "01-deterministic-ai", "status": "active"},
@@ -50,6 +51,7 @@
     {"id": "colm-2025-correctness-guaranteed-decode", "path": "lanes/05-trials-papers/colm-2025-correctness-guaranteed-decode.md", "lane": "05-trials-papers", "status": "active"},
     {"id": "agentassert-abc", "path": "lanes/04-spec-to-code/agentassert-abc.md", "lane": "04-spec-to-code", "status": "watching"},
     {"id": "hlv", "path": "lanes/04-spec-to-code/hlv.md", "lane": "04-spec-to-code", "status": "watching"},
+    {"id": "schoolmarm", "path": "lanes/01-deterministic-ai/schoolmarm.md", "lane": "01-deterministic-ai", "status": "watching"},
     {"id": "determinate", "path": "lanes/03-agent-runtimes/determinate.md", "lane": "03-agent-runtimes", "status": "watching"},
     {"id": "openhands", "path": "lanes/03-agent-runtimes/openhands.md", "lane": "03-agent-runtimes", "status": "watching"},
     {"id": "temporal", "path": "lanes/02-formal-replay/temporal.md", "lane": "02-formal-replay", "status": "watching"},
