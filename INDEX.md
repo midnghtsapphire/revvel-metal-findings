@@ -1,6 +1,6 @@
 # INDEX
 
-Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-07`.
+Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-09`.
 
 | rank | id | lane | status | why |
 | ---: | --- | --- | --- | --- |
@@ -60,3 +60,6 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-07`.
 | 53 | agrepl | 02-formal-replay | watching | Go static-binary MITM record/replay, zero outbound network on replay; any language, no SDK; CI mode still on roadmap. |
 | 54 | zig-0-16 | 00-near-metal | watching | Guest language, not default. |
 | 55 | qbe | 00-near-metal | watching | Teachable IR only. |
+| 56 | mcpgate | 04-spec-to-code | watching | Go deny-by-default MCP proxy, human `ask` queue, audit-failure denies; backup to mcp-gate (MIT). |
+| 57 | mcp-gatehouse | 04-spec-to-code | watching | In-server Python MCP approval tiers; no approver = deny (MIT). |
+| 58 | swiftgram | 05-trials-papers | watching | ASE 2026 grammar-constrained decoding via lexical forking; no code yet. |
