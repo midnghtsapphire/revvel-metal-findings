@@ -1,6 +1,6 @@
 # INDEX
 
-Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-09`.
+Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-12`.
 
 | rank | id | lane | status | why |
 | ---: | --- | --- | --- | --- |
@@ -8,18 +8,18 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-09`.
 | 1 | gh-aw-safe-outputs | 04-spec-to-code | active | Safe label/PR apply without agent write tokens. |
 | 2 | compiled-ai | 04-spec-to-code | active | Compile WR once; LLM out of the control plane. |
 | 3 | spec-guard | 04-spec-to-code | active | Hash-bound human Approve/Authorize/Complete; MCP refuses skip. |
-| 4 | linebreak-gate | 04-spec-to-code | active | Human-approved acceptance criteria over MCP; fail-closed CI check until sign-off. |
-| 5 | plancompiler | 05-trials-papers | active | Seven static checks = spec-approved before emit. |
-| 6 | agent-spec | 04-spec-to-code | active | Rust intent compiler: REQ IR → Task Contracts → lifecycle/guard. |
-| 7 | specd | 04-spec-to-code | active | Compile specs into coder context; verify plan before implement. |
-| 8 | contract-agent | 04-spec-to-code | active | Spec-as-Source CEL guards refuse illegal tool/multi-turn transitions. |
-| 9 | governspec | 04-spec-to-code | active | One govern.yaml → tool artifacts + offline acceptance tests (MIT). |
-| 10 | aicontracts | 04-spec-to-code | active | Fail-closed YAML effects + CI check-verdict for deliver:* coder. |
-| 11 | homi-gate | 04-spec-to-code | active | CI completion bit + handoff contract + MCP allowlist for deliver:*. |
-| 12 | agent-gate | 04-spec-to-code | active | MCP fail-closed ship checklist + hash-chained receipts. |
-| 13 | verax | 04-spec-to-code | active | MCP policy gate + signed COSE decision/effect ledger. |
-| 14 | mcp-gate | 04-spec-to-code | active | Fail-closed stdio MCP proxy for the coder: policy-denied tool calls never reach the server; Ed25519-signed chained receipts (Apache-2.0). |
-| 15 | cadence | 04-spec-to-code | active | Node/TS settle gate: refuses "done" until declared ACs re-check from real evidence (MIT). |
+| 4 | plancompiler | 05-trials-papers | active | Seven static checks = spec-approved before emit. |
+| 5 | agent-spec | 04-spec-to-code | active | Rust intent compiler: REQ IR → Task Contracts → lifecycle/guard. |
+| 6 | specd | 04-spec-to-code | active | Compile specs into coder context; verify plan before implement. |
+| 7 | contract-agent | 04-spec-to-code | active | Spec-as-Source CEL guards refuse illegal tool/multi-turn transitions. |
+| 8 | governspec | 04-spec-to-code | active | One govern.yaml → tool artifacts + offline acceptance tests (MIT). |
+| 9 | aicontracts | 04-spec-to-code | active | Fail-closed YAML effects + CI check-verdict for deliver:* coder. |
+| 10 | homi-gate | 04-spec-to-code | active | CI completion bit + handoff contract + MCP allowlist for deliver:*. |
+| 11 | agent-gate | 04-spec-to-code | active | MCP fail-closed ship checklist + hash-chained receipts. |
+| 12 | verax | 04-spec-to-code | active | MCP policy gate + signed COSE decision/effect ledger; pin >= 0.5.1 (stricter fail-closed policy parsing). |
+| 13 | mcp-gate | 04-spec-to-code | active | Fail-closed stdio MCP proxy for the coder: policy-denied tool calls never reach the server; Ed25519-signed chained receipts (Apache-2.0). |
+| 14 | agentgate | 04-spec-to-code | active | Commit `agentgate.lock` of the coder's MCP tool surface; `ci` exits 1 on description/schema drift; `deps` flags hallucinated/typosquat packages (Apache-2.0). |
+| 15 | cadence | 04-spec-to-code | active | Node/TS settle gate: refuses "done" until declared ACs re-check from real evidence; pin >= 1.69.1 (MCP SDK advisory) (MIT). |
 | 16 | llguidance | 01-deterministic-ai | active | Vendor structured-output path you already pay for. |
 | 17 | xgrammar-2 | 01-deterministic-ai | active | Serving-engine mask (vLLM/SGLang). |
 | 18 | cfgzip | 01-deterministic-ai | active | Lossless vocab compression over XGrammar2 for complex static grammars. |
@@ -58,8 +58,11 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-09`.
 | 51 | openhands | 03-agent-runtimes | watching | Fallback coder. Gate on wr:code. |
 | 52 | temporal | 02-formal-replay | watching | Heavy replay. After DST proves the bug. |
 | 53 | agrepl | 02-formal-replay | watching | Go static-binary MITM record/replay, zero outbound network on replay; any language, no SDK; CI mode still on roadmap. |
-| 54 | zig-0-16 | 00-near-metal | watching | Guest language, not default. |
-| 55 | qbe | 00-near-metal | watching | Teachable IR only. |
-| 56 | mcpgate | 04-spec-to-code | watching | Go deny-by-default MCP proxy, human `ask` queue, audit-failure denies; backup to mcp-gate (MIT). |
-| 57 | mcp-gatehouse | 04-spec-to-code | watching | In-server Python MCP approval tiers; no approver = deny (MIT). |
-| 58 | swiftgram | 05-trials-papers | watching | ASE 2026 grammar-constrained decoding via lexical forking; no code yet. |
+| 54 | wassette | 00-near-metal | watching | Microsoft Wasm-Component-over-MCP host, deny-by-default per-component grants; blocked until it ships Wasmtime >= 48.0.5/49.0.2 (MIT). |
+| 55 | zig-0-16 | 00-near-metal | watching | Guest language, not default. |
+| 56 | qbe | 00-near-metal | watching | Teachable IR only. |
+| 57 | mcpgate | 04-spec-to-code | watching | Go deny-by-default MCP proxy, human `ask` queue, audit-failure denies; backup to mcp-gate (MIT). |
+| 58 | mcp-gatehouse | 04-spec-to-code | watching | In-server Python MCP approval tiers; no approver = deny (MIT). |
+| 59 | mcp-hangar | 04-spec-to-code | watching | Fleet MCP enforcement plane; tool-schema digest pin fails closed, `pin --check` exits 1; runtime twin of agentgate (MIT). |
+| 60 | swiftgram | 05-trials-papers | watching | ASE 2026 grammar-constrained decoding via lexical forking; no code yet. |
+| 61 | linebreak-gate | 04-spec-to-code | dropped | DROPPED 2026-10-12: repo 404, all PyPI releases yanked, now licensed product. Use spec-guard. |
