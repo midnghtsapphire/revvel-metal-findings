@@ -5,7 +5,7 @@
   "id": "linebreak-gate",
   "name": "LineBreak Gate",
   "lane": "04-spec-to-code",
-  "status": "active",
+  "status": "dropped",
   "urls": [
     "https://github.com/Baktun-Studio/linebreak-gate",
     "https://pypi.org/project/linebreak-gate/"
@@ -13,9 +13,10 @@
   "license": "Apache-2.0",
   "metal": 2,
   "determinism": 5,
-  "revvel_hit": "spec-approved / wr:code / deliver:* — named-human `spec approve` lands an approved criteria bundle; MCP serves it read-only to the coder; `check` fails closed (exit 0/1/2) until machine criteria pass and manual criteria carry a recorded sign-off",
-  "honesty": "CAN-PARTIAL",
-  "acquired": "2026-10-05"
+  "revvel_hit": "DROPPED 2026-10-12 — public distribution closed: GitHub repo 404, every PyPI release yanked, product now licensed (linebreakapp.com, Pro from $99/mo). spec-approved slot falls back to spec-guard.",
+  "honesty": "CANNOT",
+  "acquired": "2026-10-05",
+  "updated": "2026-10-12"
 }
 ```
 
@@ -24,3 +25,5 @@
 **Revvel hit:** this is the closest off-the-shelf shape to the `spec-approved` label: human approval binds criteria, the coder reads them as context before writing code, and the PR check stays red until criteria and sign-offs pass. Wire `check` as the required status check beside existing `deliver:*` CI and map WR acceptance criteria into its draft YAML; do not stand up a second pipeline. Pair with **spec-guard** (hash-bound Approve/Authorize/Complete inside MCP) and **homi-gate** / **aicontracts** (handoff and effects checks).
 
 **Honesty:** CAN-PARTIAL. Verified 2026-10-05 (America/Denver): GitHub live, Apache-2.0 LICENSE, PyPI 1.15.0 live, README documents exit codes and MCP tools. Repo is a publish-bot mirror of a private upstream (Baktun-Studio/linebreak), so issues/PR history are thin; product site linebreakapp.com is commercial-adjacent. Criteria YAML dialect will need mapping to WR fields.
+
+**Dropped 2026-10-12 (America/Denver):** `https://github.com/Baktun-Studio/linebreak-gate` returns **404** (web and REST API; the Baktun-Studio org now lists zero public repos). On PyPI, **all 25 releases (1.0.0 → 1.15.0) are yanked** with the reason "Distribución pública cerrada. LineBreak se entrega con licencia: linebreakapp.com" (public distribution closed; LineBreak is delivered under license). The product site still advertises the gate, the MCP bridge, and a signed record, but installs now go through a licensed onboarding (`LINEBREAK_LICENSE_KEY`, Pro from $99/mo per team, no self-serve checkout). A pinned `pip install linebreak-gate==1.15.0` may still resolve a yanked Apache-2.0 artifact, but there is no public upstream to audit or patch, so it is not a dependency revvel-standards should take. **Replacement:** **spec-guard** (rank 3) already covers hash-bound human approval of specs/ACs over MCP plus a fail-closed sign-off; **cadence** covers "done is actually done" at deliver:*. No other finding depended on linebreak-gate.
