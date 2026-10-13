@@ -28,6 +28,8 @@ CONTRACT + `orchestrate.js` only. Craft is in `scripts/`.
 | temporal | watching; after DST |
 | openhands | existing fallback only; gate on wr:code |
 | colm-2025 | grammar = shape in `standards/shapes/*` |
+| agent-approval-check | required `agent-approval-check` status on `main` for deliver:* PRs; `agent_logins` / `excluded_approvers` = `TRUSTED_BOTS` in `trusted-bot-auto-approve.yml`; pin action SHA; needs its own small `pull_request_target` + `issue_comment` workflow, which is outside the five points below, so it needs an owner OK. It is a status-only gate: no issues, no dispatch |
+| act | wasmtime-wit trial host: one helper as a wasm32-wasip2 component over MCP stdio with explicit `--allow`; host stays orchestrate.js (Wasmtime 49.0.2) |
 
 ## Five legal insertion points
 
