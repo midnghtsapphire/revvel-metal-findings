@@ -1,6 +1,6 @@
 # INDEX
 
-Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-13`.
+Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-14`.
 
 | rank | id | lane | status | why |
 | ---: | --- | --- | --- | --- |
@@ -64,8 +64,10 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-13`.
 | 57 | wassette | 00-near-metal | watching | Microsoft Wasm-Component-over-MCP host, deny-by-default per-component grants; blocked until it ships Wasmtime >= 48.0.5/49.0.2 (MIT). |
 | 58 | zig-0-16 | 00-near-metal | watching | Guest language, not default. |
 | 59 | qbe | 00-near-metal | watching | Teachable IR only. |
-| 60 | mcpgate | 04-spec-to-code | watching | Go deny-by-default MCP proxy, human `ask` queue, audit-failure denies; backup to mcp-gate (MIT). |
-| 61 | mcp-gatehouse | 04-spec-to-code | watching | In-server Python MCP approval tiers; no approver = deny (MIT). |
-| 62 | mcp-hangar | 04-spec-to-code | watching | Fleet MCP enforcement plane; tool-schema digest pin fails closed, `pin --check` exits 1; runtime twin of agentgate (MIT). |
-| 63 | swiftgram | 05-trials-papers | watching | ASE 2026 grammar-constrained decoding via lexical forking; no code yet. |
-| 64 | linebreak-gate | 04-spec-to-code | dropped | DROPPED 2026-10-12: repo 404, all PyPI releases yanked, now licensed product. Use spec-guard. |
+| 60 | hashgate | 04-spec-to-code | watching | Claude Code PreToolUse: hash-bound push/merge/deploy; server re-derives live state; agent cannot self-approve (Apache-2.0, PyPI 0.2.0, stale since 2026-07). |
+| 61 | notary-mcp | 04-spec-to-code | watching | MCP propose→canonicalize→approve revision hash→fail-closed execute exact bytes (MIT); demo/hackathon; borrow pattern only. |
+| 62 | mcpgate | 04-spec-to-code | watching | Go deny-by-default MCP proxy, human `ask` queue, audit-failure denies; backup to mcp-gate (MIT). |
+| 63 | mcp-gatehouse | 04-spec-to-code | watching | In-server Python MCP approval tiers; no approver = deny (MIT). |
+| 64 | mcp-hangar | 04-spec-to-code | watching | Fleet MCP enforcement plane; tool-schema digest pin fails closed, `pin --check` exits 1; pin 2.27.5 (MIT); runtime twin of agentgate. |
+| 65 | swiftgram | 05-trials-papers | watching | ASE 2026 grammar-constrained decoding via lexical forking; no code yet. |
+| 66 | linebreak-gate | 04-spec-to-code | dropped | DROPPED 2026-10-12: repo 404, all PyPI releases yanked, now licensed product. Use spec-guard. |
