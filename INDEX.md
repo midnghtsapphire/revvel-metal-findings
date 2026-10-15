@@ -1,6 +1,6 @@
 # INDEX
 
-Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-14`.
+Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-15`.
 
 | rank | id | lane | status | why |
 | ---: | --- | --- | --- | --- |
@@ -46,9 +46,9 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-14`.
 | 39 | llama-cpp-gbnf | 01-deterministic-ai | active | Local twin. |
 | 40 | outlines | 01-deterministic-ai | active | Python cage on research-engine dumps. |
 | 41 | dspy-gepa-mipro | 04-spec-to-code | active | Compile the labeler. |
-| 42 | extism | 00-near-metal | active | Signed Wasm plugins now; WIT later. |
-| 43 | wasmtime-wit | 00-near-metal | active | Target ABI (+ Pulley portable interp); pin hosts >= 49.0.2 (security). |
-| 44 | act | 00-near-metal | active | Wasm Component tools over MCP with declared-capability + explicit grants, headless = deny, always-on audit; already on Wasmtime 49.0.2 (MIT OR Apache-2.0). |
+| 42 | extism | 00-near-metal | active | Signed Wasm plugins now; WIT later; BSD-3-Clause, 1.41.0 takes `wasmtime ^49` (lock >= 49.0.3). |
+| 43 | wasmtime-wit | 00-near-metal | active | Target ABI (+ Pulley portable interp); pin hosts >= 49.0.3 (2026-10-14: 15 advisories incl. high fs sandbox escape). |
+| 44 | act | 00-near-metal | active | Wasm Component tools over MCP with declared-capability + explicit grants, headless = deny, always-on audit; 0.14.6 still locks Wasmtime 49.0.2, now below the 49.0.3 floor -- re-pin before trial (MIT OR Apache-2.0). |
 | 45 | cranelift | 00-near-metal | active | Lowering. |
 | 46 | tigerbeetle-dst | 02-formal-replay | active | Seed-replay method (Zig-native reference). |
 | 47 | colm-2025-correctness-guaranteed-decode | 05-trials-papers | active | Grammar = public API. |
@@ -61,13 +61,15 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-14`.
 | 54 | openhands | 03-agent-runtimes | watching | Fallback coder. Gate on wr:code. |
 | 55 | temporal | 02-formal-replay | watching | Heavy replay. After DST proves the bug. |
 | 56 | agrepl | 02-formal-replay | watching | Go static-binary MITM record/replay, zero outbound network on replay; any language, no SDK; CI mode still on roadmap. |
-| 57 | wassette | 00-near-metal | watching | Microsoft Wasm-Component-over-MCP host, deny-by-default per-component grants; blocked until it ships Wasmtime >= 48.0.5/49.0.2 (MIT). |
+| 57 | wassette | 00-near-metal | watching | Microsoft Wasm-Component-over-MCP host, deny-by-default per-component grants; blocked until it ships Wasmtime >= 48.0.6/49.0.3 (still 48.0.3) (MIT). |
 | 58 | zig-0-16 | 00-near-metal | watching | Guest language, not default. |
 | 59 | qbe | 00-near-metal | watching | Teachable IR only. |
-| 60 | hashgate | 04-spec-to-code | watching | Claude Code PreToolUse: hash-bound push/merge/deploy; server re-derives live state; agent cannot self-approve (Apache-2.0, PyPI 0.2.0, stale since 2026-07). |
-| 61 | notary-mcp | 04-spec-to-code | watching | MCP propose→canonicalize→approve revision hash→fail-closed execute exact bytes (MIT); demo/hackathon; borrow pattern only. |
-| 62 | mcpgate | 04-spec-to-code | watching | Go deny-by-default MCP proxy, human `ask` queue, audit-failure denies; backup to mcp-gate (MIT). |
-| 63 | mcp-gatehouse | 04-spec-to-code | watching | In-server Python MCP approval tiers; no approver = deny (MIT). |
-| 64 | mcp-hangar | 04-spec-to-code | watching | Fleet MCP enforcement plane; tool-schema digest pin fails closed, `pin --check` exits 1; pin 2.27.5 (MIT); runtime twin of agentgate. |
-| 65 | swiftgram | 05-trials-papers | watching | ASE 2026 grammar-constrained decoding via lexical forking; no code yet. |
-| 66 | linebreak-gate | 04-spec-to-code | dropped | DROPPED 2026-10-12: repo 404, all PyPI releases yanked, now licensed product. Use spec-guard. |
+| 60 | agt-approval-protocol | 04-spec-to-code | watching | Microsoft AGT ADR-0030 (accepted): approval bound to JCS SHA-256 action digest + policy/chain version; consume in the execute transaction; timeout/unauth = deny; LLM advisory only (MIT); code on main, unreleased. |
+| 61 | agentmachinist | 04-spec-to-code | watching | Spec→Approve→Execute controller: bot-minted SHA marker after fail-closed write-permission read; label alone = pending; push = stale; lease push on approved SHA (MIT, PyPI 0.20.0); pattern only, own pipeline. |
+| 62 | hashgate | 04-spec-to-code | watching | Claude Code PreToolUse: hash-bound push/merge/deploy; server re-derives live state; agent cannot self-approve (Apache-2.0, PyPI 0.2.0, stale since 2026-07). |
+| 63 | notary-mcp | 04-spec-to-code | watching | MCP propose→canonicalize→approve revision hash→fail-closed execute exact bytes (MIT); demo/hackathon; borrow pattern only. |
+| 64 | mcpgate | 04-spec-to-code | watching | Go deny-by-default MCP proxy, human `ask` queue, audit-failure denies; backup to mcp-gate (MIT). |
+| 65 | mcp-gatehouse | 04-spec-to-code | watching | In-server Python MCP approval tiers; no approver = deny (MIT). |
+| 66 | mcp-hangar | 04-spec-to-code | watching | Fleet MCP enforcement plane; tool-schema digest pin fails closed, `pin --check` exits 1; pin 2.27.5 (MIT); runtime twin of agentgate. |
+| 67 | swiftgram | 05-trials-papers | watching | ASE 2026 grammar-constrained decoding via lexical forking; no code yet. |
+| 68 | linebreak-gate | 04-spec-to-code | dropped | DROPPED 2026-10-12: repo 404, all PyPI releases yanked, now licensed product. Use spec-guard. |

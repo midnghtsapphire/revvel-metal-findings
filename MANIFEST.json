@@ -1,8 +1,8 @@
 {
   "repo": "midnghtsapphire/revvel-metal-findings",
   "target": "midnghtsapphire/revvel-standards",
-  "updated": "2026-10-14",
-  "scrape": "2026-10-14",
+  "updated": "2026-10-15",
+  "scrape": "2026-10-15",
   "findings": [
     {"id": "issue-15507-closed-as-essay", "path": "lanes/04-spec-to-code/issue-15507-closed-as-essay.md", "lane": "04-spec-to-code", "status": "active"},
     {"id": "gh-aw-safe-outputs", "path": "lanes/04-spec-to-code/gh-aw-safe-outputs.md", "lane": "04-spec-to-code", "status": "active"},
@@ -70,6 +70,8 @@
     {"id": "act", "path": "lanes/00-near-metal/act.md", "lane": "00-near-metal", "status": "active"},
     {"id": "vllm-batch-invariance", "path": "lanes/01-deterministic-ai/vllm-batch-invariance.md", "lane": "01-deterministic-ai", "status": "watching"},
     {"id": "hashgate", "path": "lanes/04-spec-to-code/hashgate.md", "lane": "04-spec-to-code", "status": "watching"},
-    {"id": "notary-mcp", "path": "lanes/04-spec-to-code/notary-mcp.md", "lane": "04-spec-to-code", "status": "watching"}
+    {"id": "notary-mcp", "path": "lanes/04-spec-to-code/notary-mcp.md", "lane": "04-spec-to-code", "status": "watching"},
+    {"id": "agt-approval-protocol", "path": "lanes/04-spec-to-code/agt-approval-protocol.md", "lane": "04-spec-to-code", "status": "watching"},
+    {"id": "agentmachinist", "path": "lanes/04-spec-to-code/agentmachinist.md", "lane": "04-spec-to-code", "status": "watching"}
   ]
 }
