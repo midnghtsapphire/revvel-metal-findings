@@ -29,7 +29,9 @@ CONTRACT + `orchestrate.js` only. Craft is in `scripts/`.
 | openhands | existing fallback only; gate on wr:code |
 | colm-2025 | grammar = shape in `standards/shapes/*` |
 | agent-approval-check | required `agent-approval-check` status on `main` for deliver:* PRs; `agent_logins` / `excluded_approvers` = `TRUSTED_BOTS` in `trusted-bot-auto-approve.yml`; pin action SHA; needs its own small `pull_request_target` + `issue_comment` workflow, which is outside the five points below, so it needs an owner OK. It is a status-only gate: no issues, no dispatch |
-| act | wasmtime-wit trial host: one helper as a wasm32-wasip2 component over MCP stdio with explicit `--allow`; host stays orchestrate.js (Wasmtime 49.0.2) |
+| act | wasmtime-wit trial host: one helper as a wasm32-wasip2 component over MCP stdio with explicit `--allow`; host stays orchestrate.js (locks Wasmtime 49.0.2; floor is >= 49.0.3 since 2026-10-14, so wait for a re-pinned release or `cargo update -p wasmtime` first) |
+| agt-approval-protocol | watching; reference only: shape the deliver:* approval record (action digest over JCS bytes + policy version + chain version, consumed in the same step that starts the side effect) as a sibling `$ref` of `schemas/state.schema.json` (point 2). No AGT runtime |
+| agentmachinist | watching; pattern only: `spec-approved` counts only with a bot-minted marker carrying the head SHA after a fail-closed permission read; any push after approval = stale; coder pushes with lease on the approved SHA (point 4, existing labels). Do not adopt the controller |
 
 ## Five legal insertion points
 
