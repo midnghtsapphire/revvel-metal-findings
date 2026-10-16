@@ -32,6 +32,7 @@ CONTRACT + `orchestrate.js` only. Craft is in `scripts/`.
 | act | wasmtime-wit trial host: one helper as a wasm32-wasip2 component over MCP stdio with explicit `--allow`; host stays orchestrate.js (locks Wasmtime 49.0.2; floor is >= 49.0.3 since 2026-10-14, so wait for a re-pinned release or `cargo update -p wasmtime` first) |
 | agt-approval-protocol | watching; reference only: shape the deliver:* approval record (action digest over JCS bytes + policy version + chain version, consumed in the same step that starts the side effect) as a sibling `$ref` of `schemas/state.schema.json` (point 2). No AGT runtime |
 | agentmachinist | watching; pattern only: `spec-approved` counts only with a bot-minted marker carrying the head SHA after a fail-closed permission read; any push after approval = stale; coder pushes with lease on the approved SHA (point 4, existing labels). Do not adopt the controller |
+| gh-actions-lock | `gh actions-lock` over the existing `.github/workflows/` (openrouter-coder.yml, revvel-engine-spine.yml, agent-fallback.yml, trusted-bot-auto-approve.yml) → commit `.github/workflows/actions.lock`; add `gh actions-lock --verify` as one step on an existing job (point 5). Locks the runner side the replay lane cannot see. Edits revvel-standards workflow files, so it needs an owner OK; no new workflow, no dispatch |
 
 ## Five legal insertion points
 
