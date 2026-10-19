@@ -10,14 +10,15 @@
     "https://github.com/vscarpenter/AgentMachinist",
     "https://github.com/vscarpenter/AgentMachinist/releases/tag/v0.20.0",
     "https://pypi.org/project/agentmachinist/",
-    "https://agentmachinist.vinny.dev/architecture.md"
+    "https://agentmachinist.com/docs/architecture.md"
   ],
   "license": "MIT",
   "metal": 2,
   "determinism": 4,
   "revvel_hit": "Spec-approved -> execute handoff done the way wr:code wants it: Human Approval names the exact Spec commit; approval evidence is a `<!-- agentmachinist:approval sha=<40-hex head> -->` marker that only the workflow bot can mint after a fail-closed write/admin permission read (a human-typed marker is ignored; the label alone = 'approval pending'); any branch update makes approval stale; the implementation push is `--force-with-lease` against the approved SHA. Borrow the marker + stale rules for the existing spec-approved label; do not adopt the controller (it is its own pipeline).",
   "honesty": "CAN-PARTIAL",
-  "acquired": "2026-10-15"
+  "acquired": "2026-10-15",
+  "updated": "2026-10-19"
 }
 ```
 
@@ -36,3 +37,5 @@ Pieces that map onto revvel-standards' `spec-approved` / `wr:code` / `deliver:*`
 **Revvel hit:** the cleanest public description of a label-driven, SHA-bound "spec approved → coder may run" gate. It answers the same question as **agent-approval-check** (merge side) but on the **pre-execute** side: what makes `spec-approved` trustworthy as a trigger for `wr:code`. Borrow: (1) only a bot-minted marker carrying the head SHA counts, never the label alone; (2) permission-read failure = no approval; (3) any push after approval = stale; (4) coder push with lease on the approved SHA. These fit the existing handoff labels (insertion point 4) and `agent-fallback.yml`; no new workflow is implied.
 
 **Honesty:** CAN-PARTIAL, watching. Verified 2026-10-15 (America/Denver): repo web 200; GitHub API (not archived, Python); release v0.20.0 read; PyPI JSON 0.20.0 (MIT); raw `LICENSE` + `pyproject.toml` read; architecture doc fetched. Tiny (~6★, one maintainer), fast-moving (0.17 → 0.20 in three weeks), and it is a **whole controller**: adopting it would be a second pipeline, which revvel-standards forbids. Pattern-only. Not run on the box.
+
+**Update 2026-10-19 (link only):** docs moved to `agentmachinist.com` (commits `c3bfe90996` "point guides and CLI at agentmachinist.com" and `920a27f76a` "Delete CNAME", 2026-10-08 MDT). The old `agentmachinist.vinny.dev/architecture.md` URL now redirects to `https://agentmachinist.com/docs/architecture.md` (200); URL list updated to the canonical address. No new release: PyPI and GitHub latest still **0.20.0**; last code commit 2026-10-09 MDT (docs). Verified 2026-10-19 (America/Denver) via curl redirect chain, GitHub commits/releases API, PyPI JSON.
