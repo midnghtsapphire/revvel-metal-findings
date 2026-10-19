@@ -8,18 +8,21 @@
   "status": "watching",
   "urls": [
     "https://docs.vllm.ai/en/stable/features/batch_invariance/",
-    "https://docs.vllm.ai/en/v0.31.0/features/batch_invariance/",
+    "https://docs.vllm.ai/en/v0.32.0/features/batch_invariance/",
     "https://github.com/vllm-project/vllm/issues/27433",
     "https://github.com/vllm-project/vllm/issues/39096",
     "https://github.com/vllm-project/vllm/pull/52231",
-    "https://vllm.ai/blog/2026-10-14-train-inference-consistency"
+    "https://vllm.ai/blog/2026-10-14-train-inference-consistency",
+    "https://github.com/vllm-project/vllm/releases/tag/v0.32.0",
+    "https://arxiv.org/abs/2609.38981"
   ],
   "license": "Apache-2.0",
   "metal": 4,
   "determinism": 4,
-  "revvel_hit": "Self-hosted coder path only: `VLLM_BATCH_INVARIANT=1 vllm serve …` + fixed `seed` makes the same wr:code request produce the same tokens regardless of batch size/order, so a chronicle/agentape replay can be re-run live and diffed instead of trusting the cassette alone. Closes the `temperature=0 + seed is best-effort` caveat in xgrammar-2 / llguidance for the box you own; OpenRouter path unaffected",
+  "revvel_hit": "Self-hosted coder path only: `VLLM_BATCH_INVARIANT=1 vllm serve …` + fixed `seed` aims to make the same wr:code request produce the same tokens regardless of batch size/order, so a chronicle/agentape replay can be re-run live and diffed instead of trusting the cassette alone. Released for NVIDIA SM>=8.0, AMD Instinct (gfx90a/942/950) and Intel XPU in vLLM 0.32.0. Qualify it on your model first: Vosti's tests found logit mismatches in the batch-invariant mode on Gemma3-4B (Llama3.1-8B matched). OpenRouter path unaffected",
   "honesty": "CAN-PARTIAL",
-  "acquired": "2026-10-13"
+  "acquired": "2026-10-13",
+  "updated": "2026-10-19"
 }
 ```
 
@@ -30,3 +33,13 @@
 **2026-10-14 vLLM blog ("Finish RL Training Faster: Bitwise-Consistent…"):** the vLLM team treats the inference kernels as the numerical reference and removes shape-based kernel switches in batch-invariant mode (e.g. FP8 linear always on DeepGEMM, one FP32-output router GEMM at every batch size, fixed-order Triton kernel for small BF16 matmuls). Signals the mode is being hardened for production RL, not just a demo. A separate DeepSeek-V4 batch-invariant kernel PR (#54955) is an open preview marked DO NOT MERGE.
 
 **Honesty:** CAN-PARTIAL. Rechecked 2026-10-16 (America/Denver): PR #52231 merged (GitHub API); blog post and PR #54955 pages 200 (summarised from search extracts, not read in full); #27433 still open (last updated 2026-10-14 01:00 MDT); #39096 still open (last updated 2026-08-16); PyPI vllm still 0.31.0. Verified 2026-10-13 (America/Denver): docs pages (stable + v0.31.0) 200 and read. Still marked **beta**; tracking issue #27433 open (last updated 2026-10-09). Known hole: issue #39096 (open) reports batch invariance breaking on SM<90 GPUs (Ampere/Ada) under `torch.compile` and/or CUDA graphs, which are on by default; the repo's own tests force eager mode there. Run on Hopper+ or with `enforce_eager=True`, and assert reproducibility in CI before relying on it. Interaction with structured-output masks was not separately verified. Watching until beta is lifted or #39096 is fixed; the ROCm path becomes usable for a self-hosted coder once the release after v0.31.0 ships.
+
+**Update 2026-10-19 -- released in vLLM 0.32.0:** vLLM **v0.32.0** (GitHub release 2026-10-18 00:50 MDT; PyPI 04:03 MDT; Apache-2.0). Release notes, "Batch invariance": custom all-reduce under `VLLM_BATCH_INVARIANT=1` (#58623), deterministic split-K LoRA shrink (#59377), every attention backend checked for batch-invariance support (#60271), SM120 TP configs (#58495), and **ROCm support (#52231)**. The v0.32.0 docs page now lists hardware as NVIDIA CC >= 8.0, **AMD Instinct gfx90a / gfx942 / gfx950**, and Intel XPU with Triton. New implementation notes in the docs: under TP the 1-stage custom all-reduce is pinned with fixed-size chunking (FlashInfer/AITER/QuickReduce all-reduce disabled); on CUDA devices with tuned bf16 matmul table entries (Ada, Hopper, Blackwell) the mode runs **without `torch.compile`, using breakable CUDA graphs** (`VLLM_USE_BREAKABLE_CUDAGRAPH=0` to opt out); LoRA shrink split into 8 fixed K chunks. New warning: TP all-reduces whose size is not a multiple of 16 bytes can still switch between NCCL and custom all-reduce by batch size. Other 0.32.0 notes that touch a self-hosted coder: Python 3.10 dropped (3.11–3.14), `parallel_tool_calls=false` now enforced (#50502, #59298), xgrammar `propertyNames` (#57594), `requirements/common.txt` pins `xgrammar == 0.2.8` and `llguidance >= 1.7.0, < 1.8.0`.
+
+Still **beta** (docs note unchanged). **#27433** (tracking) open, last updated 2026-10-14 01:00 MDT; **#39096** (SM<90 + torch.compile/CUDA graphs) open, last updated 2026-08-16. The new breakable-CUDA-graph path for Ada may be relevant to #39096 but the issue is not closed, so the hole is not treated as fixed.
+
+**Independent check (new finding vosti, 05):** the Vosti paper (arXiv 2609.38981, 2026-09-30) measured vLLM **0.28.0** batch-invariant mode on one H200: on Llama3.1-8B both FA3 and Triton invariant backends matched every batch / chunked-prefill / prefill-decode / prefix-reuse logit comparison; on **Gemma3-4B every category had mismatches** (e.g. FA3 invariant: batch 193/296, chunk 0/90, prefill-decode 5/384). The authors call these scope limits, not necessarily bugs. Practical rule for revvel: before relying on live re-run determinism, run a batch + chunk + prefill-decode + prefix-reuse logit comparison on the exact model/backend you serve, in CI. That test is cheap compared with chasing a "flaky" wr:code diff.
+
+**Status:** stays **watching** (beta, #39096 open, model-dependent per Vosti). Now a released, pinnable feature (`vllm==0.32.0`), so a trial on Hopper+ or AMD Instinct with the qualification test above is possible without building from `main`.
+
+**Honesty (2026-10-19):** CAN-PARTIAL. Verified 2026-10-19 (America/Denver): PyPI JSON vllm 0.32.0; GitHub release v0.32.0 body read (batch-invariance and structured-output sections); v0.32.0 docs page fetched in full (200); `requirements/common.txt` at tag read; issues #27433 / #39096 and PRs #58623 / #60271 via API. Vosti numbers are from the arXiv HTML (read in full) and are for vLLM 0.28.0, not 0.32.0.

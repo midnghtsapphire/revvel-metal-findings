@@ -9,14 +9,16 @@
   "urls": [
     "https://github.com/mcp-hangar/mcp-hangar",
     "https://pypi.org/project/mcp-hangar/",
-    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.28.0"
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.28.0",
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.30.0"
   ],
   "license": "MIT",
   "metal": 2,
   "determinism": 5,
-  "revvel_hit": "Runtime twin of agentgate's lock: tool-schema digest pinning fails the coder's call closed when an upstream rewrites a tool description; `mcp-hangar pin --check` exits 1 in CI; since 2.28.0 pins bind to the upstream identity and new tools can be withheld until pinned. Watching because it is a full fleet enforcement plane (Python, RBAC/OIDC, SIEM) and mcp-gate already holds the proxy slot.",
+  "revvel_hit": "Runtime twin of agentgate's lock: tool-schema digest pinning fails the coder's call closed when an upstream rewrites a tool description; `mcp-hangar pin --check` exits 1 in CI; pins bind to the upstream identity (2.28.0), and since 2.30.0 a drifted tool under a `block` pin is withheld from `tools/list` (not just refused on call) and a pinned tool is served with only the pinned fields (name, description, inputSchema, outputSchema), so `title`/`_meta`/`annotations` cannot smuggle instructions or a fake readOnlyHint. Watching because it is a full fleet enforcement plane (Python, RBAC/OIDC, SIEM) and mcp-gate already holds the proxy slot.",
   "honesty": "CAN-PARTIAL",
-  "acquired": "2026-10-12"
+  "acquired": "2026-10-12",
+  "updated": "2026-10-19"
 }
 ```
 
@@ -29,3 +31,13 @@
 **Revvel hit:** borrow the idea, not the stack: the digest-pin check is the runtime half of **agentgate**'s CI lock. New in 2.28.0 and worth copying as a pattern: bind each pin to the upstream it came from, and withhold (not just warn on) a tool the coder has never seen until a human pins it. Only worth running if revvel-standards ends up fronting several MCP servers for the coder; otherwise **mcp-gate** (policy) + **agentgate** (lock) cover it with less to operate.
 
 **Honesty:** CAN-PARTIAL. Verified 2026-10-16 (America/Denver): PyPI 2.28.0 JSON (MIT), release v2.28.0 via GitHub API, `CHANGELOG.md` on `main` read for the 2.28.0 section. Earlier: repo live (MIT, not archived) 2026-10-14. The 2.0 line changed approval delivery (Slack adapter you run yourself) and approval authorization; 1.6.x is closed. Heavy for a single-repo pipeline.
+
+**2.28.0 → 2.30.0 (2026-10-17…19):**
+
+- **2.29.0** (release 2026-10-17 03:16 MDT): pin history over REST (`GET /api/admin/tools/pins`, `audit:read`), CEF signatures for `ToolPinRecorded`/`ToolPinRevoked` (#1886); `config check` now runs the same checks as boot/reload, so a file the gateway would refuse fails the check (#1888); a call refused by an enforced L7 egress policy no longer cold-starts the target server first (#1889); `hangar_call(max_attempts=1)` now means exactly one attempt (#1895); `oidc.clock_skew_leeway_seconds` actually read (#1891); `/api/config/diff` and `/backup` no longer take a `config_path` (arbitrary-file read) (#1892). Security: fleet-wide tool withdraw/restore needs the admin grant (#1894); `mcp-hangar add` no longer writes prompted secrets into `config.yaml`, created config files are 0600 (#1893).
+- **2.29.1** (release 2026-10-18 14:32 MDT): upstream `isError: true` results pass through whole (`_meta`, `structuredContent`) (#1915); governance extensions renamed to SEP-2133 ids `io.mcp-hangar/digest-pinning` etc., dotted forms deprecated for one minor (#1914); a non-mapping `tool_projection` or a bad `digest_enforcement` value now **refuses the config** instead of silently running the default mode (#1909); failed `hangar_*` tools answer `isError: true` (#1911).
+- **2.30.0** (release 2026-10-19 06:49 MDT; PyPI 07:10 MDT): **a tool that drifted from its `block`-mode digest pin is withheld from every listing the model reads** (front-door `tools/list` on stdio and streamable HTTP, `hangar_tools`), its call answered as a nonexistent tool, `notifications/tools/list_changed` on withhold/return (#1920) -- before this, the call was refused but the rug-pulled description still reached the model on every listing; **pinned tools are served with only the four pinned fields** (`name`, `description`, `inputSchema`, `outputSchema`) through one shared allow-list, so an upstream cannot keep the digest and add instructions in `title`/`_meta` or add `annotations: {readOnlyHint: true}` to skip a client confirmation; digest unchanged, existing pins stay valid; registry hot-loaded servers get secrets only from an operator allowlist (`hot_loading.secrets.allow`), a fixed base environment, `trusted_namespaces` verification, and `force_unverified` ignored unless the operator allows it. Release assets include an in-toto `mcp-hangar.intoto.jsonl`.
+
+**Revvel hit (2026-10-19):** two more patterns worth copying into whatever fronts the coder's MCP tools (mcp-gate + agentgate today): (1) a drifted tool must disappear from the listing, not only fail on call, because the listing is model input; (2) a pinned tool should be re-served with only the fields the pin covers. Still watching (fleet plane).
+
+**Honesty (2026-10-19):** CAN-PARTIAL. Verified 2026-10-19 (America/Denver): PyPI JSON 2.30.0 (MIT; release history 2.29.0 / 2.29.1 / 2.30.0), GitHub releases API bodies for v2.29.0, v2.29.1, v2.30.0 read in full, release page v2.30.0 200. Three releases in three days; pin exact versions if trialled.
