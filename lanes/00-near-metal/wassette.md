@@ -10,15 +10,16 @@
     "https://github.com/microsoft/wassette",
     "https://github.com/microsoft/wassette/releases/tag/v0.8.0",
     "https://microsoft.github.io/wassette/v0.8.1/",
-    "https://github.com/microsoft/wassette/releases/tag/v0.8.1"
+    "https://github.com/microsoft/wassette/releases/tag/v0.8.1",
+    "https://github.com/microsoft/wassette/pull/895"
   ],
   "license": "MIT",
   "metal": 4,
   "determinism": 4,
-  "revvel_hit": "wasmtime-wit trial host, now unblocked: v0.8.1 (2026-10-18) pins Wasmtime 48.0.6, which meets the >= 48.0.6 / 49.0.3 floor. Run one coder/research helper (e.g. the WR schema checker) as a wasm32-wasip2 Component behind MCP with deny-by-default per-component storage/network/env grants; v0.8.1 also refuses publisher-bundled OCI policies on automated/agent load paths and gives a component with no policy no env or secrets. Host stays orchestrate.js; not a second pipeline. Still self-described early development, so trial only",
+  "revvel_hit": "wasmtime-wit trial host, but floor missed again: v0.8.1 (2026-10-18) pins Wasmtime 48.0.6, and the 2026-10-19 Wasmtime releases moved the floor to >= 48.0.7 / 49.0.4 (critical aarch64 sandbox escape + wasi-http fixes). Hold the trial until a wassette release pins >= 48.0.7 or >= 49.0.4. When unblocked: one coder/research helper (e.g. the WR schema checker) as a wasm32-wasip2 Component behind MCP with deny-by-default per-component storage/network/env grants; v0.8.1 refuses publisher-bundled OCI policies on automated/agent load paths and gives a component with no policy no env or secrets. Host stays orchestrate.js; not a second pipeline. Still self-described early development, so trial only",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-12",
-  "updated": "2026-10-19"
+  "updated": "2026-10-20"
 }
 ```
 
@@ -37,3 +38,7 @@ Status change: **watching → active**, ranked just ahead of **act** (act's 0.14
 **Dead link fixed:** `https://microsoft.github.io/wassette/latest/` returns **404** this run (the README at v0.8.1 still links `/latest/…`); replaced with the versioned docs `https://microsoft.github.io/wassette/v0.8.1/` (200). The docs root `https://microsoft.github.io/wassette/` is also 200.
 
 **Honesty (2026-10-19):** CAN-PARTIAL. Verified 2026-10-19 (America/Denver) via the GitHub releases API (v0.8.1 body read), raw `Cargo.toml` + `Cargo.lock` at tag `v0.8.1`, repo API (MIT, not archived), release page 200, versioned docs 200. README at v0.8.1 still says "Early Development: This repository is not production ready yet." Not run on the box. The ACP layered-chain shared-grant caveat from v0.8.0 still applies if `wassette acp` is used; the MCP path is what the trial needs.
+
+**Update 2026-10-20 -- floor missed again:** Wasmtime **48.0.7 / 49.0.4** shipped 2026-10-19 ~13:20 MDT with one critical advisory (aarch64 Cranelift `br_table` miscompile → sandbox escape, GHSA-mghf-wjfp-p5xm) and four wasi-http / component-model ones (see **wasmtime-wit**). Wassette's latest release is still **v0.8.1** on **48.0.6**, so it is below the new floor. `main` (tip `81dcf122b6`, 2026-10-19 19:14 MDT) still pins `wasmtime` / `wasmtime-wasi` / `wasmtime-wasi-http` / `wasmtime-wasi-config` **48.0.6**; the latest pushes are dependabot bumps (sha2, serde_json, wasmparser). Dependabot **PR #895** (opened 2026-10-19 19:13 MDT, open) bumps the wasmtime group 48.0.6 → **49.0.3**, which is itself below the new 49.0.4 floor (it replaced #800, closed the same minute). Status stays **active** (same convention as **act**: right design, one Wasmtime patch away), rank unchanged, but **do not run the trial on v0.8.1**: wait for a release pinning >= 48.0.7 / 49.0.4, or build from source after `cargo update -p wasmtime --precise 48.0.7` (and the wasi crates). The critical issue is aarch64-only; the wasi-http ones matter only if the helper gets a network grant.
+
+**Honesty (2026-10-20):** verified 2026-10-20 (America/Denver): GitHub releases API (latest still v0.8.1), raw `Cargo.toml` on `main`, commits API, PR #895 page 200 and body read (48.0.6 → 49.0.3). Not run on the box.

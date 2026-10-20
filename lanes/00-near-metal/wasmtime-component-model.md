@@ -14,7 +14,9 @@
     "https://github.com/bytecodealliance/wasmtime/releases/tag/v49.0.3",
     "https://github.com/bytecodealliance/wasmtime/security/advisories/GHSA-m9f7-9w4p-gv38",
     "https://wasi.dev/releases/wasi-p3",
-    "https://github.com/WebAssembly/WASI/releases/tag/v0.3.2"
+    "https://github.com/WebAssembly/WASI/releases/tag/v0.3.2",
+    "https://github.com/bytecodealliance/wasmtime/releases/tag/v49.0.4",
+    "https://github.com/bytecodealliance/wasmtime/security/advisories/GHSA-mghf-wjfp-p5xm"
   ],
   "license": "Apache-2.0 (Wasmtime)",
   "metal": 5,
@@ -22,7 +24,7 @@
   "revvel_hit": "engines/CONTRACT.md + a WIT world next to schemas/state.schema.json",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-08-22",
-  "updated": "2026-10-15"
+  "updated": "2026-10-20"
 }
 ```
 
@@ -39,3 +41,7 @@ Extism is the easier PDK path (Go/JS/C). Several 2026 migrations (e.g. unicity-a
 **Revvel hit:** engines and runners should speak a WIT world. Orchestrator stays traffic-cop. A plugin trap must not kill the host. Pair with XGrammar so the coder emits WIT-valid interface stubs. Pulley is the fallback runtime, not a fork of the contract.
 
 **Next trial:** one engine (research or coder helper) as a wasm32-wasip2 component with a 20-line WIT file. If it cannot load in wasmtime CLI (native or `--target pulley64`), drop or mark CANNOT.
+
+**Security floor raised again (2026-10-20):** Wasmtime **v49.0.4** (published 2026-10-19 13:20 MDT), **v48.0.7** (13:20 MDT) and **v36.0.19** (13:09 MDT) fix five advisories published 13:20–13:21 MDT, plus a rustls bump to 0.23.46. One **critical**: on **aarch64**, Cranelift can compile a `br_table` with more than ~256k targets into a wrong conditional-branch target, letting a user-controlled module jump to arbitrary code -- a sandbox escape affecting every Wasmtime version with aarch64 support since 2020 (GHSA-mghf-wjfp-p5xm; fixed 36.0.19 / 48.0.7 / 49.0.4). **Medium:** wasi-http p3 guests can set an unchecked content-length on spliced response bodies (response splitting/injection, GHSA-9prg-84vf-g5fc; >= 46.0.0, fixed 48.0.7 / 49.0.4) and a host panic lowering a host-created component-model stream into a guest expecting a different payload type (GHSA-9pvw-hwfg-92h5). **Low:** wasi-http guests can add conflicting content lengths (GHSA-r8xh-cgf7-392j; also 36.0.19) and wasi-http p3 forwarded trailers skip the `is_forbidden_header` hook (GHSA-jxcf-8qw5-5c33). **New floor: pin hosts to >= 49.0.4 (or >= 48.0.7 / 36.0.19 LTS).** 49.0.3 is no longer enough; the aarch64 one matters for `ubuntu-24.04-arm` runners and Apple Silicon dev boxes. crates.io: max stable **49.0.4**, max version still `50.0.0-rc.1` (no 50.0.0 final yet). Trial target unchanged (`wasm32-wasip2`).
+
+**Honesty (2026-10-20):** verified 2026-10-20 (America/Denver) via GitHub releases API (v49.0.4 / v48.0.7 bodies read; v36.0.19 listed), the repo security-advisories API for all five GHSA ids (severity, affected and patched ranges; critical advisory text read), release + advisory pages 200, crates.io API. Not run on the box.
