@@ -9,14 +9,16 @@
   "urls": [
     "https://github.com/github/gh-actions-lock",
     "https://github.com/github/gh-actions-lock/releases/tag/v0.2.0",
-    "https://github.blog/changelog/2026-10-14-github-actions-workflow-lockfiles-in-public-preview/"
+    "https://github.blog/changelog/2026-10-14-github-actions-workflow-lockfiles-in-public-preview/",
+    "https://github.com/github/gh-actions-lock/pull/186"
   ],
   "license": "MIT",
   "metal": 2,
   "determinism": 5,
   "revvel_hit": "Pin every `uses:` in the existing wr:code / deliver:* workflows (openrouter-coder.yml, revvel-engine-spine.yml, agent-fallback.yml, trusted-bot-auto-approve.yml) to reviewed commits via `.github/workflows/actions.lock`; GitHub then runs the locked commits even if a tag or branch moves. `gh actions-lock --verify` as a step on an existing job fails the run on drift. Same workflows, no second pipeline.",
   "honesty": "CAN-PARTIAL",
-  "acquired": "2026-10-16"
+  "acquired": "2026-10-16",
+  "updated": "2026-10-20"
 }
 ```
 
@@ -27,3 +29,10 @@ v0.2.0 (2026-10-12 13:31 MDT): lockfile schema `v0.0.3`, stricter `--verify`, `-
 **Revvel hit:** the deliver:* handoff is only as deterministic as the Actions code it runs. Today a moved `@v4` tag on any action in the coder/spine workflows changes what runs with no diff in revvel-standards. Locking them makes a wr:code run reproducible from the repo SHA alone, and pairs with **agent-approval-check**'s "pin action SHA" note and the replay lane (**chronicle** / **agentape** replay the model; the lockfile pins the runner side). Insertion: commit `actions.lock` + any `$/` rewrites to the existing workflows and add `gh actions-lock --verify` as a step on an existing job (point 5). It touches revvel-standards workflow files, so it needs Audrey's OK before anyone opens that PR.
 
 **Honesty:** CAN-PARTIAL. Verified 2026-10-16 (America/Denver): repo and v0.2.0 release via GitHub API (not a prerelease); README read in full; changelog page 200 and read. The changelog's editor's note (2026-10-14) says the preview covers GitHub Enterprise Cloud, GHE.com data residency, **Team, and Free** plans; GHES is not supported. Pre-1.0 public preview: the README warns the lockfile format, flags, and behaviour may change between releases (schema already moved to v0.0.3). The `$/` syntax is new runner behaviour, so check that every workflow still runs after migration. Locking does not vet the pinned code itself. Not trialled on revvel-standards.
+
+**Update 2026-10-20 -- install-source warning + unreleased fix:**
+
+- **Look-alike repos.** GitHub search on 2026-10-20 returns **33 non-fork repos named exactly `gh-actions-lock`** under unrelated personal accounts, created 2026-10-14 → 2026-10-20, all with an unrecognised license (`NOASSERTION`) and the official description copied verbatim. The ones checked carry the copied README, fabricated-looking commit histories and implausible release tags (e.g. `v3.272.503`). Not downloaded or run; treat them as untrusted. A `gh extension install <owner>/gh-actions-lock` from any of them would run their binary. **Only install `github/gh-actions-lock`**, and pin the extension (`gh extension install github/gh-actions-lock --pin <tag or sha>`) in any CI step. Separately, `navikt/gh-actions-lockfile` (created 2026-10-19, no license) is an org-wide onboarding web app that wraps the official tool; not relevant to a single repo.
+- **Unreleased on `main`:** "Trace every locked commit to its recorded ref" (#186, merged 2026-10-20 07:03 MDT, closes #174): every locked commit is checked, in every mode, against the history of its recorded tag or branch (looked up by exact name, as the Actions backend does), so **a fork-only commit can no longer pass under the upstream action's name**; a recorded ref rewritten or deleted so it no longer contains the commit, a ref that isn't a real tag/branch, and a malformed `uses:` now **block** instead of passing silently; an exact tag that only moved ahead warns under `--verify`. Follow-up fixes for v0.2.0 bugs are in #197. Latest release still **v0.2.0**; wait for the release before relying on it.
+
+**Honesty (2026-10-20):** verified 2026-10-20 (America/Denver): GitHub repo-search API (count and metadata), repo / releases / commits API for sample look-alikes, READMEs viewed (not cloned, nothing executed); `github/gh-actions-lock` commits API, PR #186 API (body read) and page 200; releases API (v0.2.0 still latest). Malicious intent is inferred from the pattern, not confirmed by inspecting binaries.

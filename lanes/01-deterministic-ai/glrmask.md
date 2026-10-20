@@ -21,7 +21,7 @@
   "revvel_hit": "Local / research-engine mask cage for schema-valid wr:code JSON; not a vLLM drop-in. Since 0.3.1 also a Node-API package (`@glrmask/node`) and a C/C++ ABI, so a local Node coder next to orchestrate.js can mask in-process instead of via Python. Pin glrmask ==0.3.1 (0.3.0 breaks the 0.2.0 API again; older private artifacts are rejected, rebuild them)",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-09-17",
-  "updated": "2026-10-19"
+  "updated": "2026-10-20"
 }
 ```
 
@@ -44,3 +44,5 @@ Author engineering run (JSONSchemaBench / MaskBench, Aug 2026) claims **TBM p50 
 **Revvel hit (2026-10-19):** the Node binding matters because the repo's host is Node (`orchestrate.js`, `scripts/local_llm.js`): a local twin could mask in-process like **vocab-mask-trie** but with full CFG/JSON-Schema support. Still no vLLM/SGLang backend. Pin `==0.3.1`, port 0.2.0 code to the `PreparedGrammar` lifecycle, rebuild cached artifacts.
 
 **Honesty (2026-10-19):** CAN-PARTIAL. Verified 2026-10-19 (America/Denver): GitHub releases + tags API, raw `CHANGELOG.md` at `v0.3.1`, PyPI JSON (0.3.0, 0.3.1), crates.io API (0.3.1), npm registry JSON for `@glrmask/node`, release page and `glrmask.com/api/javascript/` 200 (npmjs.com web 403s the fetcher, as elsewhere). GitHub's license detector shows Apache-2.0; package metadata says `MIT OR Apache-2.0`. Very young (1★). Fast-moving API: two breaking minors in nine days.
+
+**Update 2026-10-20:** no new published release (PyPI, crates.io, npm `@glrmask/node` all still **0.3.1**). `main` moved fast overnight: a **GLRMask 0.4.0 release candidate** is merged as "unpublished" metadata (2026-10-19 22:14 MDT) with a new configured `Module` graph + scope-preserving `Expr` API across bindings, "native shortest syntax" removed, the relocated CMake consumer requirement bumped to 0.4, and a `rand` 0.8.6 soundness advisory patched in the RC; latest commit 2026-10-20 04:55 MDT merges an opt-in full-JSON fix accepting member permutations of small (2–3 key) closed objects while keeping llguidance canonical ordering as the default. Expect a third breaking minor; keep `==0.3.1` until 0.4.0 publishes and re-read its CHANGELOG then. Verified via registry JSON and the GitHub commits API, 2026-10-20 (America/Denver).

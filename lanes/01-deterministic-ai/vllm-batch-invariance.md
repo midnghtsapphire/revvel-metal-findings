@@ -14,7 +14,9 @@
     "https://github.com/vllm-project/vllm/pull/52231",
     "https://vllm.ai/blog/2026-10-14-train-inference-consistency",
     "https://github.com/vllm-project/vllm/releases/tag/v0.32.0",
-    "https://arxiv.org/abs/2609.38981"
+    "https://arxiv.org/abs/2609.38981",
+    "https://github.com/vllm-project/vllm/issues/59086",
+    "https://github.com/vllm-project/vllm/pull/60479"
   ],
   "license": "Apache-2.0",
   "metal": 4,
@@ -22,7 +24,7 @@
   "revvel_hit": "Self-hosted coder path only: `VLLM_BATCH_INVARIANT=1 vllm serve …` + fixed `seed` aims to make the same wr:code request produce the same tokens regardless of batch size/order, so a chronicle/agentape replay can be re-run live and diffed instead of trusting the cassette alone. Released for NVIDIA SM>=8.0, AMD Instinct (gfx90a/942/950) and Intel XPU in vLLM 0.32.0. Qualify it on your model first: Vosti's tests found logit mismatches in the batch-invariant mode on Gemma3-4B (Llama3.1-8B matched). OpenRouter path unaffected",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-13",
-  "updated": "2026-10-19"
+  "updated": "2026-10-20"
 }
 ```
 
@@ -43,3 +45,7 @@ Still **beta** (docs note unchanged). **#27433** (tracking) open, last updated 2
 **Status:** stays **watching** (beta, #39096 open, model-dependent per Vosti). Now a released, pinnable feature (`vllm==0.32.0`), so a trial on Hopper+ or AMD Instinct with the qualification test above is possible without building from `main`.
 
 **Honesty (2026-10-19):** CAN-PARTIAL. Verified 2026-10-19 (America/Denver): PyPI JSON vllm 0.32.0; GitHub release v0.32.0 body read (batch-invariance and structured-output sections); v0.32.0 docs page fetched in full (200); `requirements/common.txt` at tag read; issues #27433 / #39096 and PRs #58623 / #60271 via API. Vosti numbers are from the arXiv HTML (read in full) and are for vLLM 0.28.0, not 0.32.0.
+
+**Update 2026-10-20:** no vLLM release after **0.32.0** (PyPI). **#59086** ("`VLLM_BATCH_INVARIANT=1` is not batch-invariant for AWQ models on sm8x in the default mode") was **closed as completed 2026-10-20 07:33 MDT**, with no linked fix commit: the closing comment reports it no longer reproduces on `main` (nightly image `e68efc685ab1`, RTX 3090, `Qwen/Qwen3-8B-AWQ` compiled, no first-token diff and max |dlogprob| 0.0000 batched vs alone over three rounds; the commenter also closed their own fix PR #60013 as unneeded) and attributes the fix to #52231's override of the Inductor `.out` overloads for `mm`/`addmm` on SM80. Not verified against the 0.32.0 wheel itself. The sibling GPTQ fix **#60479** is still **open**. **#27433** and **#39096** still open; docs at v0.32.0 still say beta (200 via fetch; curl got 429 rate-limits). Status stays watching. Practical note: quantized (AWQ/GPTQ) self-hosted coders on Ampere are exactly where the per-model qualification test from **vosti** pays off.
+
+**Honesty (2026-10-20):** verified 2026-10-20 (America/Denver): PyPI JSON, GitHub issues API (#59086 state/closed_at/timeline/comments, #39096), PR API (#60479 open), issue and PR pages 200, v0.32.0 docs page fetched.
