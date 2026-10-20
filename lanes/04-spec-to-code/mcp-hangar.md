@@ -10,7 +10,8 @@
     "https://github.com/mcp-hangar/mcp-hangar",
     "https://pypi.org/project/mcp-hangar/",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.28.0",
-    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.30.0"
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.30.0",
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.31.0"
   ],
   "license": "MIT",
   "metal": 2,
@@ -18,7 +19,7 @@
   "revvel_hit": "Runtime twin of agentgate's lock: tool-schema digest pinning fails the coder's call closed when an upstream rewrites a tool description; `mcp-hangar pin --check` exits 1 in CI; pins bind to the upstream identity (2.28.0), and since 2.30.0 a drifted tool under a `block` pin is withheld from `tools/list` (not just refused on call) and a pinned tool is served with only the pinned fields (name, description, inputSchema, outputSchema), so `title`/`_meta`/`annotations` cannot smuggle instructions or a fake readOnlyHint. Watching because it is a full fleet enforcement plane (Python, RBAC/OIDC, SIEM) and mcp-gate already holds the proxy slot.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-12",
-  "updated": "2026-10-19"
+  "updated": "2026-10-20"
 }
 ```
 
@@ -41,3 +42,9 @@
 **Revvel hit (2026-10-19):** two more patterns worth copying into whatever fronts the coder's MCP tools (mcp-gate + agentgate today): (1) a drifted tool must disappear from the listing, not only fail on call, because the listing is model input; (2) a pinned tool should be re-served with only the fields the pin covers. Still watching (fleet plane).
 
 **Honesty (2026-10-19):** CAN-PARTIAL. Verified 2026-10-19 (America/Denver): PyPI JSON 2.30.0 (MIT; release history 2.29.0 / 2.29.1 / 2.30.0), GitHub releases API bodies for v2.29.0, v2.29.1, v2.30.0 read in full, release page v2.30.0 200. Three releases in three days; pin exact versions if trialled.
+
+**Update 2026-10-20 -- 2.31.0** (release 2026-10-19 11:12 MDT; PyPI 11:33 MDT): **`mcp-hangar approvals list|approve|deny`** resolves a call held on an `approval_list` by a gateway that runs over **stdio** (no REST API), through the same resolution chokepoint as `POST /api/approvals/{id}/resolve`, so expiry, compare-and-swap and tenant scoping are unchanged; the waiting gateway sees the decision on its next store poll (~2 s). The approver is always the declared `auth.stdio.principal` (a config without one is refused) and must hold `approval:resolve` even with auth off (`viewer` refused). Before this, a held stdio call could only time out. Also `hangar_whoami` (caller's principal / tenant / roles, refused for anonymous callers), dead `PolicyPushRejected` event removed, env parsing fixes for the legacy `python -m mcp_hangar.server` entry point (#1712), and mutation events recorded only when a mutator applies (#1574).
+
+**Revvel hit (2026-10-20):** a local stdio coder host can now park a tool call for a human decision from a second terminal without opening an HTTP surface -- the same "held call, human resolves, timeout = deny" shape the deliver:* approval record wants. Still watching (fleet plane; pattern reference only).
+
+**Honesty (2026-10-20):** CAN-PARTIAL. Verified 2026-10-20 (America/Denver): PyPI JSON 2.31.0 (MIT), GitHub release v2.31.0 body read in full, release page 200. Pin exact versions if trialled; releases are frequent.
