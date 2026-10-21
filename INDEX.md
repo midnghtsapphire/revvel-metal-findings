@@ -1,6 +1,6 @@
 # INDEX
 
-Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-20`.
+Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-21`.
 
 | rank | id | lane | status | why |
 | ---: | --- | --- | --- | --- |
@@ -41,14 +41,14 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-20`.
 | 34 | cd-scale-semantic-gap | 05-trials-papers | active | CD guarantees schema not semantics; keep behavioral gates. |
 | 35 | unflake | 02-formal-replay | active | Shrink + exhaustive Node DST for label-graph async races. |
 | 36 | chronos-dst | 02-formal-replay | active | Node/TS seed-replay with network/entropy capsules. |
-| 37 | agentverify | 02-formal-replay | active | pytest cassette replay for tool sequences/budgets/forbidden tools; pin >= 0.5.0 (unreplayable calls now raise instead of hitting the live API; creds redacted). |
+| 37 | agentverify | 02-formal-replay | active | pytest cassette replay for tool sequences/budgets/forbidden tools; 0.6.0 adds async clients, Responses API, handoff asserts, and refuses overlapping calls while recording (breaking: step counts shift) -- re-run cassettes, then pin ==0.6.0; else >=0.5.0,<0.6. |
 | 38 | agentape | 02-formal-replay | active | Process-boundary HTTP/MCP cassette wrap; no SDK patch. |
 | 39 | chronicle | 02-formal-replay | active | Cut-point replay: recorded incident becomes a CI regression test, no live LLM. Pin `==0.5.0`: 1.0 dropped committed fixtures for a remote control plane. |
 | 40 | llama-cpp-gbnf | 01-deterministic-ai | active | Local twin. |
 | 41 | outlines | 01-deterministic-ai | active | Python cage on research-engine dumps. |
 | 42 | dspy-gepa-mipro | 04-spec-to-code | active | Compile the labeler. |
 | 43 | extism | 00-near-metal | active | Signed Wasm plugins now; WIT later; BSD-3-Clause, 1.41.0 takes `wasmtime ^49` (lock >= 49.0.4). |
-| 44 | wasmtime-wit | 00-near-metal | active | Target ABI (+ Pulley portable interp); pin hosts >= 49.0.4 / 48.0.7 (2026-10-19: critical aarch64 Cranelift `br_table` sandbox escape + wasi-http fixes). |
+| 44 | wasmtime-wit | 00-near-metal | active | Target ABI (+ Pulley portable interp); **50.0.0 final** (2026-10-20; CLI drops WASIp0 by default, hook-callback API change); pin hosts >= 50.0.0 or >= 49.0.4 / 48.0.7 (critical aarch64 Cranelift `br_table` sandbox escape). |
 | 45 | wassette | 00-near-metal | active | Microsoft Wasm-Component-over-MCP host, deny-by-default per-component grants; v0.8.1 on Wasmtime 48.0.6, **below the new 48.0.7 / 49.0.4 floor** (dependabot #895 → 49.0.3 also short) -- hold the trial; rejects publisher-bundled OCI policies, no env/secrets without a policy; early development (MIT). |
 | 46 | act | 00-near-metal | active | Wasm Component tools over MCP with declared-capability + explicit grants, headless = deny, always-on audit; 0.14.6 still locks Wasmtime 49.0.2, two patches below the 49.0.4 floor -- re-pin before trial (MIT OR Apache-2.0). |
 | 47 | cranelift | 00-near-metal | active | Lowering. |
@@ -59,21 +59,24 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-20`.
 | 52 | specgate | 04-spec-to-code | watching | Approve exact spec version, hand coder a governed Context Pack, submit delivery evidence vs ACs; heavy Go+Python stack, model-judged gates. |
 | 53 | schoolmarm | 01-deterministic-ai | watching | Zero-dep pure-Rust GBNF mask (llama.cpp port) for a Rust/Wasm host. |
 | 54 | vllm-batch-invariance | 01-deterministic-ai | watching | `VLLM_BATCH_INVARIANT=1`: self-hosted coder output independent of batch size/order; vLLM 0.32.0 incl. ROCm; AWQ-on-sm8x #59086 closed (fixed on main), GPTQ #60479 open; still beta, #39096 open; qualify per model (Vosti). |
-| 55 | vosti | 05-trials-papers | watching | Verus + Z3-verified deterministic inference engine (bitwise logits across batch/chunk/prefill-decode/prefix reuse); borrow its 4-axis logit test to qualify any self-hosted replay; single-GPU research prototype (MIT). |
-| 56 | determinate | 03-agent-runtimes | watching | State-gated next-action + constrained structured output. |
-| 57 | openhands | 03-agent-runtimes | watching | Fallback coder. Gate on wr:code. |
-| 58 | temporal | 02-formal-replay | watching | Heavy replay. After DST proves the bug. |
-| 59 | agrepl | 02-formal-replay | watching | Go static-binary MITM record/replay, zero outbound network on replay; any language, no SDK; CI mode still on roadmap. |
-| 60 | zig-0-16 | 00-near-metal | watching | Guest language, not default. |
-| 61 | qbe | 00-near-metal | watching | Teachable IR only. |
-| 62 | agt-approval-protocol | 04-spec-to-code | watching | Microsoft AGT ADR-0030 (accepted): approval bound to JCS SHA-256 action digest + policy/chain version; consume in the execute transaction; timeout/unauth = deny; LLM advisory only (MIT); #4341 fixed RFC 8785 float formatting (breaking digest), still unreleased. |
-| 63 | agent-evidence-vectors | 02-formal-replay | watching | Known-answer conformance corpora + Action for evidence verifiers: RFC 8785 a2a-jcs canonicalizer vectors, receipt/ledger tamper cases, occurrence-binding (one approval, one execution); pin ==0.24.0 (Apache-2.0); CI step needs owner OK. |
-| 64 | attested | 04-spec-to-code | watching | Sigstore-signed in-toto test receipt bound to the PR head SHA + fail-closed `attested verify` required check run from the default branch: deliver:* proof tests ran green on that exact SHA (Apache-2.0, npm 0.1.0, 6 days old); workflow + ruleset edit needs owner OK. |
-| 65 | agentmachinist | 04-spec-to-code | watching | Spec→Approve→Execute controller: bot-minted SHA marker after fail-closed write-permission read; label alone = pending; push = stale; lease push on approved SHA (MIT, PyPI 0.20.0); pattern only, own pipeline. |
-| 66 | hashgate | 04-spec-to-code | watching | Claude Code PreToolUse: hash-bound push/merge/deploy; server re-derives live state; agent cannot self-approve (Apache-2.0, PyPI 0.2.0, stale since 2026-07). |
-| 67 | notary-mcp | 04-spec-to-code | watching | MCP propose→canonicalize→approve revision hash→fail-closed execute exact bytes (MIT); demo/hackathon; borrow pattern only. |
-| 68 | mcpgate | 04-spec-to-code | watching | Go deny-by-default MCP proxy, human `ask` queue, audit-failure denies; backup to mcp-gate (MIT). |
-| 69 | mcp-gatehouse | 04-spec-to-code | watching | In-server Python MCP approval tiers; no approver = deny (MIT). |
-| 70 | mcp-hangar | 04-spec-to-code | watching | Fleet MCP enforcement plane; tool-schema digest pin fails closed, `pin --check` exits 1; 2.30.0 withholds drifted tools; 2.31.0 `mcp-hangar approvals` approve/deny CLI resolves held stdio calls via the same CAS/expiry chokepoint (MIT); runtime twin of agentgate. |
-| 71 | swiftgram | 05-trials-papers | watching | ASE 2026 grammar-constrained decoding via lexical forking; no code yet. |
-| 72 | linebreak-gate | 04-spec-to-code | dropped | DROPPED 2026-10-12: repo 404, all PyPI releases yanked, now licensed product. Use spec-guard. |
+| 55 | deepinfer | 01-deterministic-ai | watching | DeepSeek production engine (Apache-2.0, 2026-10-20): `DEEPINFER_BATCH_INVARIANT=1` + `DEEPINFER_ENABLE_MTP_VARLEN=0` + fixed `seq_seed` = deterministic sampling, plus regex/JSON-Schema/EBNF outputs; NVIDIA SM100 / Ascend 950, one model -- reference recipe only. |
+| 56 | vosti | 05-trials-papers | watching | Verus + Z3-verified deterministic inference engine (bitwise logits across batch/chunk/prefill-decode/prefix reuse); borrow its 4-axis logit test to qualify any self-hosted replay; single-GPU research prototype (MIT). |
+| 57 | determinate | 03-agent-runtimes | watching | State-gated next-action + constrained structured output. |
+| 58 | openhands | 03-agent-runtimes | watching | Fallback coder. Gate on wr:code. |
+| 59 | temporal | 02-formal-replay | watching | Heavy replay. After DST proves the bug. |
+| 60 | agrepl | 02-formal-replay | watching | Go static-binary MITM record/replay, zero outbound network on replay; any language, no SDK; CI mode still on roadmap. |
+| 61 | zig-0-16 | 00-near-metal | watching | Guest language, not default. |
+| 62 | qbe | 00-near-metal | watching | Teachable IR only. |
+| 63 | agt-approval-protocol | 04-spec-to-code | watching | Microsoft AGT ADR-0030 (accepted): approval bound to JCS SHA-256 action digest + policy/chain version; consume in the execute transaction; timeout/unauth = deny; LLM advisory only (MIT); #4341 fixed RFC 8785 float formatting (breaking digest), still unreleased. |
+| 64 | agent-evidence-vectors | 02-formal-replay | watching | Known-answer conformance corpora + Action for evidence verifiers: RFC 8785 a2a-jcs canonicalizer vectors, receipt/ledger tamper cases, occurrence-binding (one approval, one execution); pin ==0.24.0 (Apache-2.0); CI step needs owner OK. |
+| 65 | attested | 04-spec-to-code | watching | Sigstore-signed in-toto test receipt bound to the PR head SHA + fail-closed `attested verify` required check run from the default branch: deliver:* proof tests ran green on that exact SHA (Apache-2.0, npm 0.1.0, 6 days old); workflow + ruleset edit needs owner OK. |
+| 66 | spec-growth-engine | 04-spec-to-code | watching | Model-free drift floor: SPEC.md graph per node, import-graph drift blocks undeclared deps, "verified" only from recorded passing tests voided by the next change; pre-commit hook (Apache-2.0, 2★, no releases). Borrow layer 1 only; layer 2 is a second agent pipeline. |
+| 67 | specguard-lean | 05-trials-papers | watching | Lean 4 certificate that a task description and its tests cannot both hold, before the coder starts (arXiv 2610.09159, Apache-2.0); bounce broken WRs back to spec-approved; model-built formalizations. |
+| 68 | agentmachinist | 04-spec-to-code | watching | Spec→Approve→Execute controller: bot-minted SHA marker after fail-closed write-permission read; label alone = pending; push = stale; lease push on approved SHA (MIT, PyPI 0.20.0); pattern only, own pipeline. |
+| 69 | hashgate | 04-spec-to-code | watching | Claude Code PreToolUse: hash-bound push/merge/deploy; server re-derives live state; agent cannot self-approve (Apache-2.0, PyPI 0.2.0, stale since 2026-07). |
+| 70 | notary-mcp | 04-spec-to-code | watching | MCP propose→canonicalize→approve revision hash→fail-closed execute exact bytes (MIT); demo/hackathon; borrow pattern only. |
+| 71 | mcpgate | 04-spec-to-code | watching | Go deny-by-default MCP proxy, human `ask` queue, audit-failure denies; backup to mcp-gate (MIT). |
+| 72 | mcp-gatehouse | 04-spec-to-code | watching | In-server Python MCP approval tiers; no approver = deny (MIT). |
+| 73 | mcp-hangar | 04-spec-to-code | watching | Fleet MCP enforcement plane; tool-schema digest pin fails closed, `pin --check` exits 1; drifted tools withheld; `mcp-hangar approvals` CLI for held stdio calls; 2.32.1 fixes mixed-version fleets (running release defines built-in roles; DB trigger keeps key-pinned rows pinned) -- pin ==2.32.1 (MIT); runtime twin of agentgate. |
+| 74 | swiftgram | 05-trials-papers | watching | ASE 2026 grammar-constrained decoding via lexical forking; no code yet. |
+| 75 | linebreak-gate | 04-spec-to-code | dropped | DROPPED 2026-10-12: repo 404, all PyPI releases yanked, now licensed product. Use spec-guard. |
