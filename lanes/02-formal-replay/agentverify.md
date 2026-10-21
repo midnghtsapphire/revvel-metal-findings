@@ -9,7 +9,8 @@
   "urls": [
     "https://github.com/simukappu/agentverify",
     "https://pypi.org/project/agentverify/",
-    "https://github.com/simukappu/agentverify/releases/tag/v0.5.0"
+    "https://github.com/simukappu/agentverify/releases/tag/v0.5.0",
+    "https://github.com/simukappu/agentverify/blob/main/CHANGELOG.md"
   ],
   "license": "MIT",
   "metal": 2,
@@ -17,7 +18,7 @@
   "revvel_hit": "deliver:* CI — pytest cassette replay of tool sequences / budgets / forbidden tools next to chronos-dst and unflake; no second orchestrator. Pin >= 0.5.0: before it, calls a cassette could not replay (streaming, Responses API, embeddings, async Anthropic/Gemini) silently reached the real provider during 'replay'; credentials passed as call args could land in cassettes",
   "honesty": "CAN",
   "acquired": "2026-09-24",
-  "updated": "2026-10-19"
+  "updated": "2026-10-21"
 }
 ```
 
@@ -37,3 +38,9 @@
 **Revvel hit (2026-10-19):** pin `agentverify>=0.5.0` for any deliver:* replay test; the new exception is exactly the fail-closed behaviour a CI replay gate needs (a cassette miss is an error, not a network call). If cassettes were already recorded, grep them for keys before committing.
 
 **Honesty (2026-10-19):** CAN. Verified 2026-10-19 (America/Denver): PyPI JSON (0.5.0, MIT), GitHub release v0.5.0 body read, release page 200.
+
+**Update 2026-10-21:** **agentverify 0.6.0** (PyPI 2026-10-20 22:42 MDT; CHANGELOG dated 2026-10-21). Adds record/replay for the **async** Anthropic, Gemini and LiteLLM clients and the **OpenAI Responses API** (so the OpenAI Agents SDK works on its default model), plus **multi-agent handoff assertions** (`assert_handoffs`, `assert_no_handoff`, `assert_step(agent=...)`). Fixes: replayed multi-turn tool calls keep their recorded ids (was `call_0`), replayed `tool_results` hold only the step's own results, LiteLLM replay returns `litellm.ModelResponse`, Bedrock replay omits missing `usage`. **Breaking:** `from_openai_agents` now includes handoff items and starts a new step when the acting agent changes (multi-agent runs gain steps and tool calls, so step-index assertions shift), and **overlapping LLM calls while recording raise `CassetteUnsupportedCallError`** because their order varies run to run.
+
+**Revvel hit (2026-10-21):** the overlap refusal is the right determinism rule for deliver:* cassettes (a concurrent recording is not replayable in a fixed order). `assert_no_handoff` is a cheap check that a coder run did not hand off to an agent it should not reach. Pin `==0.6.0` once existing cassettes and step assertions are re-run; stay on `>=0.5.0,<0.6` until then.
+
+**Honesty (2026-10-21):** CAN. Verified 2026-10-21 (America/Denver): PyPI JSON 0.6.0 (MIT, upload 2026-10-21 04:42 UTC), `CHANGELOG.md` on `main` read raw. GitHub release page for v0.6.0 not checked (API budget).

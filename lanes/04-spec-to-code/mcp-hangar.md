@@ -11,7 +11,9 @@
     "https://pypi.org/project/mcp-hangar/",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.28.0",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.30.0",
-    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.31.0"
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.31.0",
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.32.0",
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.32.1"
   ],
   "license": "MIT",
   "metal": 2,
@@ -19,7 +21,7 @@
   "revvel_hit": "Runtime twin of agentgate's lock: tool-schema digest pinning fails the coder's call closed when an upstream rewrites a tool description; `mcp-hangar pin --check` exits 1 in CI; pins bind to the upstream identity (2.28.0), and since 2.30.0 a drifted tool under a `block` pin is withheld from `tools/list` (not just refused on call) and a pinned tool is served with only the pinned fields (name, description, inputSchema, outputSchema), so `title`/`_meta`/`annotations` cannot smuggle instructions or a fake readOnlyHint. Watching because it is a full fleet enforcement plane (Python, RBAC/OIDC, SIEM) and mcp-gate already holds the proxy slot.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-12",
-  "updated": "2026-10-20"
+  "updated": "2026-10-21"
 }
 ```
 
@@ -48,3 +50,9 @@
 **Revvel hit (2026-10-20):** a local stdio coder host can now park a tool call for a human decision from a second terminal without opening an HTTP surface -- the same "held call, human resolves, timeout = deny" shape the deliver:* approval record wants. Still watching (fleet plane; pattern reference only).
 
 **Honesty (2026-10-20):** CAN-PARTIAL. Verified 2026-10-20 (America/Denver): PyPI JSON 2.31.0 (MIT), GitHub release v2.31.0 body read in full, release page 200. Pin exact versions if trialled; releases are frequent.
+
+**Update 2026-10-21 -- 2.32.0 / 2.32.1.** **2.32.0** (release 2026-10-20 11:43 MDT; PyPI 12:05 MDT): `GET /api/mcp_servers/{id}` and `hangar_details` report `provenance` (`human` vs `discovery`); a key-pinned server's `key_ref` can be changed (`PUT`) and a deleted key-pinned server's name forgotten (`DELETE .../peer_identity`), both needing `mcp_servers:peer_identity` (ADR-030 §7, §9); config updates reach every replica without restart. **2.32.1** (release 2026-10-21 03:04 MDT; PyPI 03:26 MDT) is a fix release for **mixed-version fleets**: built-in roles are now enforced as the running release defines them (an older replica could strip or restore permissions on a shared auth store, and a custom role can no longer take a built-in name, #1994); a database trigger refuses a configuration row under a recorded key-pinned name unless it carries the recorded `key_ref`, so a 2.31.0-or-older replica cannot rewrite a key-pinned server as a plain one during a rolling upgrade (#1995); a forget/re-create race on the peer-key name record is closed.
+
+**Revvel hit (2026-10-21):** one more pattern: when a gate's rules live in a shared store, enforce the rules of the running binary and refuse writes an older binary could make (DB-level trigger), rather than trusting whichever replica wrote last. Single-host revvel use is unaffected. If trialled, skip 2.32.0 and pin `==2.32.1`. Still watching.
+
+**Honesty (2026-10-21):** CAN-PARTIAL. Verified 2026-10-21 (America/Denver): PyPI JSON (2.32.0 and 2.32.1 upload times, MIT), GitHub releases API bodies for v2.32.0 and v2.32.1 read (first ~1.8k chars each).
