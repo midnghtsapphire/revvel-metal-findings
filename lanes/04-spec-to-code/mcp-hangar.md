@@ -56,3 +56,9 @@
 **Revvel hit (2026-10-21):** one more pattern: when a gate's rules live in a shared store, enforce the rules of the running binary and refuse writes an older binary could make (DB-level trigger), rather than trusting whichever replica wrote last. Single-host revvel use is unaffected. If trialled, skip 2.32.0 and pin `==2.32.1`. Still watching.
 
 **Honesty (2026-10-21):** CAN-PARTIAL. Verified 2026-10-21 (America/Denver): PyPI JSON (2.32.0 and 2.32.1 upload times, MIT), GitHub releases API bodies for v2.32.0 and v2.32.1 read (first ~1.8k chars each).
+
+**Update 2026-10-22 -- 2.33.0** (GitHub release 2026-10-21 14:45 MDT; PyPI 15:07 MDT). One addition (#1998): a key-pinned server may declare where its keys come from, `tls.peer_identity.issuance: kbs-attested` (ADR-030 §2), from a closed set; anything else is refused at load. Calls record it as `declared_key_issuance` on `ToolInvocationCompleted` / `ToolInvocationFailed`, carried in JSON-lines, LEEF, syslog and OTLP exports (not CEF). Hangar records the declaration and does **not** verify it; it changes neither the pin digest nor the accepted keys.
+
+**Revvel hit (2026-10-22):** none new for single-host revvel; a recorded-but-unverified claim is not a gate. If trialled, `==2.33.0` is safe to take over 2.32.1 (no fix content), but nothing requires it. Still watching.
+
+**Honesty (2026-10-22):** CAN-PARTIAL. Verified 2026-10-22 (America/Denver): GitHub release v2.33.0 body read (API), PyPI JSON 2.33.0.

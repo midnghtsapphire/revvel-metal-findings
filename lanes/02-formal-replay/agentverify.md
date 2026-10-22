@@ -18,7 +18,7 @@
   "revvel_hit": "deliver:* CI — pytest cassette replay of tool sequences / budgets / forbidden tools next to chronos-dst and unflake; no second orchestrator. Pin >= 0.5.0: before it, calls a cassette could not replay (streaming, Responses API, embeddings, async Anthropic/Gemini) silently reached the real provider during 'replay'; credentials passed as call args could land in cassettes",
   "honesty": "CAN",
   "acquired": "2026-09-24",
-  "updated": "2026-10-21"
+  "updated": "2026-10-22"
 }
 ```
 
@@ -44,3 +44,9 @@
 **Revvel hit (2026-10-21):** the overlap refusal is the right determinism rule for deliver:* cassettes (a concurrent recording is not replayable in a fixed order). `assert_no_handoff` is a cheap check that a coder run did not hand off to an agent it should not reach. Pin `==0.6.0` once existing cassettes and step assertions are re-run; stay on `>=0.5.0,<0.6` until then.
 
 **Honesty (2026-10-21):** CAN. Verified 2026-10-21 (America/Denver): PyPI JSON 0.6.0 (MIT, upload 2026-10-21 04:42 UTC), `CHANGELOG.md` on `main` read raw. GitHub release page for v0.6.0 not checked (API budget).
+
+**Update 2026-10-22 -- 0.7.0 / 0.7.1** (PyPI 0.7.0 2026-10-22 02:22 MDT, 0.7.1 08:40 MDT). 0.7.0: **tool calls are recorded and replayed** (replay returns the recorded tool result instead of running the tool; built in for LangChain/LangGraph, Strands, OpenAI Agents SDK, Pydantic AI, Google ADK, CrewAI and MCP; `@cassette_tool` for hand-written tools; an unrecorded call raises `CassetteToolMismatchError`); **stale cassettes are caught** when the system prompt, user message text or a tool schema changes, with a diff and the re-record command (`match_ignore` for changing text); `from_otel` builds results from OpenTelemetry GenAI / OpenInference traces; concurrent LLM calls (`asyncio.gather`, threads) now record and replay, matched per request; streamed responses record and replay for every provider; `@pytest.mark.agentverify(runs=10, min_pass_rate=0.9)` with `--agentverify-live` for live pass-rate runs. **Breaking:** replay fails when system prompt / user text / tool schema differs from the recording; cassettes recorded with 0.7.x no longer run their tools on replay (`replay_tools=False` for side-effect tests). 0.7.1 fixes Google ADK `transfer_to_agent` handoff parsing.
+
+**Revvel hit (2026-10-22):** two steps toward a fully closed deliver:* replay: tools no longer execute during replay (no side effects, no network from tools), and a prompt or tool-schema change turns into a failing, diffed test instead of a silent pass on an old cassette. That diff is the same idea as **concordance**: catch the prompt that changed before blaming the model. Re-record cassettes and pin `==0.7.1`; until then stay on `>=0.5.0,<0.6` (0.6.0 is now superseded).
+
+**Honesty (2026-10-22):** CAN. Verified 2026-10-22 (America/Denver): PyPI JSON (0.7.0 / 0.7.1 upload times, MIT), `CHANGELOG.md` on `main` read raw. Not run.
