@@ -1,6 +1,6 @@
 # INDEX
 
-Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-22`.
+Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-23`.
 
 | rank | id | lane | status | why |
 | ---: | --- | --- | --- | --- |
@@ -17,11 +17,11 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-22`.
 | 10 | homi-gate | 04-spec-to-code | active | CI completion bit + handoff contract + MCP allowlist for deliver:*. |
 | 11 | agent-approval-check | 04-spec-to-code | active | Merge-side gate: agent-authored PRs need N write-access human approvals (SHA-bound `/approve`); bot approvals never count; fail-closed (MIT, Anthropic). |
 | 12 | agent-gate | 04-spec-to-code | active | MCP fail-closed ship checklist + hash-chained receipts. |
-| 13 | verax | 04-spec-to-code | active | MCP policy gate + signed COSE decision/effect ledger; pin >= 0.6.1 (operator-text escaping, signed downstream tool pins, reconcile reads signed amounts only); 0.5.x fail-closed parsing still applies. |
+| 13 | verax | 04-spec-to-code | active | MCP policy gate + signed COSE decision/effect ledger; pin >= 0.7.0 (memory records now signed and hash-chained; 0.6.1 served edited memory files unchecked); keep keys outside the state dir; 0.6.1 / 0.5.x fixes still apply. |
 | 14 | mcp-gate | 04-spec-to-code | active | Fail-closed stdio MCP proxy for the coder: policy-denied tool calls never reach the server; Ed25519-signed chained receipts (Apache-2.0). |
 | 15 | agentgate | 04-spec-to-code | active | Commit `agentgate.lock` of the coder's MCP tool surface; `ci` exits 1 on description/schema drift; `deps` flags hallucinated/typosquat packages (Apache-2.0). |
-| 16 | cadence | 04-spec-to-code | active | Node/TS settle gate: refuses "done" until declared ACs re-check from real evidence; pin >= 1.69.1 (MCP SDK advisory) (MIT). |
-| 17 | gh-actions-lock | 02-formal-replay | active | GitHub-official `actions.lock`: existing wr:code/deliver:* workflows run the exact action commits you locked even if tags move; `--verify` fails CI on drift; Free plan preview, pre-1.0 (MIT). Install only `github/gh-actions-lock` (33 look-alike repos). Needs owner OK to touch workflows. |
+| 16 | cadence | 04-spec-to-code | active | Node/TS settle gate: refuses "done" until declared ACs re-check from real evidence; 1.71.0 records review/audit gate bypasses so a forced settle can't grade `strong`; pin >= 1.69.1 (MIT). |
+| 17 | gh-actions-lock | 02-formal-replay | active | GitHub-official `actions.lock`: existing wr:code/deliver:* workflows run the exact action commits you locked even if tags move; `--verify` fails CI on drift. **v0.3.0** (2026-10-22) ships the impostor-commit fix (#186) and stricter verify (breaking: `--relock` older lockfiles; `./` actions block by default); start on v0.3.0. Pre-1.0 (MIT). Install only `github/gh-actions-lock` (33 look-alike repos). Needs owner OK to touch workflows. |
 | 18 | llguidance | 01-deterministic-ai | active | Vendor structured-output path you already pay for. |
 | 19 | xgrammar-2 | 01-deterministic-ai | active | Serving-engine mask (vLLM/SGLang); pin >= 0.2.6 (2026-10-04 advisories); vLLM 0.32.0 ships 0.2.8. |
 | 20 | cfgzip | 01-deterministic-ai | active | Lossless vocab compression over XGrammar2 for complex static grammars. |
