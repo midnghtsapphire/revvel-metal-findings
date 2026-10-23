@@ -9,6 +9,7 @@
   "urls": [
     "https://github.com/github/gh-actions-lock",
     "https://github.com/github/gh-actions-lock/releases/tag/v0.2.0",
+    "https://github.com/github/gh-actions-lock/releases/tag/v0.3.0",
     "https://github.blog/changelog/2026-10-14-github-actions-workflow-lockfiles-in-public-preview/",
     "https://github.com/github/gh-actions-lock/pull/186"
   ],
@@ -18,7 +19,7 @@
   "revvel_hit": "Pin every `uses:` in the existing wr:code / deliver:* workflows (openrouter-coder.yml, revvel-engine-spine.yml, agent-fallback.yml, trusted-bot-auto-approve.yml) to reviewed commits via `.github/workflows/actions.lock`; GitHub then runs the locked commits even if a tag or branch moves. `gh actions-lock --verify` as a step on an existing job fails the run on drift. Same workflows, no second pipeline.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-16",
-  "updated": "2026-10-20"
+  "updated": "2026-10-23"
 }
 ```
 
@@ -36,3 +37,17 @@ v0.2.0 (2026-10-12 13:31 MDT): lockfile schema `v0.0.3`, stricter `--verify`, `-
 - **Unreleased on `main`:** "Trace every locked commit to its recorded ref" (#186, merged 2026-10-20 07:03 MDT, closes #174): every locked commit is checked, in every mode, against the history of its recorded tag or branch (looked up by exact name, as the Actions backend does), so **a fork-only commit can no longer pass under the upstream action's name**; a recorded ref rewritten or deleted so it no longer contains the commit, a ref that isn't a real tag/branch, and a malformed `uses:` now **block** instead of passing silently; an exact tag that only moved ahead warns under `--verify`. Follow-up fixes for v0.2.0 bugs are in #197. Latest release still **v0.2.0**; wait for the release before relying on it.
 
 **Honesty (2026-10-20):** verified 2026-10-20 (America/Denver): GitHub repo-search API (count and metadata), repo / releases / commits API for sample look-alikes, READMEs viewed (not cloned, nothing executed); `github/gh-actions-lock` commits API, PR #186 API (body read) and page 200; releases API (v0.2.0 still latest). Malicious intent is inferred from the pattern, not confirmed by inspecting binaries.
+
+**Update 2026-10-23 -- v0.3.0 released (breaking for `--verify`):** published 2026-10-22 10:08 MDT. Lockfile schema unchanged (`v0.0.3`), but some lockfiles that passed `--verify` on v0.2.0 now fail it:
+
+- **#186 shipped** (the impostor-commit fix tracked here since 10-20): every locked commit must be in the history of its recorded tag or branch, so a fork-only commit can't pass under the upstream action's name; refs like `main~1` or `git describe` output are rejected.
+- An exact tag locked behind its commit is now a `tag-commit-mismatch` error; older lockfiles can fail with `incomplete-lockfile`. Both fix with `gh actions-lock --relock`, then commit.
+- Pins GitHub didn't answer for are now retryable errors (exit 1, `"retryable": true`) instead of passing.
+- Local `./` actions that call remote actions now block fix and verify runs by default; pass `--migrate-local-actions` (rewrite to `$/`) or `--ignore-local-actions` (warn only).
+- New `--json` categories `ref-missing` and `invalid-workflow` (both still exit 1); fix-mode `--json` reports the post-fix state.
+- Fix runs never write a lockfile their own verify rejects; moved floating refs stay locked with a non-blocking `ref-moved` warning.
+- New: `container-image` warnings for `docker://` steps, job `container:` / `services:` and remote Docker actions (the lockfile can't pin these); a sample CI workflow `.github/workflows/verify-lockfile.yml`; an agent skill via `gh skill install github/gh-actions-lock`; concurrent online pin checks so `--verify` stays about as fast as v0.2.0.
+
+**Revvel action:** if Audrey says yes to adoption, start directly on **v0.3.0** (`gh extension install github/gh-actions-lock --pin v0.3.0`), not v0.2.0, and use the shipped `verify-lockfile.yml` as the shape for a `--verify` step on an existing job. Check the coder/spine workflows for `./` composite actions first, since those now block by default. Still pre-1.0 preview, still needs her OK to touch workflow files, and the look-alike-repo warning above still applies.
+
+**Honesty (2026-10-23):** verified 2026-10-23 (America/Denver) via the GitHub releases API (v0.3.0 body read in full; v0.2.0 still listed as the previous release). Not trialled.
