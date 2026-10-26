@@ -1,6 +1,6 @@
 # INDEX
 
-Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-23`.
+Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-26`.
 
 | rank | id | lane | status | why |
 | ---: | --- | --- | --- | --- |
@@ -21,14 +21,14 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-23`.
 | 14 | mcp-gate | 04-spec-to-code | active | Fail-closed stdio MCP proxy for the coder: policy-denied tool calls never reach the server; Ed25519-signed chained receipts (Apache-2.0). |
 | 15 | agentgate | 04-spec-to-code | active | Commit `agentgate.lock` of the coder's MCP tool surface; `ci` exits 1 on description/schema drift; `deps` flags hallucinated/typosquat packages (Apache-2.0). |
 | 16 | cadence | 04-spec-to-code | active | Node/TS settle gate: refuses "done" until declared ACs re-check from real evidence; 1.71.0 records review/audit gate bypasses so a forced settle can't grade `strong`; pin >= 1.69.1 (MIT). |
-| 17 | gh-actions-lock | 02-formal-replay | active | GitHub-official `actions.lock`: existing wr:code/deliver:* workflows run the exact action commits you locked even if tags move; `--verify` fails CI on drift. **v0.3.0** (2026-10-22) ships the impostor-commit fix (#186) and stricter verify (breaking: `--relock` older lockfiles; `./` actions block by default); start on v0.3.0. Pre-1.0 (MIT). Install only `github/gh-actions-lock` (33 look-alike repos). Needs owner OK to touch workflows. |
+| 17 | gh-actions-lock | 02-formal-replay | active | GitHub-official `actions.lock`: existing wr:code/deliver:* workflows run the exact action commits you locked even if tags move; `--verify` fails CI on drift. v0.3.0 shipped the impostor-commit fix (#186, breaking verify); **v0.4.0** (2026-10-23) is non-breaking (docs: `--verify-local` is coverage only; GHE.com auth); start on v0.4.0 or v0.3.0. Pre-1.0 (MIT). Install only `github/gh-actions-lock` (33 look-alike repos). Needs owner OK to touch workflows. |
 | 18 | llguidance | 01-deterministic-ai | active | Vendor structured-output path you already pay for. |
 | 19 | xgrammar-2 | 01-deterministic-ai | active | Serving-engine mask (vLLM/SGLang); pin >= 0.2.6 (2026-10-04 advisories); vLLM 0.32.0 ships 0.2.8. |
 | 20 | cfgzip | 01-deterministic-ai | active | Lossless vocab compression over XGrammar2 for complex static grammars. |
 | 21 | grammar-sparse-projection | 01-deterministic-ai | active | Triton sparse LM-head from XGrammar masks; exact support; research path. |
 | 22 | pre3 | 01-deterministic-ai | active | LightLLM DPDA mask; ACL Outstanding. |
 | 23 | psc | 05-trials-papers | active | Next mask engine if self-hosting (~700x claims); now peer-reviewed ISSTA 2026. |
-| 24 | glrmask | 01-deterministic-ai | active | Live Rust/Py mask lib, also Node-API (`@glrmask/node`) + C/C++; pin ==0.3.1 (0.4.0 RC on main is breaking again, unpublished); paper claims p99 9.54 µs vs llguidance 379.6 µs (Zenodo preprint). |
+| 24 | glrmask | 01-deterministic-ai | active | Live Rust/Py mask lib, also Node-API (`@glrmask/node`) + C/C++; **0.4.0 published 2026-10-24, breaking again** (Grammar/Module/Constraint/ConstraintState; precompiled Modules with unbound extern slots for tool calls); keep ==0.3.1, move to ==0.4.0 only as a deliberate port; paper claims p99 9.54 µs vs llguidance 379.6 µs (Zenodo preprint). |
 | 25 | gramr | 01-deterministic-ai | active | Rust JSON-Schema->PDA token masks; property-tested; local schema twin. |
 | 26 | vocab-mask-trie | 01-deterministic-ai | active | Zero-dep TS byte-trie vocab mask for local Node coder. |
 | 27 | static-constraint-decoding | 01-deterministic-ai | active | YouTube STATIC sparse-trie for closed-set deliver:* allowlists. |
@@ -62,22 +62,23 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-23`.
 | 55 | deepinfer | 01-deterministic-ai | watching | DeepSeek production engine (Apache-2.0, 2026-10-20): `DEEPINFER_BATCH_INVARIANT=1` + `DEEPINFER_ENABLE_MTP_VARLEN=0` + fixed `seq_seed` = deterministic sampling, plus regex/JSON-Schema/EBNF outputs; NVIDIA SM100 / Ascend 950, one model -- reference recipe only. |
 | 56 | concordance | 01-deterministic-ai | watching | Deterministic model, nondeterministic pipeline: per-run ids, unordered lists and growing registries in prompts changed results 4 of 4 runs on a 800/800 bit-stable SGLang server; stdlib `compare_runs.py` finds the first diverging stage from captured calls (Apache-2.0, 1 day old). Rule now: nothing per-run in a wr:code prompt. |
 | 57 | vosti | 05-trials-papers | watching | Verus + Z3-verified deterministic inference engine (bitwise logits across batch/chunk/prefill-decode/prefix reuse); borrow its 4-axis logit test to qualify any self-hosted replay; single-GPU research prototype (MIT). |
-| 58 | determinate | 03-agent-runtimes | watching | State-gated next-action + constrained structured output. |
-| 59 | openhands | 03-agent-runtimes | watching | Fallback coder. Gate on wr:code. |
-| 60 | temporal | 02-formal-replay | watching | Heavy replay. After DST proves the bug. |
-| 61 | agrepl | 02-formal-replay | watching | Go static-binary MITM record/replay, zero outbound network on replay; any language, no SDK; CI mode still on roadmap. |
-| 62 | zig-0-16 | 00-near-metal | watching | Guest language, not default. |
-| 63 | qbe | 00-near-metal | watching | Teachable IR only. |
-| 64 | agt-approval-protocol | 04-spec-to-code | watching | Microsoft AGT ADR-0030 (accepted): approval bound to JCS SHA-256 action digest + policy/chain version; consume in the execute transaction; timeout/unauth = deny; LLM advisory only (MIT); #4341 fixed RFC 8785 float formatting (breaking digest), still unreleased. |
-| 65 | agent-evidence-vectors | 02-formal-replay | watching | Known-answer conformance corpora + Action for evidence verifiers: RFC 8785 a2a-jcs canonicalizer vectors, receipt/ledger tamper cases, occurrence-binding (one approval, one execution); pin ==0.24.0 (v0.25.0 renames/rewrites cases in five corpora, adds forged/laundered done-receipt cases; re-pin only after a diff) (Apache-2.0); CI step needs owner OK. |
-| 66 | attested | 04-spec-to-code | watching | Sigstore-signed in-toto test receipt bound to the PR head SHA + fail-closed `attested verify` required check run from the default branch: deliver:* proof tests ran green on that exact SHA (Apache-2.0, npm 0.1.0, 6 days old); workflow + ruleset edit needs owner OK. |
-| 67 | spec-growth-engine | 04-spec-to-code | watching | Model-free drift floor: SPEC.md graph per node, import-graph drift blocks undeclared deps, "verified" only from recorded passing tests voided by the next change; pre-commit hook (Apache-2.0, 2★, no releases). Borrow layer 1 only; layer 2 is a second agent pipeline. |
-| 68 | specguard-lean | 05-trials-papers | watching | Lean 4 certificate that a task description and its tests cannot both hold, before the coder starts (arXiv 2610.09159, Apache-2.0); bounce broken WRs back to spec-approved; model-built formalizations. |
-| 69 | agentmachinist | 04-spec-to-code | watching | Spec→Approve→Execute controller: bot-minted SHA marker after fail-closed write-permission read; label alone = pending; push = stale; lease push on approved SHA (MIT, PyPI 0.20.0); pattern only, own pipeline. |
-| 70 | hashgate | 04-spec-to-code | watching | Claude Code PreToolUse: hash-bound push/merge/deploy; server re-derives live state; agent cannot self-approve (Apache-2.0, PyPI 0.2.0, stale since 2026-07). |
-| 71 | notary-mcp | 04-spec-to-code | watching | MCP propose→canonicalize→approve revision hash→fail-closed execute exact bytes (MIT); demo/hackathon; borrow pattern only. |
-| 72 | mcpgate | 04-spec-to-code | watching | Go deny-by-default MCP proxy, human `ask` queue, audit-failure denies; backup to mcp-gate (MIT). |
-| 73 | mcp-gatehouse | 04-spec-to-code | watching | In-server Python MCP approval tiers; no approver = deny (MIT). |
-| 74 | mcp-hangar | 04-spec-to-code | watching | Fleet MCP enforcement plane; tool-schema digest pin fails closed, `pin --check` exits 1; drifted tools withheld; `mcp-hangar approvals` CLI for held stdio calls; 2.32.1 fixes mixed-version fleets (running release defines built-in roles; DB trigger keeps key-pinned rows pinned) -- pin ==2.32.1 (2.33.0 only adds an unverified key-issuance declaration) (MIT); runtime twin of agentgate. |
-| 75 | swiftgram | 05-trials-papers | watching | ASE 2026 grammar-constrained decoding via lexical forking; no code yet. |
-| 76 | linebreak-gate | 04-spec-to-code | dropped | DROPPED 2026-10-12: repo 404, all PyPI releases yanked, now licensed product. Use spec-guard. |
+| 58 | bitexact-llm | 01-deterministic-ai | watching | Integer (fixed-point) Llama-3.2-1B engine: same int64 logits + tokens across H800/H100/x86/M4 CPU and batch/KV schedules, int8 vLLM 0.32.0 plugin; research prototype, 1B only, ~0.28x vLLM throughput (Apache-2.0, 3 days old). Borrow the record/compare logits-hash report for any replay. |
+| 59 | determinate | 03-agent-runtimes | watching | State-gated next-action + constrained structured output. |
+| 60 | openhands | 03-agent-runtimes | watching | Fallback coder. Gate on wr:code. |
+| 61 | temporal | 02-formal-replay | watching | Heavy replay. After DST proves the bug. |
+| 62 | agrepl | 02-formal-replay | watching | Go static-binary MITM record/replay, zero outbound network on replay; any language, no SDK; CI mode still on roadmap. |
+| 63 | zig-0-16 | 00-near-metal | watching | Guest language, not default. |
+| 64 | qbe | 00-near-metal | watching | Teachable IR only. |
+| 65 | agt-approval-protocol | 04-spec-to-code | watching | Microsoft AGT ADR-0030 (accepted): approval bound to JCS SHA-256 action digest + policy/chain version; consume in the execute transaction; timeout/unauth = deny; LLM advisory only (MIT); #4341 fixed RFC 8785 float formatting (breaking digest), still unreleased. |
+| 66 | agent-evidence-vectors | 02-formal-replay | watching | Known-answer conformance corpora + Action for evidence verifiers: RFC 8785 a2a-jcs canonicalizer vectors, receipt/ledger tamper cases, occurrence-binding; **v0.26.0 adds an approval-binding corpus (23 cases: consumed, reused, payload mutated after approval, asserted in tool args, used at expiry)** = KATs for the spec-approved gate; v0.26.1 adds recorded corpora. Keep ==0.24.0 for existing corpora; ==0.26.1 for approval-binding only after a diff (Apache-2.0); CI step needs owner OK. |
+| 67 | attested | 04-spec-to-code | watching | Sigstore-signed in-toto test receipt bound to the PR head SHA + fail-closed `attested verify` required check run from the default branch: deliver:* proof tests ran green on that exact SHA (Apache-2.0, npm 0.1.0, 6 days old); workflow + ruleset edit needs owner OK. |
+| 68 | spec-growth-engine | 04-spec-to-code | watching | Model-free drift floor: SPEC.md graph per node, import-graph drift blocks undeclared deps, "verified" only from recorded passing tests voided by the next change; pre-commit hook (Apache-2.0, 2★, no releases). Borrow layer 1 only; layer 2 is a second agent pipeline. |
+| 69 | specguard-lean | 05-trials-papers | watching | Lean 4 certificate that a task description and its tests cannot both hold, before the coder starts (arXiv 2610.09159, Apache-2.0); bounce broken WRs back to spec-approved; model-built formalizations. |
+| 70 | agentmachinist | 04-spec-to-code | watching | Spec→Approve→Execute controller: bot-minted SHA marker after fail-closed write-permission read; label alone = pending; push = stale; lease push on approved SHA (MIT, PyPI 0.20.0); pattern only, own pipeline. |
+| 71 | hashgate | 04-spec-to-code | watching | Claude Code PreToolUse: hash-bound push/merge/deploy; server re-derives live state; agent cannot self-approve (Apache-2.0, PyPI 0.2.0, stale since 2026-07). |
+| 72 | notary-mcp | 04-spec-to-code | watching | MCP propose→canonicalize→approve revision hash→fail-closed execute exact bytes (MIT); demo/hackathon; borrow pattern only. |
+| 73 | mcpgate | 04-spec-to-code | watching | Go deny-by-default MCP proxy, human `ask` queue, audit-failure denies; backup to mcp-gate (MIT). |
+| 74 | mcp-gatehouse | 04-spec-to-code | watching | In-server Python MCP approval tiers; no approver = deny (MIT). |
+| 75 | mcp-hangar | 04-spec-to-code | watching | Fleet MCP enforcement plane; tool-schema digest pin fails closed, `pin --check` exits 1; drifted tools withheld; **2.34.2 fixes silent pin bypasses** (malformed/uppercase/`sha256:` pins dropped, `new_tools: withhold` let first call through, `pin --check` wrong under group mode, `add` dropped pins) plus RBAC/secret leaks -- pin ==2.34.3, never below 2.34.2 (MIT); runtime twin of agentgate. |
+| 76 | swiftgram | 05-trials-papers | watching | ASE 2026 grammar-constrained decoding via lexical forking; no code yet. |
+| 77 | linebreak-gate | 04-spec-to-code | dropped | DROPPED 2026-10-12: repo 404, all PyPI releases yanked, now licensed product. Use spec-guard. |

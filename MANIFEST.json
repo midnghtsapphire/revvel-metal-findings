@@ -1,85 +1,476 @@
 {
   "repo": "midnghtsapphire/revvel-metal-findings",
   "target": "midnghtsapphire/revvel-standards",
-  "updated": "2026-10-23",
-  "scrape": "2026-10-23",
+  "updated": "2026-10-26",
+  "scrape": "2026-10-26",
   "findings": [
-    {"id": "issue-15507-closed-as-essay", "path": "lanes/04-spec-to-code/issue-15507-closed-as-essay.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "gh-aw-safe-outputs", "path": "lanes/04-spec-to-code/gh-aw-safe-outputs.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "compiled-ai", "path": "lanes/04-spec-to-code/compiled-ai.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "spec-guard", "path": "lanes/04-spec-to-code/spec-guard.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "plancompiler", "path": "lanes/05-trials-papers/plancompiler.md", "lane": "05-trials-papers", "status": "active"},
-    {"id": "agent-spec", "path": "lanes/04-spec-to-code/agent-spec.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "specd", "path": "lanes/04-spec-to-code/specd.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "contract-agent", "path": "lanes/04-spec-to-code/contract-agent.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "governspec", "path": "lanes/04-spec-to-code/governspec.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "aicontracts", "path": "lanes/04-spec-to-code/aicontracts.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "homi-gate", "path": "lanes/04-spec-to-code/homi-gate.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "agent-gate", "path": "lanes/04-spec-to-code/agent-gate.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "verax", "path": "lanes/04-spec-to-code/verax.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "mcp-gate", "path": "lanes/04-spec-to-code/mcp-gate.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "agentgate", "path": "lanes/04-spec-to-code/agentgate.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "cadence", "path": "lanes/04-spec-to-code/cadence.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "llguidance", "path": "lanes/01-deterministic-ai/llguidance.md", "lane": "01-deterministic-ai", "status": "active"},
-    {"id": "xgrammar-2", "path": "lanes/01-deterministic-ai/xgrammar-2.md", "lane": "01-deterministic-ai", "status": "active"},
-    {"id": "cfgzip", "path": "lanes/01-deterministic-ai/cfgzip.md", "lane": "01-deterministic-ai", "status": "active"},
-    {"id": "grammar-sparse-projection", "path": "lanes/01-deterministic-ai/grammar-sparse-projection.md", "lane": "01-deterministic-ai", "status": "active"},
-    {"id": "pre3", "path": "lanes/01-deterministic-ai/pre3.md", "lane": "01-deterministic-ai", "status": "active"},
-    {"id": "psc", "path": "lanes/05-trials-papers/psc.md", "lane": "05-trials-papers", "status": "active"},
-    {"id": "glrmask", "path": "lanes/01-deterministic-ai/glrmask.md", "lane": "01-deterministic-ai", "status": "active"},
-    {"id": "gramr", "path": "lanes/01-deterministic-ai/gramr.md", "lane": "01-deterministic-ai", "status": "active"},
-    {"id": "vocab-mask-trie", "path": "lanes/01-deterministic-ai/vocab-mask-trie.md", "lane": "01-deterministic-ai", "status": "active"},
-    {"id": "static-constraint-decoding", "path": "lanes/01-deterministic-ai/static-constraint-decoding.md", "lane": "01-deterministic-ai", "status": "active"},
-    {"id": "trie-automata", "path": "lanes/05-trials-papers/trie-automata.md", "lane": "05-trials-papers", "status": "watching"},
-    {"id": "truncproof", "path": "lanes/05-trials-papers/truncproof.md", "lane": "05-trials-papers", "status": "active"},
-    {"id": "chopchop", "path": "lanes/05-trials-papers/chopchop.md", "lane": "05-trials-papers", "status": "active"},
-    {"id": "swyb", "path": "lanes/05-trials-papers/swyb.md", "lane": "05-trials-papers", "status": "active"},
-    {"id": "crane-icml-2025", "path": "lanes/01-deterministic-ai/crane-icml-2025.md", "lane": "01-deterministic-ai", "status": "active"},
-    {"id": "type-constrained-codegen-pldi-2025", "path": "lanes/05-trials-papers/type-constrained-codegen-pldi-2025.md", "lane": "05-trials-papers", "status": "active"},
-    {"id": "cd-scale-semantic-gap", "path": "lanes/05-trials-papers/cd-scale-semantic-gap.md", "lane": "05-trials-papers", "status": "active"},
-    {"id": "unflake", "path": "lanes/02-formal-replay/unflake.md", "lane": "02-formal-replay", "status": "active"},
-    {"id": "chronos-dst", "path": "lanes/02-formal-replay/chronos-dst.md", "lane": "02-formal-replay", "status": "active"},
-    {"id": "agentverify", "path": "lanes/02-formal-replay/agentverify.md", "lane": "02-formal-replay", "status": "active"},
-    {"id": "agentape", "path": "lanes/02-formal-replay/agentape.md", "lane": "02-formal-replay", "status": "active"},
-    {"id": "chronicle", "path": "lanes/02-formal-replay/chronicle.md", "lane": "02-formal-replay", "status": "active"},
-    {"id": "llama-cpp-gbnf", "path": "lanes/01-deterministic-ai/llama-cpp-gbnf.md", "lane": "01-deterministic-ai", "status": "active"},
-    {"id": "outlines", "path": "lanes/01-deterministic-ai/outlines.md", "lane": "01-deterministic-ai", "status": "active"},
-    {"id": "dspy-gepa-mipro", "path": "lanes/04-spec-to-code/dspy-gepa-mipro.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "extism", "path": "lanes/00-near-metal/extism.md", "lane": "00-near-metal", "status": "active"},
-    {"id": "wasmtime-wit", "path": "lanes/00-near-metal/wasmtime-component-model.md", "lane": "00-near-metal", "status": "active"},
-    {"id": "cranelift", "path": "lanes/00-near-metal/cranelift.md", "lane": "00-near-metal", "status": "active"},
-    {"id": "tigerbeetle-dst", "path": "lanes/02-formal-replay/tigerbeetle-dst.md", "lane": "02-formal-replay", "status": "active"},
-    {"id": "colm-2025-correctness-guaranteed-decode", "path": "lanes/05-trials-papers/colm-2025-correctness-guaranteed-decode.md", "lane": "05-trials-papers", "status": "active"},
-    {"id": "agentassert-abc", "path": "lanes/04-spec-to-code/agentassert-abc.md", "lane": "04-spec-to-code", "status": "watching"},
-    {"id": "hlv", "path": "lanes/04-spec-to-code/hlv.md", "lane": "04-spec-to-code", "status": "watching"},
-    {"id": "specgate", "path": "lanes/04-spec-to-code/specgate.md", "lane": "04-spec-to-code", "status": "watching"},
-    {"id": "schoolmarm", "path": "lanes/01-deterministic-ai/schoolmarm.md", "lane": "01-deterministic-ai", "status": "watching"},
-    {"id": "determinate", "path": "lanes/03-agent-runtimes/determinate.md", "lane": "03-agent-runtimes", "status": "watching"},
-    {"id": "openhands", "path": "lanes/03-agent-runtimes/openhands.md", "lane": "03-agent-runtimes", "status": "watching"},
-    {"id": "temporal", "path": "lanes/02-formal-replay/temporal.md", "lane": "02-formal-replay", "status": "watching"},
-    {"id": "agrepl", "path": "lanes/02-formal-replay/agrepl.md", "lane": "02-formal-replay", "status": "watching"},
-    {"id": "wassette", "path": "lanes/00-near-metal/wassette.md", "lane": "00-near-metal", "status": "active"},
-    {"id": "zig-0-16", "path": "lanes/00-near-metal/zig.md", "lane": "00-near-metal", "status": "watching"},
-    {"id": "qbe", "path": "lanes/00-near-metal/qbe.md", "lane": "00-near-metal", "status": "watching"},
-    {"id": "mcpgate", "path": "lanes/04-spec-to-code/mcpgate.md", "lane": "04-spec-to-code", "status": "watching"},
-    {"id": "mcp-gatehouse", "path": "lanes/04-spec-to-code/mcp-gatehouse.md", "lane": "04-spec-to-code", "status": "watching"},
-    {"id": "mcp-hangar", "path": "lanes/04-spec-to-code/mcp-hangar.md", "lane": "04-spec-to-code", "status": "watching"},
-    {"id": "swiftgram", "path": "lanes/05-trials-papers/swiftgram.md", "lane": "05-trials-papers", "status": "watching"},
-    {"id": "linebreak-gate", "path": "lanes/04-spec-to-code/linebreak-gate.md", "lane": "04-spec-to-code", "status": "dropped"},
-    {"id": "agent-approval-check", "path": "lanes/04-spec-to-code/agent-approval-check.md", "lane": "04-spec-to-code", "status": "active"},
-    {"id": "act", "path": "lanes/00-near-metal/act.md", "lane": "00-near-metal", "status": "active"},
-    {"id": "vllm-batch-invariance", "path": "lanes/01-deterministic-ai/vllm-batch-invariance.md", "lane": "01-deterministic-ai", "status": "watching"},
-    {"id": "hashgate", "path": "lanes/04-spec-to-code/hashgate.md", "lane": "04-spec-to-code", "status": "watching"},
-    {"id": "notary-mcp", "path": "lanes/04-spec-to-code/notary-mcp.md", "lane": "04-spec-to-code", "status": "watching"},
-    {"id": "agt-approval-protocol", "path": "lanes/04-spec-to-code/agt-approval-protocol.md", "lane": "04-spec-to-code", "status": "watching"},
-    {"id": "agentmachinist", "path": "lanes/04-spec-to-code/agentmachinist.md", "lane": "04-spec-to-code", "status": "watching"},
-    {"id": "gh-actions-lock", "path": "lanes/02-formal-replay/gh-actions-lock.md", "lane": "02-formal-replay", "status": "active"},
-    {"id": "vosti", "path": "lanes/05-trials-papers/vosti.md", "lane": "05-trials-papers", "status": "watching"},
-    {"id": "agent-evidence-vectors", "path": "lanes/02-formal-replay/agent-evidence-vectors.md", "lane": "02-formal-replay", "status": "watching"},
-    {"id": "attested", "path": "lanes/04-spec-to-code/attested.md", "lane": "04-spec-to-code", "status": "watching"},
-    {"id": "spec-growth-engine", "path": "lanes/04-spec-to-code/spec-growth-engine.md", "lane": "04-spec-to-code", "status": "watching"},
-    {"id": "specguard-lean", "path": "lanes/05-trials-papers/specguard-lean.md", "lane": "05-trials-papers", "status": "watching"},
-    {"id": "deepinfer", "path": "lanes/01-deterministic-ai/deepinfer.md", "lane": "01-deterministic-ai", "status": "watching"},
-    {"id": "concordance", "path": "lanes/01-deterministic-ai/concordance.md", "lane": "01-deterministic-ai", "status": "watching"}
+    {
+      "id": "issue-15507-closed-as-essay",
+      "path": "lanes/04-spec-to-code/issue-15507-closed-as-essay.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "gh-aw-safe-outputs",
+      "path": "lanes/04-spec-to-code/gh-aw-safe-outputs.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "compiled-ai",
+      "path": "lanes/04-spec-to-code/compiled-ai.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "spec-guard",
+      "path": "lanes/04-spec-to-code/spec-guard.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "plancompiler",
+      "path": "lanes/05-trials-papers/plancompiler.md",
+      "lane": "05-trials-papers",
+      "status": "active"
+    },
+    {
+      "id": "agent-spec",
+      "path": "lanes/04-spec-to-code/agent-spec.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "specd",
+      "path": "lanes/04-spec-to-code/specd.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "contract-agent",
+      "path": "lanes/04-spec-to-code/contract-agent.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "governspec",
+      "path": "lanes/04-spec-to-code/governspec.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "aicontracts",
+      "path": "lanes/04-spec-to-code/aicontracts.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "homi-gate",
+      "path": "lanes/04-spec-to-code/homi-gate.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "agent-gate",
+      "path": "lanes/04-spec-to-code/agent-gate.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "verax",
+      "path": "lanes/04-spec-to-code/verax.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "mcp-gate",
+      "path": "lanes/04-spec-to-code/mcp-gate.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "agentgate",
+      "path": "lanes/04-spec-to-code/agentgate.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "cadence",
+      "path": "lanes/04-spec-to-code/cadence.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "llguidance",
+      "path": "lanes/01-deterministic-ai/llguidance.md",
+      "lane": "01-deterministic-ai",
+      "status": "active"
+    },
+    {
+      "id": "xgrammar-2",
+      "path": "lanes/01-deterministic-ai/xgrammar-2.md",
+      "lane": "01-deterministic-ai",
+      "status": "active"
+    },
+    {
+      "id": "cfgzip",
+      "path": "lanes/01-deterministic-ai/cfgzip.md",
+      "lane": "01-deterministic-ai",
+      "status": "active"
+    },
+    {
+      "id": "grammar-sparse-projection",
+      "path": "lanes/01-deterministic-ai/grammar-sparse-projection.md",
+      "lane": "01-deterministic-ai",
+      "status": "active"
+    },
+    {
+      "id": "pre3",
+      "path": "lanes/01-deterministic-ai/pre3.md",
+      "lane": "01-deterministic-ai",
+      "status": "active"
+    },
+    {
+      "id": "psc",
+      "path": "lanes/05-trials-papers/psc.md",
+      "lane": "05-trials-papers",
+      "status": "active"
+    },
+    {
+      "id": "glrmask",
+      "path": "lanes/01-deterministic-ai/glrmask.md",
+      "lane": "01-deterministic-ai",
+      "status": "active"
+    },
+    {
+      "id": "gramr",
+      "path": "lanes/01-deterministic-ai/gramr.md",
+      "lane": "01-deterministic-ai",
+      "status": "active"
+    },
+    {
+      "id": "vocab-mask-trie",
+      "path": "lanes/01-deterministic-ai/vocab-mask-trie.md",
+      "lane": "01-deterministic-ai",
+      "status": "active"
+    },
+    {
+      "id": "static-constraint-decoding",
+      "path": "lanes/01-deterministic-ai/static-constraint-decoding.md",
+      "lane": "01-deterministic-ai",
+      "status": "active"
+    },
+    {
+      "id": "trie-automata",
+      "path": "lanes/05-trials-papers/trie-automata.md",
+      "lane": "05-trials-papers",
+      "status": "watching"
+    },
+    {
+      "id": "truncproof",
+      "path": "lanes/05-trials-papers/truncproof.md",
+      "lane": "05-trials-papers",
+      "status": "active"
+    },
+    {
+      "id": "chopchop",
+      "path": "lanes/05-trials-papers/chopchop.md",
+      "lane": "05-trials-papers",
+      "status": "active"
+    },
+    {
+      "id": "swyb",
+      "path": "lanes/05-trials-papers/swyb.md",
+      "lane": "05-trials-papers",
+      "status": "active"
+    },
+    {
+      "id": "crane-icml-2025",
+      "path": "lanes/01-deterministic-ai/crane-icml-2025.md",
+      "lane": "01-deterministic-ai",
+      "status": "active"
+    },
+    {
+      "id": "type-constrained-codegen-pldi-2025",
+      "path": "lanes/05-trials-papers/type-constrained-codegen-pldi-2025.md",
+      "lane": "05-trials-papers",
+      "status": "active"
+    },
+    {
+      "id": "cd-scale-semantic-gap",
+      "path": "lanes/05-trials-papers/cd-scale-semantic-gap.md",
+      "lane": "05-trials-papers",
+      "status": "active"
+    },
+    {
+      "id": "unflake",
+      "path": "lanes/02-formal-replay/unflake.md",
+      "lane": "02-formal-replay",
+      "status": "active"
+    },
+    {
+      "id": "chronos-dst",
+      "path": "lanes/02-formal-replay/chronos-dst.md",
+      "lane": "02-formal-replay",
+      "status": "active"
+    },
+    {
+      "id": "agentverify",
+      "path": "lanes/02-formal-replay/agentverify.md",
+      "lane": "02-formal-replay",
+      "status": "active"
+    },
+    {
+      "id": "agentape",
+      "path": "lanes/02-formal-replay/agentape.md",
+      "lane": "02-formal-replay",
+      "status": "active"
+    },
+    {
+      "id": "chronicle",
+      "path": "lanes/02-formal-replay/chronicle.md",
+      "lane": "02-formal-replay",
+      "status": "active"
+    },
+    {
+      "id": "llama-cpp-gbnf",
+      "path": "lanes/01-deterministic-ai/llama-cpp-gbnf.md",
+      "lane": "01-deterministic-ai",
+      "status": "active"
+    },
+    {
+      "id": "outlines",
+      "path": "lanes/01-deterministic-ai/outlines.md",
+      "lane": "01-deterministic-ai",
+      "status": "active"
+    },
+    {
+      "id": "dspy-gepa-mipro",
+      "path": "lanes/04-spec-to-code/dspy-gepa-mipro.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "extism",
+      "path": "lanes/00-near-metal/extism.md",
+      "lane": "00-near-metal",
+      "status": "active"
+    },
+    {
+      "id": "wasmtime-wit",
+      "path": "lanes/00-near-metal/wasmtime-component-model.md",
+      "lane": "00-near-metal",
+      "status": "active"
+    },
+    {
+      "id": "cranelift",
+      "path": "lanes/00-near-metal/cranelift.md",
+      "lane": "00-near-metal",
+      "status": "active"
+    },
+    {
+      "id": "tigerbeetle-dst",
+      "path": "lanes/02-formal-replay/tigerbeetle-dst.md",
+      "lane": "02-formal-replay",
+      "status": "active"
+    },
+    {
+      "id": "colm-2025-correctness-guaranteed-decode",
+      "path": "lanes/05-trials-papers/colm-2025-correctness-guaranteed-decode.md",
+      "lane": "05-trials-papers",
+      "status": "active"
+    },
+    {
+      "id": "agentassert-abc",
+      "path": "lanes/04-spec-to-code/agentassert-abc.md",
+      "lane": "04-spec-to-code",
+      "status": "watching"
+    },
+    {
+      "id": "hlv",
+      "path": "lanes/04-spec-to-code/hlv.md",
+      "lane": "04-spec-to-code",
+      "status": "watching"
+    },
+    {
+      "id": "specgate",
+      "path": "lanes/04-spec-to-code/specgate.md",
+      "lane": "04-spec-to-code",
+      "status": "watching"
+    },
+    {
+      "id": "schoolmarm",
+      "path": "lanes/01-deterministic-ai/schoolmarm.md",
+      "lane": "01-deterministic-ai",
+      "status": "watching"
+    },
+    {
+      "id": "determinate",
+      "path": "lanes/03-agent-runtimes/determinate.md",
+      "lane": "03-agent-runtimes",
+      "status": "watching"
+    },
+    {
+      "id": "openhands",
+      "path": "lanes/03-agent-runtimes/openhands.md",
+      "lane": "03-agent-runtimes",
+      "status": "watching"
+    },
+    {
+      "id": "temporal",
+      "path": "lanes/02-formal-replay/temporal.md",
+      "lane": "02-formal-replay",
+      "status": "watching"
+    },
+    {
+      "id": "agrepl",
+      "path": "lanes/02-formal-replay/agrepl.md",
+      "lane": "02-formal-replay",
+      "status": "watching"
+    },
+    {
+      "id": "wassette",
+      "path": "lanes/00-near-metal/wassette.md",
+      "lane": "00-near-metal",
+      "status": "active"
+    },
+    {
+      "id": "zig-0-16",
+      "path": "lanes/00-near-metal/zig.md",
+      "lane": "00-near-metal",
+      "status": "watching"
+    },
+    {
+      "id": "qbe",
+      "path": "lanes/00-near-metal/qbe.md",
+      "lane": "00-near-metal",
+      "status": "watching"
+    },
+    {
+      "id": "mcpgate",
+      "path": "lanes/04-spec-to-code/mcpgate.md",
+      "lane": "04-spec-to-code",
+      "status": "watching"
+    },
+    {
+      "id": "mcp-gatehouse",
+      "path": "lanes/04-spec-to-code/mcp-gatehouse.md",
+      "lane": "04-spec-to-code",
+      "status": "watching"
+    },
+    {
+      "id": "mcp-hangar",
+      "path": "lanes/04-spec-to-code/mcp-hangar.md",
+      "lane": "04-spec-to-code",
+      "status": "watching"
+    },
+    {
+      "id": "swiftgram",
+      "path": "lanes/05-trials-papers/swiftgram.md",
+      "lane": "05-trials-papers",
+      "status": "watching"
+    },
+    {
+      "id": "linebreak-gate",
+      "path": "lanes/04-spec-to-code/linebreak-gate.md",
+      "lane": "04-spec-to-code",
+      "status": "dropped"
+    },
+    {
+      "id": "agent-approval-check",
+      "path": "lanes/04-spec-to-code/agent-approval-check.md",
+      "lane": "04-spec-to-code",
+      "status": "active"
+    },
+    {
+      "id": "act",
+      "path": "lanes/00-near-metal/act.md",
+      "lane": "00-near-metal",
+      "status": "active"
+    },
+    {
+      "id": "vllm-batch-invariance",
+      "path": "lanes/01-deterministic-ai/vllm-batch-invariance.md",
+      "lane": "01-deterministic-ai",
+      "status": "watching"
+    },
+    {
+      "id": "hashgate",
+      "path": "lanes/04-spec-to-code/hashgate.md",
+      "lane": "04-spec-to-code",
+      "status": "watching"
+    },
+    {
+      "id": "notary-mcp",
+      "path": "lanes/04-spec-to-code/notary-mcp.md",
+      "lane": "04-spec-to-code",
+      "status": "watching"
+    },
+    {
+      "id": "agt-approval-protocol",
+      "path": "lanes/04-spec-to-code/agt-approval-protocol.md",
+      "lane": "04-spec-to-code",
+      "status": "watching"
+    },
+    {
+      "id": "agentmachinist",
+      "path": "lanes/04-spec-to-code/agentmachinist.md",
+      "lane": "04-spec-to-code",
+      "status": "watching"
+    },
+    {
+      "id": "gh-actions-lock",
+      "path": "lanes/02-formal-replay/gh-actions-lock.md",
+      "lane": "02-formal-replay",
+      "status": "active"
+    },
+    {
+      "id": "vosti",
+      "path": "lanes/05-trials-papers/vosti.md",
+      "lane": "05-trials-papers",
+      "status": "watching"
+    },
+    {
+      "id": "agent-evidence-vectors",
+      "path": "lanes/02-formal-replay/agent-evidence-vectors.md",
+      "lane": "02-formal-replay",
+      "status": "watching"
+    },
+    {
+      "id": "attested",
+      "path": "lanes/04-spec-to-code/attested.md",
+      "lane": "04-spec-to-code",
+      "status": "watching"
+    },
+    {
+      "id": "spec-growth-engine",
+      "path": "lanes/04-spec-to-code/spec-growth-engine.md",
+      "lane": "04-spec-to-code",
+      "status": "watching"
+    },
+    {
+      "id": "specguard-lean",
+      "path": "lanes/05-trials-papers/specguard-lean.md",
+      "lane": "05-trials-papers",
+      "status": "watching"
+    },
+    {
+      "id": "deepinfer",
+      "path": "lanes/01-deterministic-ai/deepinfer.md",
+      "lane": "01-deterministic-ai",
+      "status": "watching"
+    },
+    {
+      "id": "concordance",
+      "path": "lanes/01-deterministic-ai/concordance.md",
+      "lane": "01-deterministic-ai",
+      "status": "watching"
+    },
+    {
+      "id": "bitexact-llm",
+      "path": "lanes/01-deterministic-ai/bitexact-llm.md",
+      "lane": "01-deterministic-ai",
+      "status": "watching"
+    }
   ]
 }

@@ -7,6 +7,7 @@
   "lane": "02-formal-replay",
   "status": "active",
   "urls": [
+    "https://github.com/github/gh-actions-lock/releases/tag/v0.4.0",
     "https://github.com/github/gh-actions-lock",
     "https://github.com/github/gh-actions-lock/releases/tag/v0.2.0",
     "https://github.com/github/gh-actions-lock/releases/tag/v0.3.0",
@@ -19,7 +20,7 @@
   "revvel_hit": "Pin every `uses:` in the existing wr:code / deliver:* workflows (openrouter-coder.yml, revvel-engine-spine.yml, agent-fallback.yml, trusted-bot-auto-approve.yml) to reviewed commits via `.github/workflows/actions.lock`; GitHub then runs the locked commits even if a tag or branch moves. `gh actions-lock --verify` as a step on an existing job fails the run on drift. Same workflows, no second pipeline.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-16",
-  "updated": "2026-10-23"
+  "updated": "2026-10-26"
 }
 ```
 
@@ -51,3 +52,9 @@ v0.2.0 (2026-10-12 13:31 MDT): lockfile schema `v0.0.3`, stricter `--verify`, `-
 **Revvel action:** if Audrey says yes to adoption, start directly on **v0.3.0** (`gh extension install github/gh-actions-lock --pin v0.3.0`), not v0.2.0, and use the shipped `verify-lockfile.yml` as the shape for a `--verify` step on an existing job. Check the coder/spine workflows for `./` composite actions first, since those now block by default. Still pre-1.0 preview, still needs her OK to touch workflow files, and the look-alike-repo warning above still applies.
 
 **Honesty (2026-10-23):** verified 2026-10-23 (America/Denver) via the GitHub releases API (v0.3.0 body read in full; v0.2.0 still listed as the previous release). Not trialled.
+
+**Update 2026-10-26 -- v0.4.0 (non-breaking).** Released 2026-10-23 17:36 MDT. Three changes: RELEASING.md updated for v0.3.0 (#240); README clarifies `--verify-local` is coverage only, not a substitute for `--verify` (#241); public github.com lookups are authenticated when running on GHE.com (#244). No lockfile or `--verify` behaviour change for github.com users.
+
+**Revvel action (2026-10-26):** if Audrey says yes to adoption, `gh extension install github/gh-actions-lock --pin v0.4.0` (v0.3.0 is equally fine); use `--verify`, not `--verify-local`, as the gate. Still needs her OK; only `github/gh-actions-lock` is legitimate.
+
+**Honesty (2026-10-26):** verified 2026-10-26 (America/Denver) via the GitHub releases API (v0.4.0 body read in full). Not trialled.

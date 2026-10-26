@@ -7,6 +7,7 @@
   "lane": "01-deterministic-ai",
   "status": "active",
   "urls": [
+    "https://github.com/IsaacBreen/glrmask/releases/tag/v0.4.0",
     "https://github.com/IsaacBreen/glrmask",
     "https://pypi.org/project/glrmask/",
     "https://crates.io/crates/glrmask",
@@ -18,10 +19,10 @@
   "license": "MIT OR Apache-2.0",
   "metal": 3,
   "determinism": 5,
-  "revvel_hit": "Local / research-engine mask cage for schema-valid wr:code JSON; not a vLLM drop-in. Since 0.3.1 also a Node-API package (`@glrmask/node`) and a C/C++ ABI, so a local Node coder next to orchestrate.js can mask in-process instead of via Python. Pin glrmask ==0.3.1 (0.3.0 breaks the 0.2.0 API again; older private artifacts are rejected, rebuild them)",
+  "revvel_hit": "Local / research-engine mask cage for schema-valid wr:code JSON; not a vLLM drop-in. Node-API package (`@glrmask/node`) and C/C++ ABI let a local Node coder next to orchestrate.js mask in-process. 0.4.0 (2026-10-24) is a third breaking API (Grammar / Module / Constraint / ConstraintState; precompiled Modules with unbound extern slots, aimed at tool calls). Keep glrmask ==0.3.1 for existing code; move to ==0.4.0 only as a deliberate port and rebuild saved artifacts",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-09-17",
-  "updated": "2026-10-20"
+  "updated": "2026-10-26"
 }
 ```
 
@@ -46,3 +47,19 @@ Author engineering run (JSONSchemaBench / MaskBench, Aug 2026) claims **TBM p50 
 **Honesty (2026-10-19):** CAN-PARTIAL. Verified 2026-10-19 (America/Denver): GitHub releases + tags API, raw `CHANGELOG.md` at `v0.3.1`, PyPI JSON (0.3.0, 0.3.1), crates.io API (0.3.1), npm registry JSON for `@glrmask/node`, release page and `glrmask.com/api/javascript/` 200 (npmjs.com web 403s the fetcher, as elsewhere). GitHub's license detector shows Apache-2.0; package metadata says `MIT OR Apache-2.0`. Very young (1★). Fast-moving API: two breaking minors in nine days.
 
 **Update 2026-10-20:** no new published release (PyPI, crates.io, npm `@glrmask/node` all still **0.3.1**). `main` moved fast overnight: a **GLRMask 0.4.0 release candidate** is merged as "unpublished" metadata (2026-10-19 22:14 MDT) with a new configured `Module` graph + scope-preserving `Expr` API across bindings, "native shortest syntax" removed, the relocated CMake consumer requirement bumped to 0.4, and a `rand` 0.8.6 soundness advisory patched in the RC; latest commit 2026-10-20 04:55 MDT merges an opt-in full-JSON fix accepting member permutations of small (2–3 key) closed objects while keeping llguidance canonical ordering as the default. Expect a third breaking minor; keep `==0.3.1` until 0.4.0 publishes and re-read its CHANGELOG then. Verified via registry JSON and the GitHub commits API, 2026-10-20 (America/Denver).
+
+**Update 2026-10-26 -- 0.4.0 published (breaking again).** GitHub release `v0.4.0` 2026-10-24 19:57 MDT; PyPI `glrmask` 0.4.0 uploaded 2026-10-24 20:13 MDT; npm `@glrmask/node` 0.4.0 2026-10-24 21:13 MDT. The release says "GLRMask 0.4 is a new API. Code written for 0.3 needs changes":
+
+- Four types: `Grammar`, `Module`, `Constraint`, `ConstraintState` (the 0.3 `PreparedGrammar` lifecycle is replaced).
+- Composition via `extern token` / `extern grammar` slots bound in place; `Expr.choice`, `Expr.sequence`, `Expr.literal`.
+- **Modules:** precompile a grammar once with externs still unbound, then save, load and compile it with any bindings. The release names tool calls as the typical use.
+- `TokenSet` replaces `Token` and `ExactTokens`; tokens with no bytes are special tokens.
+- No end-token setting: put an end-of-sequence token after the grammar; `is_accepting()` and `is_terminated()` report where a sequence stands (so `is_terminated()` is back).
+- Commits return whether the token was allowed.
+- Same API in Python, Rust, Node.js, C and C++.
+
+This closes the "0.4.0 publication" hunt opened 2026-10-20.
+
+**Revvel hit (2026-10-26):** a precompiled Module with an unbound slot is the right shape for one wr:code envelope grammar compiled once, with the per-task tool/argument schema bound at call time, instead of recompiling per task (TTFM was the known weak spot). That is a port, not a pin bump: keep `==0.3.1` until a local twin actually uses GLRMask, then move straight to `==0.4.0`, rebuild saved artifacts, and replace end-token config with an explicit EOS after the grammar. Still no vLLM/SGLang backend; still local-twin only.
+
+**Honesty (2026-10-26):** CAN-PARTIAL. Verified 2026-10-26 (America/Denver): GitHub releases API body for v0.4.0, PyPI JSON 0.4.0 upload time, npm registry JSON for `@glrmask/node` 0.4.0. Full CHANGELOG at `v0.4.0` not diffed. Three breaking minors in two weeks.
