@@ -7,6 +7,7 @@
   "lane": "02-formal-replay",
   "status": "watching",
   "urls": [
+    "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.26.0",
     "https://github.com/probityai/agent-evidence-vectors",
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.20.0",
     "https://pypi.org/project/agent-evidence-vectors/",
@@ -16,10 +17,10 @@
   "license": "Apache-2.0",
   "metal": 1,
   "determinism": 5,
-  "revvel_hit": "Known-answer test vectors for whatever verifies deliver:* approval/receipt bytes: score the canonicalizer behind the approval digest (agt-approval-protocol pattern) against the a2a-jcs RFC 8785 corpus (`A2A_JCS_TARGET: rfc8785`), and receipt/ledger verifiers (mcp-gate, agent-gate, verax) against the tamper corpora. Runs as `uvx agent-evidence-vectors==0.20.0 --verifier <cmd>`; a CI step on an existing job would need owner OK. Reference only until revvel-standards writes its approval-record schema",
+  "revvel_hit": "Known-answer test vectors for whatever verifies deliver:* approval/receipt bytes. Since v0.26.0 a dedicated approval-binding corpus (approval-binding/v1, 23 cases: already-consumed, payload-mutated-after-approval, asserted-in-tool-arguments, used-at-expiry, target/tool/phase differs) is the KAT set for the spec-approved / deliver:* approval check. Runs as `uvx agent-evidence-vectors==<pin> --verifier <cmd>`; a CI step on an existing job needs owner OK. Keep ==0.24.0 for the canonicalization/occurrence-binding corpora; use ==0.26.1 only for approval-binding after a diff. Reference only until revvel-standards writes its approval-record schema",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-19",
-  "updated": "2026-10-20"
+  "updated": "2026-10-26"
 }
 ```
 
@@ -44,3 +45,16 @@ Shipped corpora at v0.20.0 include `vectors-a2a-jcs-v01` (the a2a-tck Agent Card
 **Revvel hit (2026-10-22):** the done-receipt cases (forged receipt, dropped completion claim, grade pinned to other bytes) are the known answers for any "deliver:* is done" receipt, the same job **attested** and **cadence** do. Keep the pin at `==0.24.0` until someone diffs the canonicalization and occurrence-binding corpora at v0.25.0; a CI step still needs Audrey's OK.
 
 **Honesty (2026-10-22):** CAN-PARTIAL. Verified 2026-10-22 (America/Denver): GitHub releases API body for v0.25.0 (first ~1.8k chars), PyPI JSON 0.25.0. Corpora not diffed.
+
+**Update 2026-10-26 -- v0.26.0 and v0.26.1.** **v0.26.0** (GitHub release 2026-10-25 22:10 MDT; PyPI 0.26.0 uploaded 2026-10-25 19:56 MDT; Apache-2.0). Minor release; per its notes:
+
+- **New `vectors-approval-binding` corpus** (approval-binding/v1, 23 cases), e.g. `allow-bound`, `allow-same-approval-presented-twice`, `approval-already-consumed`, `approval-asserted-in-tool-arguments`, `approval-id-reused-different-content`, `approval-key-not-approvers`, `payload-mutated-after-approval`, `target-differs`, `tool-differs`, `phase-differs`, `used-at-expiry`, `used-before-issued`, `release-retired-beyond-grace`.
+- `vectors-agent-audit-record` 71 -> 111 cases (tests `draft-gilda-audit-agent-audit-record-00`); **69 of the 70 kept cases carry rewritten records (file IDs moved; re-pin from `ID-MAP.json`)** and `n1-anchor-token-with-no-offline-rule` is removed. No kept case changes its expected result.
+- +1 acs-core, +2 anchor-stream, +2 source-coverage cases; three new packaged corpora (operand provenance 13, evaluation result readings 19, evaluation claim record 60).
+- Signed corpus digest list with RFC 3161 and OpenTimestamps proofs.
+
+**v0.26.1** (tag `v0.26.1`, no release body; PyPI 2026-10-26 08:28 MDT): per the v0.26.0...v0.26.1 compare, adds a "recorded" corpus class (bytes recorded from live runs), a stdlib-only corpus digest, and re-signed digests. After it, `main` gained an unreleased "dispatch-fence and argument-binding corpora" commit (#253, 2026-10-26 07:55 MDT) -- watch for it in the next release.
+
+**Revvel hit (2026-10-26):** approval-binding is the first corpus aimed squarely at the spec-approved gate: an approval that is reused, consumed twice, applied to a mutated payload, smuggled in tool arguments, or used at/after expiry must be refused. If revvel-standards ever writes the deliver:* approval record, run this corpus against its checker. Keep `==0.24.0` for existing corpora; take `==0.26.1` only for approval-binding, after diffing the canonicalization and occurrence-binding cases. A CI step still needs Audrey's OK.
+
+**Honesty (2026-10-26):** CAN-PARTIAL. Verified 2026-10-26 (America/Denver): GitHub releases API body v0.26.0 read, PyPI JSON 0.26.0/0.26.1 upload times, compare API v0.26.0...v0.26.1 (CHANGELOG at the v0.26.1 tag returned 404), commits API for #253. Corpora not run or diffed.

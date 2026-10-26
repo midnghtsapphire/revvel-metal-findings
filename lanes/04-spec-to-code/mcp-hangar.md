@@ -7,6 +7,7 @@
   "lane": "04-spec-to-code",
   "status": "watching",
   "urls": [
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.3",
     "https://github.com/mcp-hangar/mcp-hangar",
     "https://pypi.org/project/mcp-hangar/",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.28.0",
@@ -18,10 +19,10 @@
   "license": "MIT",
   "metal": 2,
   "determinism": 5,
-  "revvel_hit": "Runtime twin of agentgate's lock: tool-schema digest pinning fails the coder's call closed when an upstream rewrites a tool description; `mcp-hangar pin --check` exits 1 in CI; pins bind to the upstream identity (2.28.0), and since 2.30.0 a drifted tool under a `block` pin is withheld from `tools/list` (not just refused on call) and a pinned tool is served with only the pinned fields (name, description, inputSchema, outputSchema), so `title`/`_meta`/`annotations` cannot smuggle instructions or a fake readOnlyHint. Watching because it is a full fleet enforcement plane (Python, RBAC/OIDC, SIEM) and mcp-gate already holds the proxy slot.",
+  "revvel_hit": "Runtime twin of agentgate's lock: tool-schema digest pinning fails the coder's call closed when an upstream rewrites a tool description; `mcp-hangar pin --check` exits 1 in CI; pinned tools are served with only pinned fields. 2.34.2 fixes several silent pin bypasses (unreadable/uppercase/`sha256:`-prefixed digest pins dropped, `new_tools: withhold` letting the first call through, `pin --check` misreporting drift under `mode: group`, `add` dropping pins). If trialled, pin ==2.34.3 (floor >=2.34.2). Watching because it is a full fleet enforcement plane (Python, RBAC/OIDC, SIEM) and mcp-gate already holds the proxy slot.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-12",
-  "updated": "2026-10-21"
+  "updated": "2026-10-26"
 }
 ```
 
@@ -62,3 +63,14 @@
 **Revvel hit (2026-10-22):** none new for single-host revvel; a recorded-but-unverified claim is not a gate. If trialled, `==2.33.0` is safe to take over 2.32.1 (no fix content), but nothing requires it. Still watching.
 
 **Honesty (2026-10-22):** CAN-PARTIAL. Verified 2026-10-22 (America/Denver): GitHub release v2.33.0 body read (API), PyPI JSON 2.33.0.
+
+**Update 2026-10-26 -- 2.34.0 → 2.34.3 (security; re-pin).** PyPI and GitHub releases, all MIT:
+
+- **2.34.0** (2026-10-23 08:35 MDT): `mcp-hangar init` moves the MCP servers Claude Code / Cursor already list behind Hangar (starts each once, pins every tool, `init --undo` restores). Front-door `tools/list` etc. now decide each name on the member a call would actually route to (#2022). `pin` now starts the server with its configured args (pins were previously taken from a differently started process). Security: opentelemetry floor 1.45.1 (CVE-2026-114603); SSRF guard refuses `fc00::/7` and `100.64.0.0/10`.
+- **2.34.1** (2026-10-24 00:16 MDT): `hangar_tools` / `hangar_details` decide through `decide()` and hide withdrawn tools.
+- **2.34.2** (2026-10-25 08:22 MDT), many security fixes, including: digest pins that were unreadable, uppercase or `sha256:`-prefixed were **silently dropped, leaving tools unpinned** (#2039); `new_tools: withhold` let the first call through (#2035); `pin --check` broke on `mode: group` (exit 2, drift misreported) (#2063); `mcp-hangar add` silently replaced servers and dropped pins (#2043); `local_launch` permission now required (a developer role could run code on the host) (#2026); config API leaked secrets (#2030); OIDC issuer tenant binding (#2045); k8s/docker discovery could choose commands or mounts (#2038); `opa.require_both` (#2082); removed role_assignments now revoked (#2053); compose files bind loopback (#2041).
+- **2.34.3** (2026-10-25 12:02 MDT): `why` CLI event-store path fix only.
+
+**Revvel hit (2026-10-26):** the lesson for any revvel pin check: a malformed pin must fail closed, never be skipped, and a "withhold new tools" policy must hold the first call too. If trialled, move the pin from `==2.32.1` to **`==2.34.3`** (do not run anything below 2.34.2). Still watching.
+
+**Honesty (2026-10-26):** CAN-PARTIAL. Verified 2026-10-26 (America/Denver): GitHub releases API bodies v2.34.0–v2.34.3, PyPI JSON upload times. Not trialled.
