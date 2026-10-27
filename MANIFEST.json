@@ -1,8 +1,8 @@
 {
   "repo": "midnghtsapphire/revvel-metal-findings",
   "target": "midnghtsapphire/revvel-standards",
-  "updated": "2026-10-26",
-  "scrape": "2026-10-26",
+  "updated": "2026-10-27",
+  "scrape": "2026-10-27",
   "findings": [
     {
       "id": "issue-15507-closed-as-essay",
@@ -470,6 +470,12 @@
       "id": "bitexact-llm",
       "path": "lanes/01-deterministic-ai/bitexact-llm.md",
       "lane": "01-deterministic-ai",
+      "status": "watching"
+    },
+    {
+      "id": "torve",
+      "path": "lanes/04-spec-to-code/torve.md",
+      "lane": "04-spec-to-code",
       "status": "watching"
     }
   ]

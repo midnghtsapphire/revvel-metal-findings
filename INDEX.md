@@ -1,6 +1,6 @@
 # INDEX
 
-Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-26`.
+Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-27`.
 
 | rank | id | lane | status | why |
 | ---: | --- | --- | --- | --- |
@@ -28,7 +28,7 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-26`.
 | 21 | grammar-sparse-projection | 01-deterministic-ai | active | Triton sparse LM-head from XGrammar masks; exact support; research path. |
 | 22 | pre3 | 01-deterministic-ai | active | LightLLM DPDA mask; ACL Outstanding. |
 | 23 | psc | 05-trials-papers | active | Next mask engine if self-hosting (~700x claims); now peer-reviewed ISSTA 2026. |
-| 24 | glrmask | 01-deterministic-ai | active | Live Rust/Py mask lib, also Node-API (`@glrmask/node`) + C/C++; **0.4.0 published 2026-10-24, breaking again** (Grammar/Module/Constraint/ConstraintState; precompiled Modules with unbound extern slots for tool calls); keep ==0.3.1, move to ==0.4.0 only as a deliberate port; paper claims p99 9.54 µs vs llguidance 379.6 µs (Zenodo preprint). |
+| 24 | glrmask | 01-deterministic-ai | active | Live Rust/Py mask lib, also Node-API (`@glrmask/node`) + C/C++; **0.5.0 published 2026-10-26, breaking again** (commit_forced_tokens, EBNF and markers removed, special tokens via extern, exclusive C/C++ ranges, MSRV 1.89) after 0.4.0's new Grammar/Module/Constraint API; keep ==0.3.1, any port goes straight to ==0.5.0; paper claims p99 9.54 µs vs llguidance 379.6 µs (Zenodo preprint). |
 | 25 | gramr | 01-deterministic-ai | active | Rust JSON-Schema->PDA token masks; property-tested; local schema twin. |
 | 26 | vocab-mask-trie | 01-deterministic-ai | active | Zero-dep TS byte-trie vocab mask for local Node coder. |
 | 27 | static-constraint-decoding | 01-deterministic-ai | active | YouTube STATIC sparse-trie for closed-set deliver:* allowlists. |
@@ -62,7 +62,7 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-26`.
 | 55 | deepinfer | 01-deterministic-ai | watching | DeepSeek production engine (Apache-2.0, 2026-10-20): `DEEPINFER_BATCH_INVARIANT=1` + `DEEPINFER_ENABLE_MTP_VARLEN=0` + fixed `seq_seed` = deterministic sampling, plus regex/JSON-Schema/EBNF outputs; NVIDIA SM100 / Ascend 950, one model -- reference recipe only. |
 | 56 | concordance | 01-deterministic-ai | watching | Deterministic model, nondeterministic pipeline: per-run ids, unordered lists and growing registries in prompts changed results 4 of 4 runs on a 800/800 bit-stable SGLang server; stdlib `compare_runs.py` finds the first diverging stage from captured calls (Apache-2.0, 1 day old). Rule now: nothing per-run in a wr:code prompt. |
 | 57 | vosti | 05-trials-papers | watching | Verus + Z3-verified deterministic inference engine (bitwise logits across batch/chunk/prefill-decode/prefix reuse); borrow its 4-axis logit test to qualify any self-hosted replay; single-GPU research prototype (MIT). |
-| 58 | bitexact-llm | 01-deterministic-ai | watching | Integer (fixed-point) Llama-3.2-1B engine: same int64 logits + tokens across H800/H100/x86/M4 CPU and batch/KV schedules, int8 vLLM 0.32.0 plugin; research prototype, 1B only, ~0.28x vLLM throughput (Apache-2.0, 3 days old). Borrow the record/compare logits-hash report for any replay. |
+| 58 | bitexact-llm | 01-deterministic-ai | watching | Integer (fixed-point) Llama-3.2-1B engine: same int64 logits + tokens across H800/H100/x86/M4 CPU and batch/KV schedules, int8 vLLM 0.32.0 plugin; research prototype, 1B only, ~0.28x vLLM throughput (Apache-2.0). New replay experiment: stock vLLM re-sampled only 13–17% of flagged failures token-for-token vs 100% with BitExact. Borrow the record/compare logits-hash report for any replay. |
 | 59 | determinate | 03-agent-runtimes | watching | State-gated next-action + constrained structured output. |
 | 60 | openhands | 03-agent-runtimes | watching | Fallback coder. Gate on wr:code. |
 | 61 | temporal | 02-formal-replay | watching | Heavy replay. After DST proves the bug. |
@@ -70,15 +70,16 @@ Ranked by bang-for-buck on `revvel-standards` as of scrape `2026-10-26`.
 | 63 | zig-0-16 | 00-near-metal | watching | Guest language, not default. |
 | 64 | qbe | 00-near-metal | watching | Teachable IR only. |
 | 65 | agt-approval-protocol | 04-spec-to-code | watching | Microsoft AGT ADR-0030 (accepted): approval bound to JCS SHA-256 action digest + policy/chain version; consume in the execute transaction; timeout/unauth = deny; LLM advisory only (MIT); #4341 fixed RFC 8785 float formatting (breaking digest), still unreleased. |
-| 66 | agent-evidence-vectors | 02-formal-replay | watching | Known-answer conformance corpora + Action for evidence verifiers: RFC 8785 a2a-jcs canonicalizer vectors, receipt/ledger tamper cases, occurrence-binding; **v0.26.0 adds an approval-binding corpus (23 cases: consumed, reused, payload mutated after approval, asserted in tool args, used at expiry)** = KATs for the spec-approved gate; v0.26.1 adds recorded corpora. Keep ==0.24.0 for existing corpora; ==0.26.1 for approval-binding only after a diff (Apache-2.0); CI step needs owner OK. |
+| 66 | agent-evidence-vectors | 02-formal-replay | watching | Known-answer conformance corpora + Action for evidence verifiers: RFC 8785 a2a-jcs canonicalizer vectors, receipt/ledger tamper cases, occurrence-binding, approval-binding (v0.26.0, 23 cases = KATs for the spec-approved gate); **v0.27.0/v0.28.0 add dispatch-fence, converted-argument-binding, authority-at-dispatch and Proof-of-Control corpora** (approved call = dispatched call). Keep ==0.24.0 for existing corpora; ==0.26.1 for approval-binding (identical at 0.28.0); ==0.28.0 only for dispatch-fence after a diff (Apache-2.0); CI step needs owner OK. |
 | 67 | attested | 04-spec-to-code | watching | Sigstore-signed in-toto test receipt bound to the PR head SHA + fail-closed `attested verify` required check run from the default branch: deliver:* proof tests ran green on that exact SHA (Apache-2.0, npm 0.1.0, 6 days old); workflow + ruleset edit needs owner OK. |
 | 68 | spec-growth-engine | 04-spec-to-code | watching | Model-free drift floor: SPEC.md graph per node, import-graph drift blocks undeclared deps, "verified" only from recorded passing tests voided by the next change; pre-commit hook (Apache-2.0, 2★, no releases). Borrow layer 1 only; layer 2 is a second agent pipeline. |
-| 69 | specguard-lean | 05-trials-papers | watching | Lean 4 certificate that a task description and its tests cannot both hold, before the coder starts (arXiv 2610.09159, Apache-2.0); bounce broken WRs back to spec-approved; model-built formalizations. |
-| 70 | agentmachinist | 04-spec-to-code | watching | Spec→Approve→Execute controller: bot-minted SHA marker after fail-closed write-permission read; label alone = pending; push = stale; lease push on approved SHA (MIT, PyPI 0.20.0); pattern only, own pipeline. |
-| 71 | hashgate | 04-spec-to-code | watching | Claude Code PreToolUse: hash-bound push/merge/deploy; server re-derives live state; agent cannot self-approve (Apache-2.0, PyPI 0.2.0, stale since 2026-07). |
-| 72 | notary-mcp | 04-spec-to-code | watching | MCP propose→canonicalize→approve revision hash→fail-closed execute exact bytes (MIT); demo/hackathon; borrow pattern only. |
-| 73 | mcpgate | 04-spec-to-code | watching | Go deny-by-default MCP proxy, human `ask` queue, audit-failure denies; backup to mcp-gate (MIT). |
-| 74 | mcp-gatehouse | 04-spec-to-code | watching | In-server Python MCP approval tiers; no approver = deny (MIT). |
-| 75 | mcp-hangar | 04-spec-to-code | watching | Fleet MCP enforcement plane; tool-schema digest pin fails closed, `pin --check` exits 1; drifted tools withheld; **2.34.2 fixes silent pin bypasses** (malformed/uppercase/`sha256:` pins dropped, `new_tools: withhold` let first call through, `pin --check` wrong under group mode, `add` dropped pins) plus RBAC/secret leaks -- pin ==2.34.3, never below 2.34.2 (MIT); runtime twin of agentgate. |
-| 76 | swiftgram | 05-trials-papers | watching | ASE 2026 grammar-constrained decoding via lexical forking; no code yet. |
-| 77 | linebreak-gate | 04-spec-to-code | dropped | DROPPED 2026-10-12: repo 404, all PyPI releases yanked, now licensed product. Use spec-guard. |
+| 69 | torve | 04-spec-to-code | watching | Spec-and-gate engine (MIT, alpha, 0.7.0 2026-10-27): `gates run --base` exit-code gates (`scope` globs, `no-test-tampering`, `red-on-base`, `acceptance`) + `gates check` sabotage suite proving each gate can fail; LOCKED/ASSUMED/OPEN decision grades. Borrow the gate layer only; its planner/sandbox loop would be a second pipeline. |
+| 70 | specguard-lean | 05-trials-papers | watching | Lean 4 certificate that a task description and its tests cannot both hold, before the coder starts (arXiv 2610.09159, Apache-2.0); bounce broken WRs back to spec-approved; model-built formalizations. |
+| 71 | agentmachinist | 04-spec-to-code | watching | Spec→Approve→Execute controller: bot-minted SHA marker after fail-closed write-permission read; label alone = pending; push = stale; lease push on approved SHA (MIT, PyPI 0.20.0); pattern only, own pipeline. |
+| 72 | hashgate | 04-spec-to-code | watching | Claude Code PreToolUse: hash-bound push/merge/deploy; server re-derives live state; agent cannot self-approve (Apache-2.0, PyPI 0.2.0, stale since 2026-07). |
+| 73 | notary-mcp | 04-spec-to-code | watching | MCP propose→canonicalize→approve revision hash→fail-closed execute exact bytes (MIT); demo/hackathon; borrow pattern only. |
+| 74 | mcpgate | 04-spec-to-code | watching | Go deny-by-default MCP proxy, human `ask` queue, audit-failure denies; backup to mcp-gate (MIT). |
+| 75 | mcp-gatehouse | 04-spec-to-code | watching | In-server Python MCP approval tiers; no approver = deny (MIT). |
+| 76 | mcp-hangar | 04-spec-to-code | watching | Fleet MCP enforcement plane; tool-schema digest pin fails closed, `pin --check` exits 1; drifted tools withheld; 2.34.2 fixed silent pin bypasses; **2.34.4 binds discovery approvals to the full definition SHA-256 (mismatch → 409) and fixes an HTTP-gateway hang; 2.34.5 makes refused/failed approvals answer approved:false** -- pin ==2.34.5 (==2.34.3 ok), never below 2.34.2 (MIT); runtime twin of agentgate. |
+| 77 | swiftgram | 05-trials-papers | watching | ASE 2026 grammar-constrained decoding via lexical forking; no code yet. |
+| 78 | linebreak-gate | 04-spec-to-code | dropped | DROPPED 2026-10-12: repo 404, all PyPI releases yanked, now licensed product. Use spec-guard. |
