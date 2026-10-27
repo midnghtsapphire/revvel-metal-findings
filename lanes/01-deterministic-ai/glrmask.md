@@ -7,6 +7,7 @@
   "lane": "01-deterministic-ai",
   "status": "active",
   "urls": [
+    "https://github.com/IsaacBreen/glrmask/releases/tag/v0.5.0",
     "https://github.com/IsaacBreen/glrmask/releases/tag/v0.4.0",
     "https://github.com/IsaacBreen/glrmask",
     "https://pypi.org/project/glrmask/",
@@ -19,10 +20,10 @@
   "license": "MIT OR Apache-2.0",
   "metal": 3,
   "determinism": 5,
-  "revvel_hit": "Local / research-engine mask cage for schema-valid wr:code JSON; not a vLLM drop-in. Node-API package (`@glrmask/node`) and C/C++ ABI let a local Node coder next to orchestrate.js mask in-process. 0.4.0 (2026-10-24) is a third breaking API (Grammar / Module / Constraint / ConstraintState; precompiled Modules with unbound extern slots, aimed at tool calls). Keep glrmask ==0.3.1 for existing code; move to ==0.4.0 only as a deliberate port and rebuild saved artifacts",
+  "revvel_hit": "Local / research-engine mask cage for schema-valid wr:code JSON; not a vLLM drop-in. Node-API package (`@glrmask/node`) and C/C++ ABI let a local Node coder next to orchestrate.js mask in-process. 0.4.0 (2026-10-24) is a third breaking API (Grammar / Module / Constraint / ConstraintState; precompiled Modules with unbound extern slots, aimed at tool calls). 0.5.0 (2026-10-26) breaks again (commit_forced_tokens, special tokens via extern, EBNF and markers removed, exclusive C/C++ ranges, MSRV 1.89). Keep glrmask ==0.3.1 for existing code; any port should target ==0.5.0 deliberately (skip 0.4.0) and rebuild saved artifacts",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-09-17",
-  "updated": "2026-10-26"
+  "updated": "2026-10-27"
 }
 ```
 
@@ -63,3 +64,9 @@ This closes the "0.4.0 publication" hunt opened 2026-10-20.
 **Revvel hit (2026-10-26):** a precompiled Module with an unbound slot is the right shape for one wr:code envelope grammar compiled once, with the per-task tool/argument schema bound at call time, instead of recompiling per task (TTFM was the known weak spot). That is a port, not a pin bump: keep `==0.3.1` until a local twin actually uses GLRMask, then move straight to `==0.4.0`, rebuild saved artifacts, and replace end-token config with an explicit EOS after the grammar. Still no vLLM/SGLang backend; still local-twin only.
 
 **Honesty (2026-10-26):** CAN-PARTIAL. Verified 2026-10-26 (America/Denver): GitHub releases API body for v0.4.0, PyPI JSON 0.4.0 upload time, npm registry JSON for `@glrmask/node` 0.4.0. Full CHANGELOG at `v0.4.0` not diffed. Three breaking minors in two weeks.
+
+**Update 2026-10-27 -- 0.5.0 (breaking again).** GitHub release 2026-10-26 11:52 MDT; PyPI 12:12 MDT; npm `@glrmask/node` 0.5.0 12:51 MDT. Breaking: `forced_tokens` replaced by `commit_forced_tokens`; `special_token_ids` and `Vocab::with_special_tokens` removed (grammar text can no longer admit special tokens; declare an `extern` instead); C/C++ ranges become `{start, end}` with exclusive end; markers removed; **EBNF removed as a grammar format** (use Lark or GLRM); vocab length removed (use `mask_len()`); MSRV 1.89; committing empty input to a failed state now returns false.
+
+**Revvel hit (2026-10-27):** unchanged in kind: still the mask cage for schema-valid wr:code JSON, but four API breaks in ~two weeks. Keep **==0.3.1**; if a port is ever done, go straight to **==0.5.0** (skip 0.4.0) and rewrite any EBNF grammars as Lark. Status stays active for the pinned version.
+
+**Honesty (2026-10-27):** CAN-PARTIAL. Verified 2026-10-27 (America/Denver): GitHub releases API body v0.5.0 (release page 200), PyPI JSON 0.5.0, npm registry `@glrmask/node` 0.5.0. Not built.

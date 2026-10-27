@@ -7,6 +7,8 @@
   "lane": "04-spec-to-code",
   "status": "watching",
   "urls": [
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.5",
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.4",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.3",
     "https://github.com/mcp-hangar/mcp-hangar",
     "https://pypi.org/project/mcp-hangar/",
@@ -19,10 +21,10 @@
   "license": "MIT",
   "metal": 2,
   "determinism": 5,
-  "revvel_hit": "Runtime twin of agentgate's lock: tool-schema digest pinning fails the coder's call closed when an upstream rewrites a tool description; `mcp-hangar pin --check` exits 1 in CI; pinned tools are served with only pinned fields. 2.34.2 fixes several silent pin bypasses (unreadable/uppercase/`sha256:`-prefixed digest pins dropped, `new_tools: withhold` letting the first call through, `pin --check` misreporting drift under `mode: group`, `add` dropping pins). If trialled, pin ==2.34.3 (floor >=2.34.2). Watching because it is a full fleet enforcement plane (Python, RBAC/OIDC, SIEM) and mcp-gate already holds the proxy slot.",
+  "revvel_hit": "Runtime twin of agentgate's lock: tool-schema digest pinning fails the coder's call closed when an upstream rewrites a tool description; `mcp-hangar pin --check` exits 1 in CI; pinned tools are served with only pinned fields. 2.34.2 fixes several silent pin bypasses (unreadable/uppercase/`sha256:`-prefixed digest pins dropped, `new_tools: withhold` letting the first call through, `pin --check` misreporting drift under `mode: group`, `add` dropping pins). 2.34.4 lets a discovery approval bind to the definition's full SHA-256 `definition_digest` (a changed definition is refused, 409) and fixes an HTTP-gateway hang; 2.34.5 makes a refused/failed approval answer approved:false and keep the change pending (it used to answer approved:true and drop it). If trialled, pin ==2.34.5 (==2.34.3 still acceptable; floor >=2.34.2). Watching because it is a full fleet enforcement plane (Python, RBAC/OIDC, SIEM) and mcp-gate already holds the proxy slot.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-12",
-  "updated": "2026-10-26"
+  "updated": "2026-10-27"
 }
 ```
 
@@ -74,3 +76,12 @@
 **Revvel hit (2026-10-26):** the lesson for any revvel pin check: a malformed pin must fail closed, never be skipped, and a "withhold new tools" policy must hold the first call too. If trialled, move the pin from `==2.32.1` to **`==2.34.3`** (do not run anything below 2.34.2). Still watching.
 
 **Honesty (2026-10-26):** CAN-PARTIAL. Verified 2026-10-26 (America/Denver): GitHub releases API bodies v2.34.0–v2.34.3, PyPI JSON upload times. Not trialled.
+
+**Update 2026-10-27 -- 2.34.4 / 2.34.5.** MIT, no security label on either release.
+
+- **2.34.4** (GitHub release 2026-10-26 09:46 MDT; PyPI 10:09 MDT): a discovery approval can now be bound to the discovered definition's full SHA-256 `definition_digest`; if the definition changed between review and approval, the approval is refused with `DiscoveredDefinitionChangedError` (HTTP 409), and an unbound approval is logged as `discovery_approval_not_bound` (#2126). A client that disconnects mid-request on legacy `POST /mcp` with `Mcp-Method` / `Mcp-Name` headers no longer hangs the whole HTTP gateway (#2124). Fleet fixes: a deleted server leaves its groups (a group used to restart it outside the fleet, #2117); a discovered server no longer comes back as static after restart (#2110); discovery no longer deletes an operator-defined server (#2115); front-door warm-up/shutdown fixes. `McpServerFailoverSaga` sagas deprecated.
+- **2.34.5** (GitHub release 2026-10-27 04:02 MDT; PyPI 04:25 MDT): a refused or failed approval now answers `approved: false` and keeps the change in quarantine / pending; before, it answered `approved: true` and dropped the entry (#2137, #2142).
+
+**Revvel hit (2026-10-27):** two more patterns for the spec-approved / deliver:* approval check: bind an approval to the full digest of the exact thing reviewed and refuse on mismatch, and make a refused or errored approval report *not approved* while keeping the item pending, never "approved" by default. If trialled, move to **`==2.34.5`**; `==2.34.3` stays acceptable; never below 2.34.2. Still watching.
+
+**Honesty (2026-10-27):** CAN-PARTIAL. Verified 2026-10-27 (America/Denver): GitHub releases API bodies v2.34.4 and v2.34.5, release pages 200, PyPI JSON upload times. Not trialled.

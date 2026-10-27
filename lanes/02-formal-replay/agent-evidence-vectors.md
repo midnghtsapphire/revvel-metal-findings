@@ -7,6 +7,7 @@
   "lane": "02-formal-replay",
   "status": "watching",
   "urls": [
+    "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.28.0",
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.26.0",
     "https://github.com/probityai/agent-evidence-vectors",
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.20.0",
@@ -17,10 +18,10 @@
   "license": "Apache-2.0",
   "metal": 1,
   "determinism": 5,
-  "revvel_hit": "Known-answer test vectors for whatever verifies deliver:* approval/receipt bytes. Since v0.26.0 a dedicated approval-binding corpus (approval-binding/v1, 23 cases: already-consumed, payload-mutated-after-approval, asserted-in-tool-arguments, used-at-expiry, target/tool/phase differs) is the KAT set for the spec-approved / deliver:* approval check. Runs as `uvx agent-evidence-vectors==<pin> --verifier <cmd>`; a CI step on an existing job needs owner OK. Keep ==0.24.0 for the canonicalization/occurrence-binding corpora; use ==0.26.1 only for approval-binding after a diff. Reference only until revvel-standards writes its approval-record schema",
+  "revvel_hit": "Known-answer test vectors for whatever verifies deliver:* approval/receipt bytes. Since v0.26.0 a dedicated approval-binding corpus (approval-binding/v1, 23 cases: already-consumed, payload-mutated-after-approval, asserted-in-tool-arguments, used-at-expiry, target/tool/phase differs) is the KAT set for the spec-approved / deliver:* approval check. Runs as `uvx agent-evidence-vectors==<pin> --verifier <cmd>`; a CI step on an existing job needs owner OK. Keep ==0.24.0 for the canonicalization/occurrence-binding corpora; use ==0.26.1 only for approval-binding after a diff (its corpus files are identical at v0.28.0). v0.27.0/v0.28.0 add dispatch-fence, converted-argument-binding, authority-at-dispatch and proof-of-control corpora (KATs for 'the deliver:* call that ran is the one approved'); use ==0.28.0 only for those, after a diff. Reference only until revvel-standards writes its approval-record schema",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-19",
-  "updated": "2026-10-26"
+  "updated": "2026-10-27"
 }
 ```
 
@@ -58,3 +59,13 @@ Shipped corpora at v0.20.0 include `vectors-a2a-jcs-v01` (the a2a-tck Agent Card
 **Revvel hit (2026-10-26):** approval-binding is the first corpus aimed squarely at the spec-approved gate: an approval that is reused, consumed twice, applied to a mutated payload, smuggled in tool arguments, or used at/after expiry must be refused. If revvel-standards ever writes the deliver:* approval record, run this corpus against its checker. Keep `==0.24.0` for existing corpora; take `==0.26.1` only for approval-binding, after diffing the canonicalization and occurrence-binding cases. A CI step still needs Audrey's OK.
 
 **Honesty (2026-10-26):** CAN-PARTIAL. Verified 2026-10-26 (America/Denver): GitHub releases API body v0.26.0 read, PyPI JSON 0.26.0/0.26.1 upload times, compare API v0.26.0...v0.26.1 (CHANGELOG at the v0.26.1 tag returned 404), commits API for #253. Corpora not run or diffed.
+
+**Update 2026-10-27 -- 0.26.2 → 0.27.0 → 0.28.0.** PyPI: 0.26.2 (2026-10-26 13:46 MDT), 0.27.0 (2026-10-26 23:30 MDT), 0.28.0 (2026-10-27 08:06 MDT); GitHub release only for **v0.28.0** (2026-10-27 08:36 MDT); v0.26.2 and v0.27.0 are tags without release pages.
+
+- **v0.27.0** ships the corpora the 10-26 scrape was hunting: new top-level `vectors-dispatch-fence`, `vectors-converted-argument-binding` and `vectors-poc-evidence` (Proof-of-Control, 171 cases, #259), from #253 (dispatch-fence / argument-binding); package adds `dispatchfence.py` / `authoritydispatch.py`. `vectors-authority-at-dispatch` is present at v0.28.0.
+- **v0.28.0** adds a `vectors-trade-booking` corpus and command, grows agent-audit-record to 141 members (59 accept / 81 reject / 1 indeterminate; adds A21, SQ1–SQ5, R10–R16), binds consumption state with an operation key, and regenerates digests/stamps.
+- The **approval-binding corpus files are byte-identical between v0.26.1 and v0.28.0** (tree compare).
+
+**Revvel hit (2026-10-27):** dispatch-fence / argument-binding are the KATs for the second half of the spec-approved gate: the call that actually dispatches must carry the arguments that were approved, with authority checked at dispatch, not at approval time. Pins: keep **==0.24.0** for existing corpora; **==0.26.1** stays fine for approval-binding; take **==0.28.0** only for the dispatch-fence / argument-binding corpora, after a diff. Any CI step still needs owner OK. Reference only until revvel-standards writes its approval-record schema.
+
+**Honesty (2026-10-27):** CAN-PARTIAL. Verified 2026-10-27 (America/Denver): PyPI JSON upload times, GitHub releases API (v0.28.0 body read), git trees API for v0.26.1 / v0.27.0 / v0.28.0 (top-level corpora and approval-binding blob SHAs compared). Corpora not run.
