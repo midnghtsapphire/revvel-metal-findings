@@ -7,6 +7,7 @@
   "lane": "02-formal-replay",
   "status": "watching",
   "urls": [
+    "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.29.1",
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.28.0",
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.26.0",
     "https://github.com/probityai/agent-evidence-vectors",
@@ -18,10 +19,10 @@
   "license": "Apache-2.0",
   "metal": 1,
   "determinism": 5,
-  "revvel_hit": "Known-answer test vectors for whatever verifies deliver:* approval/receipt bytes. Since v0.26.0 a dedicated approval-binding corpus (approval-binding/v1, 23 cases: already-consumed, payload-mutated-after-approval, asserted-in-tool-arguments, used-at-expiry, target/tool/phase differs) is the KAT set for the spec-approved / deliver:* approval check. Runs as `uvx agent-evidence-vectors==<pin> --verifier <cmd>`; a CI step on an existing job needs owner OK. Keep ==0.24.0 for the canonicalization/occurrence-binding corpora; use ==0.26.1 only for approval-binding after a diff (its corpus files are identical at v0.28.0). v0.27.0/v0.28.0 add dispatch-fence, converted-argument-binding, authority-at-dispatch and proof-of-control corpora (KATs for 'the deliver:* call that ran is the one approved'); use ==0.28.0 only for those, after a diff. Reference only until revvel-standards writes its approval-record schema",
+  "revvel_hit": "Known-answer test vectors for whatever verifies deliver:* approval/receipt bytes. Since v0.26.0 a dedicated approval-binding corpus (approval-binding/v1, 23 cases: already-consumed, payload-mutated-after-approval, asserted-in-tool-arguments, used-at-expiry, target/tool/phase differs) is the KAT set for the spec-approved / deliver:* approval check. Runs as `uvx agent-evidence-vectors==<pin> --verifier <cmd>`; a CI step on an existing job needs owner OK. Keep ==0.24.0 for the canonicalization/occurrence-binding corpora; use ==0.26.1 only for approval-binding after a diff (its corpus files are identical at v0.28.0). v0.27.0/v0.28.0 add dispatch-fence, converted-argument-binding, authority-at-dispatch and proof-of-control corpora (KATs for 'the deliver:* call that ran is the one approved'); use ==0.28.0 only for those, after a diff. v0.29.0/v0.29.1 add delegator-right (26 members) and completion-confirmation (28 members: an allowed operation whose completion cannot be confirmed against the positive control) corpora; the second is the KAT set for 'deliver:* ran but did it actually land'; use ==0.29.1 only for those, after a diff. Reference only until revvel-standards writes its approval-record schema",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-19",
-  "updated": "2026-10-27"
+  "updated": "2026-10-28"
 }
 ```
 
@@ -69,3 +70,13 @@ Shipped corpora at v0.20.0 include `vectors-a2a-jcs-v01` (the a2a-tck Agent Card
 **Revvel hit (2026-10-27):** dispatch-fence / argument-binding are the KATs for the second half of the spec-approved gate: the call that actually dispatches must carry the arguments that were approved, with authority checked at dispatch, not at approval time. Pins: keep **==0.24.0** for existing corpora; **==0.26.1** stays fine for approval-binding; take **==0.28.0** only for the dispatch-fence / argument-binding corpora, after a diff. Any CI step still needs owner OK. Reference only until revvel-standards writes its approval-record schema.
 
 **Honesty (2026-10-27):** CAN-PARTIAL. Verified 2026-10-27 (America/Denver): PyPI JSON upload times, GitHub releases API (v0.28.0 body read), git trees API for v0.26.1 / v0.27.0 / v0.28.0 (top-level corpora and approval-binding blob SHAs compared). Corpora not run.
+
+**Update 2026-10-28 -- 0.29.0 / 0.29.1.** PyPI 0.29.0 (2026-10-27 14:54 MDT, tag only, no release page), 0.29.1 (2026-10-28 03:46 MDT); GitHub release **v0.29.1** (2026-10-28 03:58 MDT).
+
+- New corpus **`vectors-delegator-right`** (26 members): did the delegating principal have the right to pass the operation on, judged separately from whether the derived grant narrowed the parent grant.
+- New corpus **`vectors-completion-confirmation`** (28 members): an allowed operation whose completion cannot be confirmed against the positive control.
+- Both ship in the wheel and sdist; the signed digest list, its RFC 3161 / OpenTimestamps stamps and intake records are regenerated. No existing corpus is described as changed in the release body.
+
+**Revvel hit (2026-10-28):** completion-confirmation is the missing third leg after approval-binding and dispatch-fence: a deliver:* step that was approved and dispatched must still prove it landed (positive control), or it is not "done". Delegator-right matters only if revvel-standards lets one agent hand a WR grant to another. Pins: keep **==0.24.0** for existing corpora, **==0.26.1** for approval-binding, **==0.28.0** for dispatch-fence; take **==0.29.1** only for these two new corpora, after a diff. CI step still needs owner OK.
+
+**Honesty (2026-10-28):** CAN-PARTIAL. Verified 2026-10-28 (America/Denver): PyPI JSON upload times for 0.29.0 / 0.29.1, GitHub releases API (v0.29.1 body read), tags API. Corpora not run; did not diff the existing corpora between 0.28.0 and 0.29.1.
