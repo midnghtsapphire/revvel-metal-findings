@@ -7,6 +7,8 @@
   "lane": "04-spec-to-code",
   "status": "watching",
   "urls": [
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.6",
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.7",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.5",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.4",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.3",
@@ -24,7 +26,7 @@
   "revvel_hit": "Runtime twin of agentgate's lock: tool-schema digest pinning fails the coder's call closed when an upstream rewrites a tool description; `mcp-hangar pin --check` exits 1 in CI; pinned tools are served with only pinned fields. 2.34.2 fixes several silent pin bypasses (unreadable/uppercase/`sha256:`-prefixed digest pins dropped, `new_tools: withhold` letting the first call through, `pin --check` misreporting drift under `mode: group`, `add` dropping pins). 2.34.4 lets a discovery approval bind to the definition's full SHA-256 `definition_digest` (a changed definition is refused, 409) and fixes an HTTP-gateway hang; 2.34.5 makes a refused/failed approval answer approved:false and keep the change pending (it used to answer approved:true and drop it). If trialled, pin ==2.34.5 (==2.34.3 still acceptable; floor >=2.34.2). Watching because it is a full fleet enforcement plane (Python, RBAC/OIDC, SIEM) and mcp-gate already holds the proxy slot.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-12",
-  "updated": "2026-10-27"
+  "updated": "2026-10-29"
 }
 ```
 
@@ -85,3 +87,13 @@
 **Revvel hit (2026-10-27):** two more patterns for the spec-approved / deliver:* approval check: bind an approval to the full digest of the exact thing reviewed and refuse on mismatch, and make a refused or errored approval report *not approved* while keeping the item pending, never "approved" by default. If trialled, move to **`==2.34.5`**; `==2.34.3` stays acceptable; never below 2.34.2. Still watching.
 
 **Honesty (2026-10-27):** CAN-PARTIAL. Verified 2026-10-27 (America/Denver): GitHub releases API bodies v2.34.4 and v2.34.5, release pages 200, PyPI JSON upload times. Not trialled.
+
+**Update 2026-10-29 -- 2.34.6 (not on PyPI) and 2.34.7 (security floor for the `full` extra).**
+
+- **v2.34.6** (GitHub release 2026-10-29 01:10 MDT) was **never published to PyPI**: its release job failed on a pytest 9.2 incompatibility (#2146). Its fix: refusing a change to a discovered server that was since deleted no longer leaves anything tracked (#2144, closes #2143).
+- **v2.34.7** (GitHub release 2026-10-29 02:00 MDT; PyPI 02:23 MDT) carries the 2.34.6 changes, caps pytest below 9.2 in the dev extra (#2147), and is a **security fix for the `full` extra**: it now requires `fpdf2>=2.8.8` (CVE-2026-114609, CVE-2026-114610; #2150). The old floor (`>=2.8.0`) let an install keep a vulnerable fpdf2; the project lockfile already resolved 2.8.9.
+- Dependency check: 2.34.7 pins `mcp==2.3.0` / `mcp-types==2.3.0`, which is above the MCP Python SDK fix line (2.2.0) for the three advisories published 2026-10-27 (GHSA-w4fh-qvv9-3v23, GHSA-5h93-6whr-6q8j, GHSA-rwrf-2pqf-9j8j).
+
+**Revvel hit (2026-10-29):** no new pattern; this is a pin bump. If trialled, move to **`==2.34.7`** (required if the `full` extra is used, otherwise make sure `fpdf2>=2.8.8`); `==2.34.5` stays acceptable without `full`; never below 2.34.2; there is no 2.34.6 on PyPI, so don't pin it.
+
+**Honesty (2026-10-29):** CAN-PARTIAL. Verified 2026-10-29 (America/Denver): GitHub releases API bodies v2.34.6 and v2.34.7, release pages 200, PyPI JSON (2.34.7 upload time, `requires_dist`). CVE details not read beyond the release note. Not trialled.

@@ -7,6 +7,8 @@
   "lane": "02-formal-replay",
   "status": "watching",
   "urls": [
+    "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.29.2",
+    "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.29.3",
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.29.1",
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.28.0",
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.26.0",
@@ -22,7 +24,7 @@
   "revvel_hit": "Known-answer test vectors for whatever verifies deliver:* approval/receipt bytes. Since v0.26.0 a dedicated approval-binding corpus (approval-binding/v1, 23 cases: already-consumed, payload-mutated-after-approval, asserted-in-tool-arguments, used-at-expiry, target/tool/phase differs) is the KAT set for the spec-approved / deliver:* approval check. Runs as `uvx agent-evidence-vectors==<pin> --verifier <cmd>`; a CI step on an existing job needs owner OK. Keep ==0.24.0 for the canonicalization/occurrence-binding corpora; use ==0.26.1 only for approval-binding after a diff (its corpus files are identical at v0.28.0). v0.27.0/v0.28.0 add dispatch-fence, converted-argument-binding, authority-at-dispatch and proof-of-control corpora (KATs for 'the deliver:* call that ran is the one approved'); use ==0.28.0 only for those, after a diff. v0.29.0/v0.29.1 add delegator-right (26 members) and completion-confirmation (28 members: an allowed operation whose completion cannot be confirmed against the positive control) corpora; the second is the KAT set for 'deliver:* ran but did it actually land'; use ==0.29.1 only for those, after a diff. Reference only until revvel-standards writes its approval-record schema",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-19",
-  "updated": "2026-10-28"
+  "updated": "2026-10-29"
 }
 ```
 
@@ -80,3 +82,12 @@ Shipped corpora at v0.20.0 include `vectors-a2a-jcs-v01` (the a2a-tck Agent Card
 **Revvel hit (2026-10-28):** completion-confirmation is the missing third leg after approval-binding and dispatch-fence: a deliver:* step that was approved and dispatched must still prove it landed (positive control), or it is not "done". Delegator-right matters only if revvel-standards lets one agent hand a WR grant to another. Pins: keep **==0.24.0** for existing corpora, **==0.26.1** for approval-binding, **==0.28.0** for dispatch-fence; take **==0.29.1** only for these two new corpora, after a diff. CI step still needs owner OK.
 
 **Honesty (2026-10-28):** CAN-PARTIAL. Verified 2026-10-28 (America/Denver): PyPI JSON upload times for 0.29.0 / 0.29.1, GitHub releases API (v0.29.1 body read), tags API. Corpora not run; did not diff the existing corpora between 0.28.0 and 0.29.1.
+
+**Update 2026-10-29 -- 0.29.1 artifact was incomplete; 0.29.2 fixes it and adds a wheel gate; 0.29.3 adds a corpus.**
+
+- **v0.29.2** (GitHub release 2026-10-28 10:56 MDT): the 0.29.1 wheel and sdist were **missing the `vectors-ietf-agent-record-drafts` corpus** even though it is named in the signed digest list. 0.29.2 ships it, and a new `scripts/wheel-corpora-gate.py` (#288) checks the built wheel and sdist against the signed corpus list by file and SHA-256, failing CI and the release job on any gap. The 0.29.2 wheel replays all 288 vectors.
+- **v0.29.3** (PyPI 2026-10-28 16:29 MDT; GitHub release 16:32 MDT): new building-control decision-trails corpus (#289; 42 cases, runner `agent-evidence-vectors-ot-federation`, `--emit-fixtures`). Signed digest list re-cut.
+
+**Revvel hit (2026-10-29):** the wheel-vs-signed-list gate is the borrowable part: any deliver:* artifact should be checked against the signed manifest of what it claims to contain (file + SHA-256) before release, not only the manifest signature. The new OT corpus is out of scope for revvel-standards. Pins: **do not use ==0.29.1** (incomplete artifact); take **==0.29.2** (or ==0.29.3) for the completion-confirmation and delegator-right corpora, after a diff. Others unchanged: ==0.24.0 existing corpora, ==0.26.1 approval-binding, ==0.28.0 dispatch-fence. CI step still needs owner OK.
+
+**Honesty (2026-10-29):** CAN-PARTIAL. Verified 2026-10-29 (America/Denver): GitHub releases API bodies v0.29.2 and v0.29.3, release pages 200, PyPI JSON upload time for 0.29.3. Corpora not run; the 288-vector replay figure is the release note's.

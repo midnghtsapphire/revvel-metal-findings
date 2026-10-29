@@ -7,6 +7,8 @@
   "lane": "02-formal-replay",
   "status": "active",
   "urls": [
+    "https://docs.github.com/en/actions/how-tos/secure-your-work/lock-workflow-dependencies",
+    "https://github.blog/changelog/2026-10-28-github-actions-workflow-lockfiles-are-generally-available/",
     "https://github.com/github/gh-actions-lock/releases/tag/v0.4.0",
     "https://github.com/github/gh-actions-lock",
     "https://github.com/github/gh-actions-lock/releases/tag/v0.2.0",
@@ -20,7 +22,7 @@
   "revvel_hit": "Pin every `uses:` in the existing wr:code / deliver:* workflows (openrouter-coder.yml, revvel-engine-spine.yml, agent-fallback.yml, trusted-bot-auto-approve.yml) to reviewed commits via `.github/workflows/actions.lock`; GitHub then runs the locked commits even if a tag or branch moves. `gh actions-lock --verify` as a step on an existing job fails the run on drift. Same workflows, no second pipeline.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-16",
-  "updated": "2026-10-26"
+  "updated": "2026-10-29"
 }
 ```
 
@@ -58,3 +60,12 @@ v0.2.0 (2026-10-12 13:31 MDT): lockfile schema `v0.0.3`, stricter `--verify`, `-
 **Revvel action (2026-10-26):** if Audrey says yes to adoption, `gh extension install github/gh-actions-lock --pin v0.4.0` (v0.3.0 is equally fine); use `--verify`, not `--verify-local`, as the gate. Still needs her OK; only `github/gh-actions-lock` is legitimate.
 
 **Honesty (2026-10-26):** verified 2026-10-26 (America/Denver) via the GitHub releases API (v0.4.0 body read in full). Not trialled.
+
+**Update 2026-10-29 -- workflow lockfiles are GA on the platform (extension unchanged).**
+
+- GitHub changelog 2026-10-28: workflow dependency lockfiles are **generally available** on Free, Team, Enterprise Cloud and Enterprise Cloud with data residency. Same `gh actions-lock` flow. GA adds: **Dependabot** regenerates the matching `actions.lock` entry in the same PR when it bumps an action in an onboarded workflow (no extra config), and the **Require lockfile** policy (repo / org / enterprise admins) is GA.
+- The extension itself is still **v0.4.0** and its README still carries the pre-1.0 "public preview" warning, so the CLI flags and lockfile format can still change even though the runner feature is GA.
+
+**Revvel action (2026-10-29):** the "preview" objection to adoption is mostly gone. If Audrey says yes: `gh extension install github/gh-actions-lock --pin v0.4.0`, onboard the existing wr:code / deliver:* workflows, add `--verify` to an existing job, and then turn on **Require lockfile** for revvel-standards so an un-onboarded workflow can't run. Dependabot keeps pins and lockfile in one PR. Still needs her OK; only `github/gh-actions-lock` is legitimate.
+
+**Honesty (2026-10-29):** CAN-PARTIAL. Verified 2026-10-29 (America/Denver): GitHub changelog page (200, read in full), docs page 200, releases API (v0.4.0 still latest), README read. Not trialled.
