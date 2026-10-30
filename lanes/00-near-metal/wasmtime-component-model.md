@@ -17,7 +17,10 @@
     "https://github.com/WebAssembly/WASI/releases/tag/v0.3.2",
     "https://github.com/bytecodealliance/wasmtime/releases/tag/v49.0.4",
     "https://github.com/bytecodealliance/wasmtime/security/advisories/GHSA-mghf-wjfp-p5xm",
-    "https://github.com/bytecodealliance/wasmtime/releases/tag/v50.0.0"
+    "https://github.com/bytecodealliance/wasmtime/releases/tag/v50.0.0",
+    "https://github.com/bytecodealliance/wasmtime/releases/tag/v50.0.1",
+    "https://github.com/bytecodealliance/wasmtime/security/advisories/GHSA-6fr9-xmw9-5352",
+    "https://github.com/bytecodealliance/wasmtime/security/advisories/GHSA-hmmr-87qq-258j"
   ],
   "license": "Apache-2.0 (Wasmtime)",
   "metal": 5,
@@ -25,7 +28,7 @@
   "revvel_hit": "engines/CONTRACT.md + a WIT world next to schemas/state.schema.json",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-08-22",
-  "updated": "2026-10-21"
+  "updated": "2026-10-30"
 }
 ```
 
@@ -50,3 +53,7 @@ Extism is the easier PDK path (Go/JS/C). Several 2026 migrations (e.g. unicity-a
 **Wasmtime 50.0.0 final (2026-10-21):** **v50.0.0** published 2026-10-20 10:22 MDT (crates.io 10:16 MDT; Cranelift 0.137.0 alongside). crates.io max stable is now 50.0.0. Notable for revvel: the `wasmtime` CLI **no longer enables WASIp0 (`wasi_unstable`) by default** (`-Spreview0` to get it back); epoch-deadline and call-hook callbacks now get a `StoreHookState` instead of `StoreContextMut` (embedder API break); Winch no longer enables GC types, exceptions or tail calls by default; fuel is now saved/restored correctly around `call_ref` and exception catches; the `check-write` budget is enforced in `wasi:http` outgoing bodies; JIT code is made coherent with the instruction cache correctly on AArch64; `Engine::release_idle_pool_memory`; `wasmtime serve` can take systemd socket units and exit when idle. The 50.0.0 notes list no GHSA ids; 50.0.0 is outside the affected ranges of GHSA-mghf-wjfp-p5xm (affected `<36.0.19`, `>=37 <48.0.7`, `>=49 <49.0.4`). **Floor now: >= 50.0.0, or >= 49.0.4 / 48.0.7 / 36.0.19 on older lines.** Trial target unchanged (`wasm32-wasip2`); the WASIp0 default change does not touch it.
 
 **Honesty (2026-10-21):** verified 2026-10-21 (America/Denver) via the GitHub releases API (v50.0.0 body read: Added / Changed / Fixed), the security-advisories API for GHSA-mghf-wjfp-p5xm (affected and patched ranges), and the crates.io API (`wasmtime` 50.0.0, `cranelift-codegen` 0.137.0). Not run on the box.
+
+**Security floor raised (2026-10-30):** Wasmtime **v50.0.1**, **v49.0.5** and **v48.0.8** (2026-10-29), with **36.0.20** on crates.io, fix five advisories published 2026-10-29 ~13:06 MDT. **Medium:** wasi-sockets UDP could connect/send to an address that was only allowed for receiving (GHSA-hmmr-87qq-258j; `wasmtime-wasi`, 48-50); unchecked memory use when borrowed resources move between components (GHSA-6fr9-xmw9-5352; affected < 36.0.20, 37-48.0.7, 49.0.0-49.0.4, 50.0.0). **Low:** cross-engine type confusion (GHSA-qw58-7h65-crq2), a panic on i31/nullref typed functions (GHSA-3982-jqvv-277m), wasi-http p2 content-length (GHSA-h4wp-g4x3-7398). **New floor: >= 50.0.1, or >= 49.0.5 / 48.0.8 / 36.0.20.** 50.0.0 and 49.0.4 are no longer enough. The component-to-component one matters for any host that links more than one component; the socket one only if a helper gets a network grant. Trial target unchanged (`wasm32-wasip2`). Downstream: **wassette** v0.8.1 (48.0.6) and **act** 0.14.6 (49.0.2) are further below; **extism** 1.41.0 (`wasmtime ^49`) must lock >= 49.0.5.
+
+**Honesty (2026-10-30):** verified 2026-10-30 (America/Denver) via the GitHub releases API (v50.0.1 / v49.0.5 / v48.0.8), the security-advisories API for all five GHSA ids (severity, affected and patched ranges), release and advisory pages 200, crates.io API (36.0.20 listed). Not run on the box.

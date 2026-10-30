@@ -19,7 +19,7 @@
   "revvel_hit": "wasmtime-wit trial host, but floor missed again: v0.8.1 (2026-10-18) pins Wasmtime 48.0.6, and the 2026-10-19 Wasmtime releases moved the floor to >= 48.0.7 / 49.0.4 (critical aarch64 sandbox escape + wasi-http fixes). Hold the trial until a wassette release pins >= 48.0.7 or >= 49.0.4. When unblocked: one coder/research helper (e.g. the WR schema checker) as a wasm32-wasip2 Component behind MCP with deny-by-default per-component storage/network/env grants; v0.8.1 refuses publisher-bundled OCI policies on automated/agent load paths and gives a component with no policy no env or secrets. Host stays orchestrate.js; not a second pipeline. Still self-described early development, so trial only",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-12",
-  "updated": "2026-10-20"
+  "updated": "2026-10-30"
 }
 ```
 
@@ -42,3 +42,5 @@ Status change: **watching → active**, ranked just ahead of **act** (act's 0.14
 **Update 2026-10-20 -- floor missed again:** Wasmtime **48.0.7 / 49.0.4** shipped 2026-10-19 ~13:20 MDT with one critical advisory (aarch64 Cranelift `br_table` miscompile → sandbox escape, GHSA-mghf-wjfp-p5xm) and four wasi-http / component-model ones (see **wasmtime-wit**). Wassette's latest release is still **v0.8.1** on **48.0.6**, so it is below the new floor. `main` (tip `81dcf122b6`, 2026-10-19 19:14 MDT) still pins `wasmtime` / `wasmtime-wasi` / `wasmtime-wasi-http` / `wasmtime-wasi-config` **48.0.6**; the latest pushes are dependabot bumps (sha2, serde_json, wasmparser). Dependabot **PR #895** (opened 2026-10-19 19:13 MDT, open) bumps the wasmtime group 48.0.6 → **49.0.3**, which is itself below the new 49.0.4 floor (it replaced #800, closed the same minute). Status stays **active** (same convention as **act**: right design, one Wasmtime patch away), rank unchanged, but **do not run the trial on v0.8.1**: wait for a release pinning >= 48.0.7 / 49.0.4, or build from source after `cargo update -p wasmtime --precise 48.0.7` (and the wasi crates). The critical issue is aarch64-only; the wasi-http ones matter only if the helper gets a network grant.
 
 **Honesty (2026-10-20):** verified 2026-10-20 (America/Denver): GitHub releases API (latest still v0.8.1), raw `Cargo.toml` on `main`, commits API, PR #895 page 200 and body read (48.0.6 → 49.0.3). Not run on the box.
+
+**Update 2026-10-30 -- floor moved again:** Wasmtime 50.0.1 / 49.0.5 / 48.0.8 (2026-10-29) fix five more advisories (see **wasmtime-wit**), so the floor is now **>= 48.0.8 / 49.0.5 / 50.0.1**. Wassette's latest release is still **v0.8.1** (Wasmtime 48.0.6), two patches behind on its line. Trial stays on hold: wait for a release pinning >= 48.0.8 / 49.0.5, or build from source after `cargo update -p wasmtime --precise 48.0.8` (and the wasi crates). Verified 2026-10-30 (America/Denver) via GitHub releases API. `main` not re-read.

@@ -19,7 +19,7 @@
   "revvel_hit": "wasmtime-wit trial host (one Wasmtime patch behind the floor as of 2026-10-15): run a coder/research helper as a wasm32-wasip2 Component served over MCP stdio (`act run --mcp`) with undeclared = denied, declared = waits for an explicit `--allow`, headless = deny, and an always-on audit trail; Cargo.lock still Wasmtime 49.0.2, below the new >= 49.0.3 floor (2026-10-14 advisories incl. high fs sandbox escape); wait for a re-pinned release or rebuild with `cargo update -p wasmtime` before the trial. Still closer than wassette. Host stays orchestrate.js; not a second pipeline",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-13",
-  "updated": "2026-10-20"
+  "updated": "2026-10-30"
 }
 ```
 
@@ -36,3 +36,5 @@ Current release **0.14.6** (GitHub release 2026-10-07 16:01 MDT; tag `0.14.6` â†
 **Update 2026-10-19:** no new ACT release: GitHub releases latest still **0.14.6**; PyPI `act-cli` and npm `@actcore/act` still 0.14.6; `Cargo.lock` on `main` still resolves **`wasmtime` 49.0.2** (below the >= 49.0.3 floor); last commit on `main` is still the 0.14.6 release (2026-10-07). Open PRs are dependabot only (hclient-rt-tokio, hclient-dns, wasmparser, bytesize, oci-spec), none for Wasmtime. Meanwhile **wassette v0.8.1** (2026-10-18) shipped Wasmtime 48.0.6, so wassette moves ahead of ACT in INDEX as the trial host that meets the floor today. ACT stays active (its grant model and audit trail are still the better fit once re-pinned); do not trial 0.14.6 as shipped. Verified 2026-10-19 (America/Denver) via GitHub releases/commits/pulls API, raw `Cargo.lock` on `main`, PyPI + npm registry JSON.
 
 **Update 2026-10-20:** still no ACT release (GitHub, PyPI `act-cli`, npm `@actcore/act`, crates.io all **0.14.6**); `Cargo.lock` on `main` still resolves **`wasmtime` 49.0.2**. The floor moved again on 2026-10-19 to **>= 49.0.4** (Wasmtime 49.0.4 / 48.0.7: critical aarch64 Cranelift sandbox escape GHSA-mghf-wjfp-p5xm plus wasi-http fixes; see **wasmtime-wit**), so ACT is now two patch releases behind. No Wasmtime PR open (latest Wasmtime bump PR in the repo is from 2026-08). Status unchanged: active, do not trial 0.14.6; re-pin with `cargo update -p wasmtime --precise 49.0.4` or wait for a release. Verified 2026-10-20 (America/Denver) via registry JSON (PyPI, npm, crates.io API), GitHub releases API, raw `Cargo.lock` on `main`, PR search.
+
+**Update 2026-10-30:** still no ACT release (crates.io `act-cli` **0.14.6**). The Wasmtime floor rose again on 2026-10-29 to **>= 49.0.5** on the 49 line (five advisories; see **wasmtime-wit**), so ACT's 49.0.2 lock is now three patch releases behind. Status unchanged: active, do not trial 0.14.6; re-pin with `cargo update -p wasmtime --precise 49.0.5` or wait for a release. Verified 2026-10-30 (America/Denver) via crates.io API. `Cargo.lock` on `main` not re-read.
