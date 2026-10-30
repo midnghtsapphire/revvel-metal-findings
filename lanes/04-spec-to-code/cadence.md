@@ -10,7 +10,8 @@
     "https://github.com/thomas-powers-jr/cadence",
     "https://www.npmjs.com/package/@thomas-powers-jr/cadence-core",
     "https://github.com/thomas-powers-jr/cadence/releases/tag/v1.69.1",
-    "https://github.com/thomas-powers-jr/cadence/releases/tag/v1.70.0"
+    "https://github.com/thomas-powers-jr/cadence/releases/tag/v1.70.0",
+    "https://github.com/thomas-powers-jr/cadence/releases/tag/v1.72.0"
   ],
   "license": "MIT",
   "metal": 1,
@@ -18,7 +19,7 @@
   "revvel_hit": "deliver:* — Node/TS settle gate: declared acceptance criteria are re-derived from real evidence (task state, test results, diffs) and `cadence settle run --auto` exits 1 instead of accepting the agent's self-report of done; same engine over CLI, Claude Code/Codex hooks, and `cadence mcp serve`",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-06",
-  "updated": "2026-10-12"
+  "updated": "2026-10-30"
 }
 ```
 
@@ -31,3 +32,5 @@
 **Update 2026-10-12:** npm `@thomas-powers-jr/cadence-core` is now **1.70.0** (published 2026-10-10 16:49 MDT). **Pin floor 1.69.1** (release 2026-10-08 18:48 MDT): security patch moving cadence-core's production `@modelcontextprotocol/sdk` dependency from `^1.29.0` to `^1.31.0` for **GHSA-6qxp-vccf-f47h** (high, OAuth client token leak in SDK `>=1.12.0 <1.31.0`; cadence only uses stdio, but the vulnerable client shipped in every install) and pinning the lockfile past `GHSA-jqcg-44mw-7w3h` (critical, `proxy-addr` IP spoofing via the SDK's express). An existing consumer lockfile keeps the old `proxy-addr`, so refresh it, not just the cadence version. 1.70.0 adds read-only `cadence assurance report` (rolls `.cadence/phases/**/*-SUMMARY.json` into ungradable / gradable-ungraded / graded counts, per-gate ran/skipped/not-recorded, bypass counts; `--json` with `schemaVersion`) — usable as a deliver:* evidence artifact. Repo tip `998356d4fff75e4f6ca92d02a8d959c98af63a1c` (2026-10-10); MIT, not archived. Verified 2026-10-12 via npm registry + GitHub releases.
 
 **Update 2026-10-23:** npm `@thomas-powers-jr/cadence-core` **1.71.0** (2026-10-22 09:23 MDT; 1.70.0 on 2026-10-10). 1.70.0 added read-only `cadence assurance report`, which rolls every settled slice's `SUMMARY.json` into one view of how strongly it was verified (un-gradable, gradable-but-ungraded, graded, refused, unreadable). 1.71.0: when `--allow-code-review-failure`, `--allow-security-audit-failure` or `--force` waves through code-review HIGH or security-audit CRITICAL findings, `SUMMARY.json.gateBypasses` now records an `error` entry per gate, so the slice can never grade `strong`; before, such a bypass left no trace and could grade `strong`. For revvel: if cadence is trialled on deliver:*, treat any `gateBypasses` entry as "not done". Floor stays >= 1.69.1. Verified 2026-10-23 via npm registry and GitHub release notes.
+
+**Update 2026-10-30:** **v1.72.0** (GitHub release 2026-10-29 12:04 MDT; npm 12:09 MDT). Settle now records a checkpoint Stop-gate **force-release** as a `gateBypass`, so the slice's assurance is capped at `mixed` (#581); `handoff` no longer deletes **git-tracked** SESSION docs (#579, a data-loss fix); `doctor` / `onboard` no longer report a missing host-cli verifier as ready (#583). For revvel: same rule as 1.71.0 (any `gateBypasses` entry = not done), now also for forced Stop-gate releases. **Floor raised to >= 1.72.0** if trialled (handoff data-loss fix). Verified 2026-10-30 (America/Denver) via GitHub releases API body and npm registry JSON.

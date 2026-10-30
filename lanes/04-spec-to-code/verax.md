@@ -13,15 +13,16 @@
     "https://github.com/verax-ai/verax/releases/tag/v0.5.0",
     "https://github.com/verax-ai/verax/releases/tag/v0.5.1",
     "https://github.com/verax-ai/verax/releases/tag/v0.6.0",
-    "https://github.com/verax-ai/verax/releases/tag/v0.6.1"
+    "https://github.com/verax-ai/verax/releases/tag/v0.6.1",
+    "https://github.com/verax-ai/verax/releases/tag/v0.8.0"
   ],
   "license": "Apache-2.0",
   "metal": 3,
   "determinism": 5,
-  "revvel_hit": "wr:code / deliver:* — MCP policy gate + signed COSE decision records + effect reconciliation before tool runs; operator approve for held calls. Pin >= 0.6.1: 0.6.0 escapes ledger/approval text shown to the operator (terminal-escape and invisible-character spoofing), adds signed pinned tool definitions for downstream children; 0.6.1 stops reconcile/ledger readers trusting amounts from the unsigned approval queue. 0.5.0's fail-closed policy parsing still applies",
+  "revvel_hit": "wr:code / deliver:* -- MCP policy gate + signed COSE decision records + effect reconciliation before tool runs; operator approve for held calls. Pin >= 0.8.0: held calls are bound to the hash of the forwarded arguments (approve/retry/ledger/reconcile compare it; unbound rows refused; spend cap counts what was sent). 0.7.0 signed/hash-chained memory, 0.6.1 / 0.6.0 / 0.5.0 fixes still apply",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-02",
-  "updated": "2026-10-19"
+  "updated": "2026-10-30"
 }
 ```
 
@@ -45,3 +46,7 @@
 **Update 2026-10-23:** npm `@verax-ai/body` **0.7.0** (npm 2026-10-23 07:19 MDT; GitHub release v0.7.0 07:25 MDT). **Security:** in 0.6.1 `memory.get` served `tenants/<tenant>/memory/<id>.json` exactly as stored and nothing checked the bytes, so an attacker who could write the state directory (no key needed) could edit, forge, roll back or swap memory records and the signed get-record agreed with the edited file (#234). Now each memory revision is an immutable file and every commit is a signed, hash-chained line in `memory-commits.jsonl`; a damaged chain fails closed, and `memory.get` refuses with `memory-integrity-mismatch` / `-missing` / `-unattested` / `-history-unavailable` (no body returned). A signed memory head goes to the keys dir or `VERAX_MEMORY_HEAD_DIR`; a whole-state-dir rollback is only caught if keys or head live outside the state dir (`verax doctor` warns). **Added:** on an integrity failure the body halts new gateway tool calls and can send a signed alarm to `VERAX_ALARM_WEBHOOK_URL` (#238); release notes admit someone with state-dir write can delete the halt switch and alarm outbox. `npm run sbom` writes a CycloneDX SBOM.
 
 **Revvel action:** pin **>= 0.7.0** for any trial that uses verax memory; keep the keys directory (or `VERAX_MEMORY_HEAD_DIR`) outside the state directory. Policy-only trials are unaffected, but there's no reason to start below 0.7.0. Verified 2026-10-23 via npm registry and GitHub release notes; repo still Apache-2.0.
+
+**Update 2026-10-30 -- 0.8.0 (security):** GitHub release 2026-10-29 12:20 MDT; npm `@verax-ai/body` 0.8.0 12:15 MDT. **#251:** a held call is now bound to the hash of the arguments that will actually be forwarded; approve, retry, the ledger API and reconcile all compare against that hash. `verax approve` refuses an unbound row (`approve-row-unbound`), the operator door refuses it (`row-unbound`), and the spend cap counts the amount actually sent. Before this, what the operator approved and what ran could differ. Also: data/result classes and media handling (#247, #249; masker `@conarium-ai/mask` pinned 0.3.5; images and audio reach the agent as blocks) and dependency advisories cleared (body-parser 2.4.0, fast-uri 3.1.9, zod 4.6.7; #243).
+
+**Revvel action:** pin **>= 0.8.0** (==0.8.0) for any trial that uses held calls / operator approval; this is the same approved-call = dispatched-call rule the **agent-evidence-vectors** approval-binding corpus tests. The 0.7.0 advice (keys outside the state dir) still applies. Verified 2026-10-30 (America/Denver) via GitHub releases API body, release and PR #251 pages 200, npm registry JSON (0.8.0 time); repo still Apache-2.0.

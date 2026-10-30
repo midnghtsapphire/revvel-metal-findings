@@ -10,14 +10,16 @@
     "https://github.com/Praxso/attested",
     "https://github.com/Praxso/attested/blob/main/docs/ruleset.md",
     "https://github.com/Praxso/attested/blob/main/action.yml",
-    "https://www.npmjs.com/package/@praxso/attested"
+    "https://www.npmjs.com/package/@praxso/attested",
+    "https://github.com/Praxso/attested/pull/44"
   ],
   "license": "Apache-2.0",
   "metal": 1,
   "determinism": 5,
   "revvel_hit": "deliver:* merge side, evidence half: the coder's PR must carry a Sigstore-signed (actions/attest) in-toto receipt of the repo's own test run bound to the PR head SHA, checked by a required `attested verify` status that runs from the default branch and never runs PR code; fails closed on no receipt / wrong signer workflow / SHA mismatch / FAILED. Sits beside agent-approval-check (human approvals) on the same required-checks list. Pattern first; adopting it is a workflow edit (point 5 job + ruleset), so it needs owner OK. No second pipeline",
   "honesty": "CAN-PARTIAL",
-  "acquired": "2026-10-20"
+  "acquired": "2026-10-20",
+  "updated": "2026-10-30"
 }
 ```
 
@@ -30,3 +32,5 @@ The **`attested verify`** composite action (`action.yml`) fails closed, one line
 **Revvel hit:** revvel-standards' deliver:* merge side today has a human-approval gate candidate (**agent-approval-check**) but nothing that proves the coder's tests actually ran green on the exact head SHA; a green check from a job the PR itself can edit is weak. attested's split (tests run with a read-only token; signing and verification run from the base branch; receipt bound to head SHA by a Sigstore certificate naming the run) is the evidence half of that gate. It reuses GitHub's own attestation store, so no hosted service. Insertion: one `attested run` + `sign` + `verify` on an existing job in the coder/spine workflow (point 5) plus a ruleset entry for `attested verify` -- an edit to revvel-standards workflows and rulesets, so it needs Audrey's OK. revvel-standards is a user-owned repo, so only the weaker repository-ruleset form applies. Pairs with **gh-actions-lock** (pin `Praxso/attested@<full sha>` and `actions/attest`) and with **agent-evidence-vectors** (receipt-verifier conformance) if ever adopted.
 
 **Honesty:** CAN-PARTIAL, watching. Verified 2026-10-20 (America/Denver): GitHub repo API (Apache-2.0, not a fork, not archived), README, `docs/ruleset.md` and LICENSE read raw at `main`; repo, `docs/ruleset.md`, `action.yml`, `SECURITY.md` pages 200; npm registry JSON for both packages (0.1.0; npmjs.com web page 403s the fetcher, as for other npm entries). Not run on the box. Six days old, 0★, single maintainer org, pre-1.0 predicate type (`v0.1`). A receipt proves the PR's own test suite reported a result, not that the change is correct: the README says a PR can still weaken or delete its own tests (a "tests disappeared vs base receipt" check is only planned). Anyone with admin rights, including an agent on an admin account, can bypass rulesets.
+
+**Update 2026-10-30:** no new npm release (`@praxso/attested` still 0.1.0; `attested-mcp` 0.1.1 from 2026-10-21). On `main`: **PR #44** (merged 2026-10-29 11:47 MDT, merge `7bf6181952d08d6c185a928585a24563f4d1c135`) fixes `verify` so `allow-unsigned` no longer passes a fork PR whose tests failed, and checks the result enum exactly; **PR #43** (`67aac0929b3cdf9ce6c7921709ab57aa132bab14`) makes the MCP "verified" verdict consider the job conclusion and drops the `npx` fallback. A release commit (#45) announces 0.1.1 / mcp 0.1.2, not yet on npm. **If adopted, pin the verify workflow to a `main` SHA at or after `7bf6181`** (not the 0.1.0 tag). Verified 2026-10-30 (America/Denver) via GitHub PR/commit API, PR pages 200, npm registry JSON.
