@@ -16,7 +16,9 @@
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.20.0",
     "https://pypi.org/project/agent-evidence-vectors/",
     "https://github.com/probityai/agent-evidence-vectors/tree/v0.20.0/vectors-a2a-jcs-v01",
-    "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.24.0"
+    "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.24.0",
+    "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.30.0",
+    "https://pypi.org/project/agent-evidence-vectors/0.30.0/"
   ],
   "license": "Apache-2.0",
   "metal": 1,
@@ -24,7 +26,7 @@
   "revvel_hit": "Known-answer test vectors for whatever verifies deliver:* approval/receipt bytes. Since v0.26.0 a dedicated approval-binding corpus (approval-binding/v1, 23 cases: already-consumed, payload-mutated-after-approval, asserted-in-tool-arguments, used-at-expiry, target/tool/phase differs) is the KAT set for the spec-approved / deliver:* approval check. Runs as `uvx agent-evidence-vectors==<pin> --verifier <cmd>`; a CI step on an existing job needs owner OK. Keep ==0.24.0 for the canonicalization/occurrence-binding corpora; use ==0.26.1 only for approval-binding after a diff (its corpus files are identical at v0.28.0). v0.27.0/v0.28.0 add dispatch-fence, converted-argument-binding, authority-at-dispatch and proof-of-control corpora (KATs for 'the deliver:* call that ran is the one approved'); use ==0.28.0 only for those, after a diff. v0.29.0/v0.29.1 add delegator-right (26 members) and completion-confirmation (28 members: an allowed operation whose completion cannot be confirmed against the positive control) corpora; the second is the KAT set for 'deliver:* ran but did it actually land'; use ==0.29.1 only for those, after a diff. Reference only until revvel-standards writes its approval-record schema",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-19",
-  "updated": "2026-10-29"
+  "updated": "2026-10-30"
 }
 ```
 
@@ -91,3 +93,11 @@ Shipped corpora at v0.20.0 include `vectors-a2a-jcs-v01` (the a2a-tck Agent Card
 **Revvel hit (2026-10-29):** the wheel-vs-signed-list gate is the borrowable part: any deliver:* artifact should be checked against the signed manifest of what it claims to contain (file + SHA-256) before release, not only the manifest signature. The new OT corpus is out of scope for revvel-standards. Pins: **do not use ==0.29.1** (incomplete artifact); take **==0.29.2** (or ==0.29.3) for the completion-confirmation and delegator-right corpora, after a diff. Others unchanged: ==0.24.0 existing corpora, ==0.26.1 approval-binding, ==0.28.0 dispatch-fence. CI step still needs owner OK.
 
 **Honesty (2026-10-29):** CAN-PARTIAL. Verified 2026-10-29 (America/Denver): GitHub releases API bodies v0.29.2 and v0.29.3, release pages 200, PyPI JSON upload time for 0.29.3. Corpora not run; the 288-vector replay figure is the release note's.
+
+**Update 2026-10-30 -- v0.30.0:** GitHub release 2026-10-29 09:21 MDT, PyPI 09:17 MDT. Adds an **uncertain-effect** family (#296; `vectors-uncertain-effect`, case format `uncertain-effect/v1`): the write committed but the reply was lost, so the caller does not know whether the effect happened. Ten ordered checks cover cases such as reusing an idempotency key with different arguments, dispatching past the lease or fencing token, resending after an unknown outcome without de-duplication, and a duplicate effect in the effect owner's ledger. Also new: `agent-evidence-vectors runtime --runtime <adapter>`, a loopback effect-owner harness, and a matching `runtime` input on the Action. #285 chains audit-record consumption sets across a replaced limit (cases CS18-CS24). The signed digest list was re-cut.
+
+Related, same repo: tag **`jcs-admit-npm-v0.1.0`** (2026-10-29 20:09 MDT) for `crates/jcs-admit/npm` (raw-byte JSON admission + RFC 8785, MIT OR Apache-2.0, node >= 22.14.0). It is **not on npm**: the `jcs-admit` npm name shows only an unpublished placeholder. crates.io `jcs-admit` 0.1.3 and PyPI `jcs-admit` 0.1.0 exist.
+
+**Revvel hit (2026-10-30):** uncertain-effect is the retry-safety KAT for deliver:* steps that write (label apply, PR comment, merge): a retry after a timeout must not double-apply. Take **==0.30.0** for that corpus only, after a diff. Other pins unchanged: ==0.24.0 existing corpora, ==0.26.1 approval-binding, ==0.28.0 dispatch-fence, ==0.29.2 (or ==0.29.3) completion-confirmation / delegator-right, **never ==0.29.1**. CI step still needs owner OK.
+
+**Honesty (2026-10-30):** CAN-PARTIAL. Verified 2026-10-30 (America/Denver): GitHub releases API body v0.30.0 and tag jcs-admit-npm-v0.1.0, release pages and PRs #296 / #285 pages 200, PyPI JSON (0.30.0 upload time; jcs-admit 0.1.0), crates.io API (jcs-admit 0.1.3), npm registry (placeholder only). Corpora not run.

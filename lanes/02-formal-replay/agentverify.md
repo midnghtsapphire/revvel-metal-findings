@@ -10,15 +10,16 @@
     "https://github.com/simukappu/agentverify",
     "https://pypi.org/project/agentverify/",
     "https://github.com/simukappu/agentverify/releases/tag/v0.5.0",
-    "https://github.com/simukappu/agentverify/blob/main/CHANGELOG.md"
+    "https://github.com/simukappu/agentverify/blob/main/CHANGELOG.md",
+    "https://github.com/simukappu/agentverify/releases/tag/v0.8.0"
   ],
   "license": "MIT",
   "metal": 2,
   "determinism": 5,
-  "revvel_hit": "deliver:* CI — pytest cassette replay of tool sequences / budgets / forbidden tools next to chronos-dst and unflake; no second orchestrator. Pin >= 0.5.0: before it, calls a cassette could not replay (streaming, Responses API, embeddings, async Anthropic/Gemini) silently reached the real provider during 'replay'; credentials passed as call args could land in cassettes",
+  "revvel_hit": "deliver:* CI -- pytest cassette replay of tool sequences / budgets / forbidden tools next to chronos-dst and unflake; no second orchestrator. Pin ==0.7.1 (re-recorded cassettes). 0.8.0 (2026-10-29) adds assert_tool_calls_allowed but makes generated tool-call ids random per run and adds wall-clock cassette expiry: adopt only with fixed ids and max_age unset. Never below 0.5.0 (replay could reach the real provider)",
   "honesty": "CAN",
   "acquired": "2026-09-24",
-  "updated": "2026-10-22"
+  "updated": "2026-10-30"
 }
 ```
 
@@ -50,3 +51,9 @@
 **Revvel hit (2026-10-22):** two steps toward a fully closed deliver:* replay: tools no longer execute during replay (no side effects, no network from tools), and a prompt or tool-schema change turns into a failing, diffed test instead of a silent pass on an old cassette. That diff is the same idea as **concordance**: catch the prompt that changed before blaming the model. Re-record cassettes and pin `==0.7.1`; until then stay on `>=0.5.0,<0.6` (0.6.0 is now superseded).
 
 **Honesty (2026-10-22):** CAN. Verified 2026-10-22 (America/Denver): PyPI JSON (0.7.0 / 0.7.1 upload times, MIT), `CHANGELOG.md` on `main` read raw. Not run.
+
+**Update 2026-10-30 -- 0.8.0 (breaking):** GitHub release 2026-10-29 19:30 MDT, PyPI 19:29 MDT. Adds **cassette expiry** (`max_age`: an old cassette raises `CassetteExpiredError` or warns; `--cassette-report` lists ages), **`assert_tool_calls_allowed`** (a tool allow-list plus a JSON Schema subset the arguments must match) and `ToolCall.call_id`. Fixes `from_strands` and Strands structured output. **Breaking:** `from_strands(agent_result)` raises `TypeError`; generated tool-call ids are now unique across runs and appear in `to_dict()` (use `mock_response(tool_calls=[{"id": ...}])` for fixed ids).
+
+**Revvel hit (2026-10-30):** `assert_tool_calls_allowed` is the useful part: the coder may only call listed tools with arguments inside a schema, checked in replay. Two determinism caveats: random tool-call ids leak into `to_dict()` (snapshot diffs change every run unless ids are fixed), and `max_age` depends on the wall clock (the same cassette can pass today and fail next month). Stay on **==0.7.1**, or move to **==0.8.0** only with fixed ids and `max_age` unset (or warn-only).
+
+**Honesty (2026-10-30):** CAN. Verified 2026-10-30 (America/Denver): GitHub releases API body v0.8.0, release page 200, PyPI JSON (0.8.0 upload time, MIT). Not run.

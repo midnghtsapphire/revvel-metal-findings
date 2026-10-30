@@ -18,7 +18,9 @@
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.30.0",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.31.0",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.32.0",
-    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.32.1"
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.32.1",
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.8",
+    "https://pypi.org/project/mcp-hangar/2.34.8/"
   ],
   "license": "MIT",
   "metal": 2,
@@ -26,7 +28,7 @@
   "revvel_hit": "Runtime twin of agentgate's lock: tool-schema digest pinning fails the coder's call closed when an upstream rewrites a tool description; `mcp-hangar pin --check` exits 1 in CI; pinned tools are served with only pinned fields. 2.34.2 fixes several silent pin bypasses (unreadable/uppercase/`sha256:`-prefixed digest pins dropped, `new_tools: withhold` letting the first call through, `pin --check` misreporting drift under `mode: group`, `add` dropping pins). 2.34.4 lets a discovery approval bind to the definition's full SHA-256 `definition_digest` (a changed definition is refused, 409) and fixes an HTTP-gateway hang; 2.34.5 makes a refused/failed approval answer approved:false and keep the change pending (it used to answer approved:true and drop it). If trialled, pin ==2.34.5 (==2.34.3 still acceptable; floor >=2.34.2). Watching because it is a full fleet enforcement plane (Python, RBAC/OIDC, SIEM) and mcp-gate already holds the proxy slot.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-12",
-  "updated": "2026-10-29"
+  "updated": "2026-10-30"
 }
 ```
 
@@ -97,3 +99,9 @@
 **Revvel hit (2026-10-29):** no new pattern; this is a pin bump. If trialled, move to **`==2.34.7`** (required if the `full` extra is used, otherwise make sure `fpdf2>=2.8.8`); `==2.34.5` stays acceptable without `full`; never below 2.34.2; there is no 2.34.6 on PyPI, so don't pin it.
 
 **Honesty (2026-10-29):** CAN-PARTIAL. Verified 2026-10-29 (America/Denver): GitHub releases API bodies v2.34.6 and v2.34.7, release pages 200, PyPI JSON (2.34.7 upload time, `requires_dist`). CVE details not read beyond the release note. Not trialled.
+
+**Update 2026-10-30 -- 2.34.8 (security/privacy):** GitHub release **v2.34.8** 2026-10-30 05:19 MDT, PyPI 05:43 MDT. Fixes a tenant data leak in the group views: `hangar_details` showed every member of a group to every tenant (#2154), and `hangar_list`, `hangar_group_list`, `GET /api/groups` and `GET /api/groups/{id}` did the same (#2158). A tenant-bound caller now sees only the members it can route to. `requires_dist` unchanged (`mcp==2.3.0`, `mcp-types==2.3.0`, `fpdf2>=2.8.8` for `full`).
+
+**Revvel hit (2026-10-30):** pin bump only. If trialled, **`==2.34.8`**; it matters most when more than one tenant shares a hangar with auth on. `==2.34.7` stays acceptable for a single-tenant / auth-off trial. Still never below 2.34.2, and 2.34.6 does not exist on PyPI. See **mcp-digest-vectors** (02) for a known-answer set to run the digest pin against.
+
+**Honesty (2026-10-30):** CAN-PARTIAL. Verified 2026-10-30 (America/Denver): GitHub releases API body for v2.34.8, release page and PRs #2154 / #2158 pages 200, PyPI JSON (2.34.8 upload time and `requires_dist`). Not trialled.
