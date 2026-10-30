@@ -1,8 +1,8 @@
 {
   "repo": "midnghtsapphire/revvel-metal-findings",
   "target": "midnghtsapphire/revvel-standards",
-  "updated": "2026-10-29",
-  "scrape": "2026-10-29",
+  "updated": "2026-10-30",
+  "scrape": "2026-10-30",
   "findings": [
     {
       "id": "issue-15507-closed-as-essay",
@@ -499,6 +499,36 @@
     {
       "id": "who-verifies-builder",
       "path": "lanes/05-trials-papers/who-verifies-builder.md",
+      "lane": "05-trials-papers",
+      "status": "watching"
+    },
+    {
+      "id": "mcp-digest-vectors",
+      "path": "lanes/02-formal-replay/mcp-digest-vectors.md",
+      "lane": "02-formal-replay",
+      "status": "watching"
+    },
+    {
+      "id": "dispinv",
+      "path": "lanes/01-deterministic-ai/dispinv.md",
+      "lane": "01-deterministic-ai",
+      "status": "watching"
+    },
+    {
+      "id": "pcm",
+      "path": "lanes/04-spec-to-code/pcm.md",
+      "lane": "04-spec-to-code",
+      "status": "watching"
+    },
+    {
+      "id": "skeleton-coding",
+      "path": "lanes/05-trials-papers/skeleton-coding.md",
+      "lane": "05-trials-papers",
+      "status": "watching"
+    },
+    {
+      "id": "flashscript",
+      "path": "lanes/05-trials-papers/flashscript.md",
       "lane": "05-trials-papers",
       "status": "watching"
     }
