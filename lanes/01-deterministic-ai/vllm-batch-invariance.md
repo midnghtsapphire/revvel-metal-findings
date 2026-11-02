@@ -7,6 +7,10 @@
   "lane": "01-deterministic-ai",
   "status": "watching",
   "urls": [
+    "https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc3",
+    "https://pypi.org/project/vllm/0.33.0/",
+    "https://github.com/vllm-project/vllm/pull/62192",
+    "https://github.com/vllm-project/vllm/issues/64907",
     "https://docs.vllm.ai/en/stable/features/batch_invariance/",
     "https://docs.vllm.ai/en/v0.32.0/features/batch_invariance/",
     "https://github.com/vllm-project/vllm/issues/27433",
@@ -21,10 +25,10 @@
   "license": "Apache-2.0",
   "metal": 4,
   "determinism": 4,
-  "revvel_hit": "Self-hosted coder path only: `VLLM_BATCH_INVARIANT=1 vllm serve …` + fixed `seed` aims to make the same wr:code request produce the same tokens regardless of batch size/order, so a chronicle/agentape replay can be re-run live and diffed instead of trusting the cassette alone. Released for NVIDIA SM>=8.0, AMD Instinct (gfx90a/942/950) and Intel XPU in vLLM 0.32.0. Qualify it on your model first: Vosti's tests found logit mismatches in the batch-invariant mode on Gemma3-4B (Llama3.1-8B matched). OpenRouter path unaffected",
+  "revvel_hit": "Self-hosted coder path only: `VLLM_BATCH_INVARIANT=1 vllm serve …` + fixed `seed` aims to make the same wr:code request produce the same tokens regardless of batch size/order, so a chronicle/agentape replay can be re-run live and diffed instead of trusting the cassette alone. Released for NVIDIA SM>=8.0, AMD Instinct (gfx90a/942/950) and Intel XPU since vLLM 0.32.0; 0.33.0 (2026-11-02, CUDA 13.0 builds only) extends it to W4A16/W8A16 compressed-tensors, GateLinear routers and online FP8 MoE. Qualify it on your model and attention backend first: Vosti found Gemma3-4B mismatches, and bitexact-llm's author reports BI with the default FlashAttention backend still differing alone-vs-batched (use TRITON_ATTN for the comparison). OpenRouter path unaffected",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-13",
-  "updated": "2026-10-20"
+  "updated": "2026-11-02"
 }
 ```
 
@@ -53,3 +57,11 @@ Still **beta** (docs note unchanged). **#27433** (tracking) open, last updated 2
 **Update 2026-10-22:** still no vLLM release after **0.32.0** (PyPI). New open PR **#62365** (opened 2026-10-18 18:09 MDT, 38 commits): bitwise batch invariance for DeepSeek-V4.1-Flash under `VLLM_BATCH_INVARIANT=1` with CUDA graphs, DEP4, MTP and MegaMoE -- token ids and logprobs identical regardless of batch composition, chunk size, prefix-cache hit vs miss and DP rank; adds a BI CUDA op library (`csrc/batch_invariant/`) and opt-in faster `VLLM_BI_*` tiers that are batch invariant but round differently from the default path. Same model DeepInfer targets; unmerged. Separate field report (**concordance**, 2026-10-21): SGLang deterministic mode was 800/800 bit-stable, but the pipeline around it was not -- determinism of the server does not make the wr:code run reproducible by itself.
 
 **Honesty (2026-10-22):** PR #62365 state via GitHub API (open, not merged) and PR description via search result; PyPI JSON vllm 0.32.0.
+
+**Update 2026-11-02 -- vLLM 0.33.0 released.** PyPI `vllm` **0.33.0** (2026-11-02 03:13 MST); the GitHub release is titled "v0.33.0" on tag `v0.33.0rc3` (03:10 MST). Batch-invariance items in the notes: compressed-tensors **W4A16 / W8A16** (#60524), **GateLinear** routers (#59985), **online FP8 MoE** (#57092), and an Inductor batch-invariant mode under `VLLM_BATCH_INVARIANT` (#61118). Platform: PyTorch 2.14, **CUDA 13.0-only builds** (no CUDA 12.9 wheels). Structured-output pins in 0.33.0: `xgrammar==0.2.8`, `llguidance>=1.7.0,<1.8.0`, `outlines_core==0.2.14`. **#62192** (pin FlashInfer FP8 bmm + W4A16 NVFP4 under BI) merged 2026-10-31 09:25 MDT. Still open: #62365 (DeepSeek-V4.1-Flash bitwise BI), #62017, #39096 (SM<90), #60479 (GPTQ). Docs still say **beta**.
+
+Field note: **bitexact-llm**'s README (commit `29e5cb56d9`, 2026-10-30 18:44 MDT) reports that vLLM batch-invariant mode with the default FlashAttention backend still produced different tokens alone vs batched (at positions 104 and 197 of 512) on its test, and that only `TRITON_ATTN` gave a fair BI baseline. Single-author measurement on one model; treat it as one more reason to run the batch/chunk/prefill-decode/prefix logit check (**vosti**) on the exact backend before relying on BI. Separately, issue **#64907** (Qwen GDN + prefix cache + MTP under BI) was closed as not planned 2026-11-01; its author published an unofficial patch repo (`leechangbing/qwen-gdn-batch-invariant-mtp-repro`, Apache-2.0, patches the 0.24.0 wheel); not tracked.
+
+**Revvel hit (2026-11-02):** if a self-hosted coder is ever trialled, `vllm==0.33.0` is the pin (needs a CUDA 13 host); quantized W4A16/W8A16 coders now have a BI path. Status stays watching (beta, #39096 open).
+
+**Honesty (2026-11-02):** CAN-PARTIAL. Verified 2026-11-02 (America/Denver): PyPI JSON vllm 0.33.0 (upload time, `requires_dist`), GitHub releases API body for tag v0.33.0rc3, release page 200, PR #62192 and issues #62365 / #62017 / #39096 / #60479 / #64907 via API, bitexact-llm README at `29e5cb56d9`. Not run (no GPU).

@@ -18,7 +18,7 @@
   "revvel_hit": "Reference for the step after batch invariance: integer (fixed-point) inference gives the same int64 logits and sampled tokens across GPUs, CPUs and batch/KV schedules, so a replay record could carry a logits hash that any machine can re-check. One small model (Llama-3.2-1B), research prototype; borrow the record/compare report shape, do not adopt as the coder engine.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-26",
-  "updated": "2026-10-27"
+  "updated": "2026-11-02"
 }
 ```
 
@@ -40,3 +40,9 @@ How it works (README): every tensor on the forward and sampling path is an integ
 **Revvel hit (2026-10-27):** concrete evidence for why a replay record should hash raw integer/logit outputs rather than decoded probabilities, and that "same seed" replay on a stock engine is not reproduction. Still watching; borrow the report shape only.
 
 **Honesty (2026-10-27):** CAN-PARTIAL. Verified 2026-10-27 (America/Denver): GitHub contents API for `experiments/rl_mismatch/`, raw README read, tree page 200, releases unchanged. Numbers are the author's; not reproduced.
+
+**Update 2026-11-02 -- plugin speed-up (no new release).** Commits on `main` 2026-10-30 14:23 → 18:44 MDT (merge `a0fbb5155a` "plugin 1.7-2.3x faster, outputs bit-identical"; README `29e5cb56d9`): the int8 vLLM plugin removes host-device syncs in the sampler/logits path, proves the post-GEMM bound statically, and fixes reading the overflow flag (`d87b9ce4ab`); README reports **1.65x / 1.86x / 2.29x** faster than the previous plugin with the 14/14 bit-identity suite still identical. README's H800 table, output tok/s at batch 1 / 32 / 128: stock vLLM bf16 604 / 15,409 / 32,521; vLLM batch-invariant + `TRITON_ATTN` 210 / 7,449 / 34,941; plugin now 372 / 8,272 / 19,354. It also states vLLM BI with the default FlashAttention backend differed alone vs batched at positions 104 and 197 of 512 (see **vllm-batch-invariance**). Latest release still `v0.1.0-repro-preview`.
+
+**Revvel hit (2026-11-02):** the gap to stock vLLM narrowed (about 0.54x at batch 32 by the author's table, faster than vLLM BI there), but it is still a 1B research prototype; borrow the record/compare report shape only. Still watching.
+
+**Honesty (2026-11-02):** CAN-PARTIAL. Verified 2026-11-02 (America/Denver): commits API on `main` since 2026-10-28, README at `29e5cb56d9` read, releases API unchanged. Numbers are the author's own on H800; not reproduced.

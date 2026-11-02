@@ -7,6 +7,12 @@
   "lane": "04-spec-to-code",
   "status": "watching",
   "urls": [
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.10",
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.9",
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.35.0",
+    "https://pypi.org/project/mcp-hangar/2.34.10/",
+    "https://github.com/mcp-hangar/mcp-hangar/pull/2167",
+    "https://github.com/mcp-hangar/mcp-hangar/pull/2170",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.6",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.7",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.5",
@@ -25,10 +31,10 @@
   "license": "MIT",
   "metal": 2,
   "determinism": 5,
-  "revvel_hit": "Runtime twin of agentgate's lock: tool-schema digest pinning fails the coder's call closed when an upstream rewrites a tool description; `mcp-hangar pin --check` exits 1 in CI; pinned tools are served with only pinned fields. 2.34.2 fixes several silent pin bypasses (unreadable/uppercase/`sha256:`-prefixed digest pins dropped, `new_tools: withhold` letting the first call through, `pin --check` misreporting drift under `mode: group`, `add` dropping pins). 2.34.4 lets a discovery approval bind to the definition's full SHA-256 `definition_digest` (a changed definition is refused, 409) and fixes an HTTP-gateway hang; 2.34.5 makes a refused/failed approval answer approved:false and keep the change pending (it used to answer approved:true and drop it). If trialled, pin ==2.34.5 (==2.34.3 still acceptable; floor >=2.34.2). Watching because it is a full fleet enforcement plane (Python, RBAC/OIDC, SIEM) and mcp-gate already holds the proxy slot.",
+  "revvel_hit": "Runtime twin of agentgate's lock: tool-schema digest pinning fails the coder's call closed when an upstream rewrites a tool description; `mcp-hangar pin --check` exits 1 in CI; pinned tools are served with only pinned fields. 2.34.2 fixes several silent pin bypasses; 2.34.4 binds a discovery approval to the definition's full SHA-256 digest (409 on change); 2.34.5 makes a refused/failed approval answer approved:false and keep the change pending; 2.34.8 fixes a cross-tenant group leak; 2.34.9 makes `decide()` the only access-decision path and puts `GET /api/system` behind `mcp_servers:read`; 2.34.10 stops a config reload from dropping REST/discovery-registered servers and their policies. If trialled, pin ==2.34.10 (2.35.0 only if you want durable multi-replica groups; it adds stored state the gateway must read to start); never below 2.34.2; 2.34.6 is not on PyPI. Watching because it is a full fleet enforcement plane (Python, RBAC/OIDC, SIEM) and mcp-gate already holds the proxy slot.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-12",
-  "updated": "2026-10-30"
+  "updated": "2026-11-02"
 }
 ```
 
@@ -105,3 +111,13 @@
 **Revvel hit (2026-10-30):** pin bump only. If trialled, **`==2.34.8`**; it matters most when more than one tenant shares a hangar with auth on. `==2.34.7` stays acceptable for a single-tenant / auth-off trial. Still never below 2.34.2, and 2.34.6 does not exist on PyPI. See **mcp-digest-vectors** (02) for a known-answer set to run the digest pin against.
 
 **Honesty (2026-10-30):** CAN-PARTIAL. Verified 2026-10-30 (America/Denver): GitHub releases API body for v2.34.8, release page and PRs #2154 / #2158 pages 200, PyPI JSON (2.34.8 upload time and `requires_dist`). Not trialled.
+
+**Update 2026-11-02 -- 2.34.9, 2.34.10 (fixes) and 2.35.0 (minor).** MIT; `requires_dist` unchanged (`mcp==2.3.0`, `mcp-types==2.3.0`).
+
+- **v2.34.9** (GitHub release 2026-10-30 09:51 MDT): `decide()` becomes the single path every access decision goes through (#2164); **`GET /api/system` now requires the global `mcp_servers:read` permission** (#2167, security; before, it was readable without it).
+- **v2.34.10** (GitHub release 2026-10-30 12:07 MDT; PyPI 12:32 MDT): a config reload no longer stops or drops servers registered over REST or by discovery, nor their policies, and keeps REST-created groups and members (#2170). Before, a reload could silently remove a policy that was in force.
+- **v2.35.0** (GitHub release 2026-10-31 05:48 MDT; PyPI 06:13 MDT): REST-created groups are stored durably in SQLite/Postgres (#2175); the gateway refuses to start if stored groups cannot be read; group and policy changes propagate across replicas, with a new `tool_access_policy` change stream (#2177).
+
+**Revvel hit (2026-11-02):** one more pattern for whatever holds the coder's tool policy: a reload must never quietly drop a policy that was in force (2.34.10), and if policy state is stored, failing to read it must stop startup rather than run without it (2.35.0). If trialled, move the pin to **`==2.34.10`**; take 2.35.0 only for multi-replica / durable groups (new stored tables). Never below 2.34.2; no 2.34.6. Still watching.
+
+**Honesty (2026-11-02):** CAN-PARTIAL. Verified 2026-11-02 (America/Denver): GitHub releases API bodies v2.34.9, v2.34.10, v2.35.0; release pages and PRs #2167 / #2170 200; PyPI JSON (2.34.10 and 2.35.0 upload times, `requires_dist`). Not trialled.

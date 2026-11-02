@@ -5,7 +5,7 @@
   "id": "dispinv",
   "name": "dispinv (dispatch-pinned batch invariance for vLLM on Hopper)",
   "lane": "01-deterministic-ai",
-  "status": "watching",
+  "status": "dropped",
   "urls": [
     "https://github.com/C-C-Hao/dispinv",
     "https://github.com/C-C-Hao/dispinv/blob/main/docs/design.md"
@@ -13,9 +13,10 @@
   "license": "Apache-2.0",
   "metal": 4,
   "determinism": 5,
-  "revvel_hit": "Borrow the qualification pattern only: a self-hosted replay engine must prove its determinism switch is live (fail closed with a non-zero exit when it is not) and pass a fault-injection negative control before its outputs count as evidence. Not for adoption: brand new, monkeypatches vLLM, H200/SM90 only.",
+  "revvel_hit": "DROPPED 2026-11-02: repo C-C-Hao/dispinv returns 404 (3 days after creation), never on PyPI. Nothing to pin. The qualification pattern (fail closed when the determinism switch is not live, fault-injection negative control) is still recorded under bi-acceptance-gates / vllm-batch-invariance.",
   "honesty": "CAN-PARTIAL",
-  "acquired": "2026-10-30"
+  "acquired": "2026-10-30",
+  "updated": "2026-11-02"
 }
 ```
 
@@ -26,3 +27,5 @@ Requirements as stated: vLLM `main` at commit `36768d1bfd39094681cdbc8cb37d4b31c
 **Revvel hit:** revvel-standards does not self-host a model, so nothing to install. The borrowable part is the qualification discipline for any future replay engine (see **vllm-batch-invariance**, **bitexact-llm**, **vosti**): (1) the engine refuses to start if its determinism mode is not actually in effect, (2) it logs which guarantees are live, and (3) the check is shown to fail under an injected fault, so a green check means something. Same shape as **bi-acceptance-gates**.
 
 **Honesty:** CAN-PARTIAL, watching. Verified 2026-10-30 (America/Denver): repo page and API (Apache-2.0, created date, single commit), README, docs/design.md, CITATION.cff, CHANGELOG and the boot hook read through the API (`_os._exit(70)` in `dispinv/boot/sitecustomize.py`), vLLM commit `36768d1b` resolves via the commits API, PyPI `dispinv` 404. Hours old, single commit, hardware-specific, monkeypatches upstream internals; results are the author's own and were not run here (no GPU).
+
+**DROPPED 2026-11-02:** `https://github.com/C-C-Hao/dispinv` now returns **404** (web page and repos API "Not Found"); the `C-C-Hao` account's only public repo is now `C-C-Hao/vllm`; `https://pypi.org/pypi/dispinv/json` still 404. The repo was public for about three days and never released a package, so there is nothing left to pin or trial. The borrowable pattern (refuse to start when the determinism mode is not live, log which guarantees hold, prove the check fails under an injected fault) stays recorded in **bi-acceptance-gates** and **vllm-batch-invariance**. Re-add only if it reappears with a release on a vLLM tag. Verified 2026-11-02 (America/Denver): GitHub page and API 404, user repos API, PyPI JSON 404.
