@@ -7,6 +7,7 @@
   "lane": "04-spec-to-code",
   "status": "watching",
   "urls": [
+    "https://github.com/Praxso/attested/releases/tag/v0.1.1",
     "https://github.com/Praxso/attested",
     "https://github.com/Praxso/attested/blob/main/docs/ruleset.md",
     "https://github.com/Praxso/attested/blob/main/action.yml",
@@ -16,10 +17,10 @@
   "license": "Apache-2.0",
   "metal": 1,
   "determinism": 5,
-  "revvel_hit": "deliver:* merge side, evidence half: the coder's PR must carry a Sigstore-signed (actions/attest) in-toto receipt of the repo's own test run bound to the PR head SHA, checked by a required `attested verify` status that runs from the default branch and never runs PR code; fails closed on no receipt / wrong signer workflow / SHA mismatch / FAILED. Sits beside agent-approval-check (human approvals) on the same required-checks list. Pattern first; adopting it is a workflow edit (point 5 job + ruleset), so it needs owner OK. No second pipeline",
+  "revvel_hit": "deliver:* merge side, evidence half: the coder's PR must carry a Sigstore-signed (actions/attest) in-toto receipt of the repo's own test run bound to the PR head SHA, checked by a required `attested verify` status that runs from the default branch and never runs PR code; fails closed on no receipt / wrong signer workflow / SHA mismatch / FAILED, and since 0.1.1 a run with no passed tests (empty report, all skipped, crashed reporter) is FAILED. Pin @praxso/attested 0.1.1 / @praxso/attested-mcp 0.1.2 / `Praxso/attested@v0.1.1` by full SHA (6ad7f64139e2b9ed96890bfcc6cc7ae441725ad9). Sits beside agent-approval-check (human approvals) on the same required-checks list. Pattern first; adopting it is a workflow edit (point 5 job + ruleset), so it needs owner OK. No second pipeline",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-20",
-  "updated": "2026-10-30"
+  "updated": "2026-11-02"
 }
 ```
 
@@ -34,3 +35,15 @@ The **`attested verify`** composite action (`action.yml`) fails closed, one line
 **Honesty:** CAN-PARTIAL, watching. Verified 2026-10-20 (America/Denver): GitHub repo API (Apache-2.0, not a fork, not archived), README, `docs/ruleset.md` and LICENSE read raw at `main`; repo, `docs/ruleset.md`, `action.yml`, `SECURITY.md` pages 200; npm registry JSON for both packages (0.1.0; npmjs.com web page 403s the fetcher, as for other npm entries). Not run on the box. Six days old, 0★, single maintainer org, pre-1.0 predicate type (`v0.1`). A receipt proves the PR's own test suite reported a result, not that the change is correct: the README says a PR can still weaken or delete its own tests (a "tests disappeared vs base receipt" check is only planned). Anyone with admin rights, including an agent on an admin account, can bypass rulesets.
 
 **Update 2026-10-30:** no new npm release (`@praxso/attested` still 0.1.0; `attested-mcp` 0.1.1 from 2026-10-21). On `main`: **PR #44** (merged 2026-10-29 11:47 MDT, merge `7bf6181952d08d6c185a928585a24563f4d1c135`) fixes `verify` so `allow-unsigned` no longer passes a fork PR whose tests failed, and checks the result enum exactly; **PR #43** (`67aac0929b3cdf9ce6c7921709ab57aa132bab14`) makes the MCP "verified" verdict consider the job conclusion and drops the `npx` fallback. A release commit (#45) announces 0.1.1 / mcp 0.1.2, not yet on npm. **If adopted, pin the verify workflow to a `main` SHA at or after `7bf6181`** (not the 0.1.0 tag). Verified 2026-10-30 (America/Denver) via GitHub PR/commit API, PR pages 200, npm registry JSON.
+
+**Update 2026-11-02 -- v0.1.1 released.** GitHub release **v0.1.1** (2026-11-02 08:29 MST; tag commit `6ad7f64139e2b9ed96890bfcc6cc7ae441725ad9`, 4 commits ahead of `7bf6181`, 0 behind); npm `@praxso/attested` **0.1.1** (08:18 MST) and `@praxso/attested-mcp` **0.1.2** (08:21 MST), published with npm provenance (trusted publishing). Per the release notes:
+
+- A run with **no passed tests is FAILED**: empty CTRF report, crashed reporter, every test skipped, or a non-CTRF status no longer pass.
+- MCP reports "Green" only when the result is PASSED **and** the test command exited 0.
+- Test output is written on single lines so it cannot inject GitHub workflow commands; more redaction; the failure packet is labelled `untrusted_test_output`.
+- Writes refuse symlinks; `--health-path` must be a path.
+- 0.1.0 CLI and MCP 0.1.0 / 0.1.1 are deprecated on npm.
+
+**Revvel hit (2026-11-02):** the "no passed tests = FAILED" rule is the one to copy into any deliver:* evidence check: a green run with zero executed tests is not evidence. If adopted, pin **0.1.1** (CLI), **0.1.2** (MCP) and the action **`Praxso/attested@6ad7f64139e2b9ed96890bfcc6cc7ae441725ad9`** (the v0.1.1 tag) via gh-actions-lock; this supersedes the "main SHA >= 7bf6181" advice. Still needs owner OK for the workflow and ruleset edit.
+
+**Honesty (2026-11-02):** CAN-PARTIAL. Verified 2026-11-02 (America/Denver): GitHub releases API body and release page v0.1.1 (200), compare API `7bf6181...v0.1.1` (ahead 4, behind 0), npm registry JSON for both packages (versions, publish times, deprecation of older versions); npmjs.com web page still 403s the fetcher. Not run.

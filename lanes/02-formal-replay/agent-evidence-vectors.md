@@ -7,6 +7,9 @@
   "lane": "02-formal-replay",
   "status": "watching",
   "urls": [
+    "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.31.0",
+    "https://pypi.org/project/agent-evidence-vectors/0.31.2/",
+    "https://github.com/probityai/agent-evidence-vectors/tree/v0.32.0",
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.29.2",
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.29.3",
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.29.1",
@@ -26,7 +29,7 @@
   "revvel_hit": "Known-answer test vectors for whatever verifies deliver:* approval/receipt bytes. Since v0.26.0 a dedicated approval-binding corpus (approval-binding/v1, 23 cases: already-consumed, payload-mutated-after-approval, asserted-in-tool-arguments, used-at-expiry, target/tool/phase differs) is the KAT set for the spec-approved / deliver:* approval check. Runs as `uvx agent-evidence-vectors==<pin> --verifier <cmd>`; a CI step on an existing job needs owner OK. Keep ==0.24.0 for the canonicalization/occurrence-binding corpora; use ==0.26.1 only for approval-binding after a diff (its corpus files are identical at v0.28.0). v0.27.0/v0.28.0 add dispatch-fence, converted-argument-binding, authority-at-dispatch and proof-of-control corpora (KATs for 'the deliver:* call that ran is the one approved'); use ==0.28.0 only for those, after a diff. v0.29.0/v0.29.1 add delegator-right (26 members) and completion-confirmation (28 members: an allowed operation whose completion cannot be confirmed against the positive control) corpora; the second is the KAT set for 'deliver:* ran but did it actually land'; use ==0.29.1 only for those, after a diff. Reference only until revvel-standards writes its approval-record schema",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-19",
-  "updated": "2026-10-30"
+  "updated": "2026-11-02"
 }
 ```
 
@@ -101,3 +104,14 @@ Related, same repo: tag **`jcs-admit-npm-v0.1.0`** (2026-10-29 20:09 MDT) for `c
 **Revvel hit (2026-10-30):** uncertain-effect is the retry-safety KAT for deliver:* steps that write (label apply, PR comment, merge): a retry after a timeout must not double-apply. Take **==0.30.0** for that corpus only, after a diff. Other pins unchanged: ==0.24.0 existing corpora, ==0.26.1 approval-binding, ==0.28.0 dispatch-fence, ==0.29.2 (or ==0.29.3) completion-confirmation / delegator-right, **never ==0.29.1**. CI step still needs owner OK.
 
 **Honesty (2026-10-30):** CAN-PARTIAL. Verified 2026-10-30 (America/Denver): GitHub releases API body v0.30.0 and tag jcs-admit-npm-v0.1.0, release pages and PRs #296 / #285 pages 200, PyPI JSON (0.30.0 upload time; jcs-admit 0.1.0), crates.io API (jcs-admit 0.1.3), npm registry (placeholder only). Corpora not run.
+
+**Update 2026-11-02 -- v0.31.0, 0.31.1/0.31.2, v0.32.0 tag (corpus paths move).**
+
+- **v0.31.0** (GitHub release 2026-10-30 20:19 MDT; PyPI 20:18 MDT): Go/Python reader fixes, a corpus count gate, audit-record cases (#341, #356), bounded-absence (#340), restoration predicates (#353, #360), an EU AI Act Article 53(2) corpus (#321); signed digest list re-cut.
+- **v0.31.1** (tag 2026-11-01 17:27 MST, not on PyPI) and **v0.31.2** (tag 21:51 MST; PyPI 0.31.2 22:54 MST; no GitHub release page): SCITT/COSE intake.
+- **v0.32.0** tag (2026-11-02 04:40 MST; not on PyPI, no release): after #406 every corpus moves under `corpora/`, so corpus paths change.
+- Same repo: **jcs-admit-py-v0.1.1** release (2026-11-02 00:34 MST; PyPI `jcs-admit` 0.1.1 00:36 MST): bundles dsse 0.1.6, a signature failure is reported as `NoValidSignature`.
+
+**Revvel hit (2026-11-02):** nothing new in scope; the new corpora (Article 53(2), bounded-absence, restoration, SCITT intake) are outside revvel-standards. Keep the existing pins: ==0.24.0 existing corpora, ==0.26.1 approval-binding, ==0.28.0 dispatch-fence, ==0.29.2 (or ==0.29.3) completion-confirmation / delegator-right, ==0.30.0 uncertain-effect; never ==0.29.1. Do **not** move to 0.32.0 until it is published and diffed: any `vectors:` path in a workflow would break on the `corpora/` move. CI step still needs owner OK.
+
+**Honesty (2026-11-02):** CAN-PARTIAL. Verified 2026-11-02 (America/Denver): GitHub releases API (v0.31.0 and jcs-admit-py-v0.1.1 bodies read), tags API (v0.31.1, v0.31.2, v0.32.0 commit dates), tree page v0.32.0 200, PyPI JSON (0.31.0 / 0.31.2 upload times; 0.31.1 and 0.32.0 absent; jcs-admit 0.1.1). Corpora not run or diffed.

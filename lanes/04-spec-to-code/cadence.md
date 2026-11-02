@@ -7,6 +7,7 @@
   "lane": "04-spec-to-code",
   "status": "active",
   "urls": [
+    "https://github.com/thomas-powers-jr/cadence/releases/tag/v1.73.0",
     "https://github.com/thomas-powers-jr/cadence",
     "https://www.npmjs.com/package/@thomas-powers-jr/cadence-core",
     "https://github.com/thomas-powers-jr/cadence/releases/tag/v1.69.1",
@@ -19,7 +20,7 @@
   "revvel_hit": "deliver:* — Node/TS settle gate: declared acceptance criteria are re-derived from real evidence (task state, test results, diffs) and `cadence settle run --auto` exits 1 instead of accepting the agent's self-report of done; same engine over CLI, Claude Code/Codex hooks, and `cadence mcp serve`",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-06",
-  "updated": "2026-10-30"
+  "updated": "2026-11-02"
 }
 ```
 
@@ -34,3 +35,5 @@
 **Update 2026-10-23:** npm `@thomas-powers-jr/cadence-core` **1.71.0** (2026-10-22 09:23 MDT; 1.70.0 on 2026-10-10). 1.70.0 added read-only `cadence assurance report`, which rolls every settled slice's `SUMMARY.json` into one view of how strongly it was verified (un-gradable, gradable-but-ungraded, graded, refused, unreadable). 1.71.0: when `--allow-code-review-failure`, `--allow-security-audit-failure` or `--force` waves through code-review HIGH or security-audit CRITICAL findings, `SUMMARY.json.gateBypasses` now records an `error` entry per gate, so the slice can never grade `strong`; before, such a bypass left no trace and could grade `strong`. For revvel: if cadence is trialled on deliver:*, treat any `gateBypasses` entry as "not done". Floor stays >= 1.69.1. Verified 2026-10-23 via npm registry and GitHub release notes.
 
 **Update 2026-10-30:** **v1.72.0** (GitHub release 2026-10-29 12:04 MDT; npm 12:09 MDT). Settle now records a checkpoint Stop-gate **force-release** as a `gateBypass`, so the slice's assurance is capped at `mixed` (#581); `handoff` no longer deletes **git-tracked** SESSION docs (#579, a data-loss fix); `doctor` / `onboard` no longer report a missing host-cli verifier as ready (#583). For revvel: same rule as 1.71.0 (any `gateBypasses` entry = not done), now also for forced Stop-gate releases. **Floor raised to >= 1.72.0** if trialled (handoff data-loss fix). Verified 2026-10-30 (America/Denver) via GitHub releases API body and npm registry JSON.
+
+**Update 2026-11-02:** **v1.73.0** (GitHub release 2026-10-30 11:25 MDT; npm 11:26 MDT). The draft-read gate now checks `draftReadHash` -- SHA-256 of the DRAFT text with BOM stripped and line endings normalized -- instead of only the file mtime, so an edited draft must be re-read before approval (#590); new `cadence state save|load|list` snapshots, with `load` treating a snapshot as untrusted input (#591); BOM / CRLF parsing fixes (#588). For revvel: the content-hash read check is the same idea as spec-approved binding to the exact spec bytes. Floor stays **>= 1.72.0**; 1.73.0 is fine to take. Verified 2026-11-02 (America/Denver) via GitHub releases API body, release page 200 and npm registry JSON.
