@@ -17,7 +17,7 @@
   "revvel_hit": "Only useful if revvel-standards ships its own Python MCP server; borrow the in-server fail-closed approver pattern.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-09",
-  "updated": "2026-10-29"
+  "updated": "2026-11-03"
 }
 ```
 
@@ -38,3 +38,14 @@ Schema fix 2026-10-12: added the required `metal` / `determinism` scores that th
 **Revvel hit (2026-10-29):** if revvel-standards ever ships a Python MCP server (with or without mcp-gatehouse), set **`mcp>=2.2.0`** (or `>=1.30.0` on 1.x) and do the `validate_token_resource` step; upgrading alone does not close CVE-2026-116684.
 
 **Honesty (2026-10-29):** CAN-PARTIAL. Verified 2026-10-29 (America/Denver): GitHub advisories API (ranges, fixed versions, publish times) and advisory pages 200; PyPI JSON for mcp-gatehouse 0.4.0 `requires_dist` and mcp 1.30.0 / 2.2.0 upload times; migration detail from the al-ice.ai write-up (2026-10-28), cross-checked against the advisory summary. Not trialled.
+
+**Update 2026-11-03 -- v0.5.0: in-client approval (MCP elicitation), argument-bound and single-use.**
+
+- **v0.5.0** (GitHub release 2026-11-02 20:35 MST; PyPI `mcp-gatehouse` 0.5.0 20:35 MST; still `mcp>=2,<3`, MIT).
+- Added `ElicitationApprover`: asks for approval in the MCP client's own UI (one form: tool, tier, redacted arguments). Works mid-call over the back-channel up to protocol 2025-11-25, and as an `InputRequiredResult` round trip from 2026-07-28; the round trip **binds the approval to the call's exact arguments, enforces `approval_timeout`, and lets each approval run its call once**. A client that can't be asked hands over to `fallback`, or the call is denied. New audit outcome `pending`.
+- Changed (**watch for breakage**): tools without a `Context` get a hidden `gatehouse_context` parameter (kept out of the input schema); a tool parameter with that name is now **refused at registration**.
+- Fixed docs: servers launched by MCP Python SDK stdio clients have no controlling terminal, so `terminal_approver` always denies there.
+
+**Revvel hit (2026-11-03):** still only relevant if revvel-standards ships its own Python MCP server. If so: pin `mcp-gatehouse==0.5.0`, keep `mcp>=2.2.0` + `validate_token_resource` (2026-10-29 note), and set `fallback` to deny so a host that can't relay elicitation never auto-approves (see mcp-destructive-approval, 2611.02527).
+
+**Honesty (2026-11-03):** CAN-PARTIAL. Verified 2026-11-03 (America/Denver): releases API body for v0.5.0, release page 200, PyPI JSON 0.5.0 (`requires_dist`, MIT, upload time). Not trialled.

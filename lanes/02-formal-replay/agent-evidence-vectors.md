@@ -29,7 +29,7 @@
   "revvel_hit": "Known-answer test vectors for whatever verifies deliver:* approval/receipt bytes. Since v0.26.0 a dedicated approval-binding corpus (approval-binding/v1, 23 cases: already-consumed, payload-mutated-after-approval, asserted-in-tool-arguments, used-at-expiry, target/tool/phase differs) is the KAT set for the spec-approved / deliver:* approval check. Runs as `uvx agent-evidence-vectors==<pin> --verifier <cmd>`; a CI step on an existing job needs owner OK. Keep ==0.24.0 for the canonicalization/occurrence-binding corpora; use ==0.26.1 only for approval-binding after a diff (its corpus files are identical at v0.28.0). v0.27.0/v0.28.0 add dispatch-fence, converted-argument-binding, authority-at-dispatch and proof-of-control corpora (KATs for 'the deliver:* call that ran is the one approved'); use ==0.28.0 only for those, after a diff. v0.29.0/v0.29.1 add delegator-right (26 members) and completion-confirmation (28 members: an allowed operation whose completion cannot be confirmed against the positive control) corpora; the second is the KAT set for 'deliver:* ran but did it actually land'; use ==0.29.1 only for those, after a diff. Reference only until revvel-standards writes its approval-record schema",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-19",
-  "updated": "2026-11-02"
+  "updated": "2026-11-03"
 }
 ```
 
@@ -115,3 +115,13 @@ Related, same repo: tag **`jcs-admit-npm-v0.1.0`** (2026-10-29 20:09 MDT) for `c
 **Revvel hit (2026-11-02):** nothing new in scope; the new corpora (Article 53(2), bounded-absence, restoration, SCITT intake) are outside revvel-standards. Keep the existing pins: ==0.24.0 existing corpora, ==0.26.1 approval-binding, ==0.28.0 dispatch-fence, ==0.29.2 (or ==0.29.3) completion-confirmation / delegator-right, ==0.30.0 uncertain-effect; never ==0.29.1. Do **not** move to 0.32.0 until it is published and diffed: any `vectors:` path in a workflow would break on the `corpora/` move. CI step still needs owner OK.
 
 **Honesty (2026-11-02):** CAN-PARTIAL. Verified 2026-11-02 (America/Denver): GitHub releases API (v0.31.0 and jcs-admit-py-v0.1.1 bodies read), tags API (v0.31.1, v0.31.2, v0.32.0 commit dates), tree page v0.32.0 200, PyPI JSON (0.31.0 / 0.31.2 upload times; 0.31.1 and 0.32.0 absent; jcs-admit 0.1.1). Corpora not run or diffed.
+
+**Update 2026-11-03 -- `corpora/` move now published (0.32.1, 0.33.0).**
+
+- **0.32.1** (tag `4bba9af016` 2026-11-02 16:31 MST; PyPI 17:55 MST) and **0.33.0** (tag `c6290bef6e` 22:40 MST; PyPI 23:29 MST; Apache-2.0). No GitHub release pages. 0.32.0 itself never reached PyPI.
+- Both carry the #406 move: every corpus now lives under `corpora/` (64 entries at v0.33.0; e.g. `corpora/vectors-approval-binding`, `corpora/vectors-dispatch-fence`). Release/build fixes so the dataset and harness find `corpora/` (#424).
+- New corpus families: monitor-coverage and propagation-step (#422), signature-coverage (#430), evidence-state with an `evidence_state` term (#425). None maps to a revvel-standards check yet.
+
+**Revvel hit (2026-11-03):** keep the existing pins (==0.24.0 / ==0.26.1 / ==0.28.0 / ==0.29.2-3 / ==0.30.0; never ==0.29.1). Any later move to >= 0.32.1 must rewrite every `vectors:` path to `corpora/...` in the same change. CI step still needs owner OK.
+
+**Honesty (2026-11-03):** CAN-PARTIAL. Verified 2026-11-03 (America/Denver): PyPI JSON (0.32.1 / 0.33.0 upload times, license; 0.32.0 absent), tags + compare API v0.32.0...v0.33.0 (59 commits read by title), contents API `corpora/` at v0.33.0, tree page 200. Corpora not run or diffed.

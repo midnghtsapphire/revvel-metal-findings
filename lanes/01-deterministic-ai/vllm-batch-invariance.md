@@ -28,7 +28,7 @@
   "revvel_hit": "Self-hosted coder path only: `VLLM_BATCH_INVARIANT=1 vllm serve …` + fixed `seed` aims to make the same wr:code request produce the same tokens regardless of batch size/order, so a chronicle/agentape replay can be re-run live and diffed instead of trusting the cassette alone. Released for NVIDIA SM>=8.0, AMD Instinct (gfx90a/942/950) and Intel XPU since vLLM 0.32.0; 0.33.0 (2026-11-02, CUDA 13.0 builds only) extends it to W4A16/W8A16 compressed-tensors, GateLinear routers and online FP8 MoE. Qualify it on your model and attention backend first: Vosti found Gemma3-4B mismatches, and bitexact-llm's author reports BI with the default FlashAttention backend still differing alone-vs-batched (use TRITON_ATTN for the comparison). OpenRouter path unaffected",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-13",
-  "updated": "2026-11-02"
+  "updated": "2026-11-03"
 }
 ```
 
@@ -65,3 +65,11 @@ Field note: **bitexact-llm**'s README (commit `29e5cb56d9`, 2026-10-30 18:44 MDT
 **Revvel hit (2026-11-02):** if a self-hosted coder is ever trialled, `vllm==0.33.0` is the pin (needs a CUDA 13 host); quantized W4A16/W8A16 coders now have a BI path. Status stays watching (beta, #39096 open).
 
 **Honesty (2026-11-02):** CAN-PARTIAL. Verified 2026-11-02 (America/Denver): PyPI JSON vllm 0.33.0 (upload time, `requires_dist`), GitHub releases API body for tag v0.33.0rc3, release page 200, PR #62192 and issues #62365 / #62017 / #39096 / #60479 / #64907 via API, bitexact-llm README at `29e5cb56d9`. Not run (no GPU).
+
+**Update 2026-11-03 -- GPTQ batch invariance merged on main (unreleased).**
+
+- PR **#60479** ("[Bugfix] Keep GPTQ linear layers batch invariant") **merged 2026-11-02 13:13 MST** (merge commit `57371c4e28`). Not in 0.33.0; arrives with the next release. #39096, #62365, #62017 still open. No new vLLM release since 0.33.0.
+
+**Revvel hit (2026-11-03):** unchanged: `vllm==0.33.0` if trialled; a GPTQ-quantized coder needs the next release and the vosti 4-axis check before relying on BI.
+
+**Honesty (2026-11-03):** CAN-PARTIAL. Verified 2026-11-03 (America/Denver): pulls API (#60479 merged_at, merge SHA), issues API (#39096 / #62365 / #62017 open), releases API (no release after 0.33.0rc3). Not run.

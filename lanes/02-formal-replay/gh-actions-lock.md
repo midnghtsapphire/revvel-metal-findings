@@ -22,7 +22,7 @@
   "revvel_hit": "Pin every `uses:` in the existing wr:code / deliver:* workflows (openrouter-coder.yml, revvel-engine-spine.yml, agent-fallback.yml, trusted-bot-auto-approve.yml) to reviewed commits via `.github/workflows/actions.lock`; GitHub then runs the locked commits even if a tag or branch moves. `gh actions-lock --verify` as a step on an existing job fails the run on drift. Same workflows, no second pipeline.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-16",
-  "updated": "2026-10-29"
+  "updated": "2026-11-03"
 }
 ```
 
@@ -69,3 +69,11 @@ v0.2.0 (2026-10-12 13:31 MDT): lockfile schema `v0.0.3`, stricter `--verify`, `-
 **Revvel action (2026-10-29):** the "preview" objection to adoption is mostly gone. If Audrey says yes: `gh extension install github/gh-actions-lock --pin v0.4.0`, onboard the existing wr:code / deliver:* workflows, add `--verify` to an existing job, and then turn on **Require lockfile** for revvel-standards so an un-onboarded workflow can't run. Dependabot keeps pins and lockfile in one PR. Still needs her OK; only `github/gh-actions-lock` is legitimate.
 
 **Honesty (2026-10-29):** CAN-PARTIAL. Verified 2026-10-29 (America/Denver): GitHub changelog page (200, read in full), docs page 200, releases API (v0.4.0 still latest), README read. Not trialled.
+
+**Update 2026-11-03 -- v0.4.1 (non-breaking).**
+
+- **v0.4.1** (GitHub release 2026-11-02 11:53 MST): README drops the public-preview warning (#248); nested pins whose `owner/repo` letter case differs from the lockfile are now kept (#260). No flag or lockfile-format change listed.
+
+**Revvel action (2026-11-03):** if Audrey says yes, install `--pin v0.4.1` (v0.4.0 / v0.3.0 still fine); otherwise unchanged. Still needs her OK.
+
+**Honesty (2026-11-03):** CAN-PARTIAL. Verified 2026-11-03 (America/Denver): releases API body for v0.4.1, release page 200. Not trialled.
