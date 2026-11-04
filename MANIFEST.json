@@ -1,8 +1,8 @@
 {
   "repo": "midnghtsapphire/revvel-metal-findings",
   "target": "midnghtsapphire/revvel-standards",
-  "updated": "2026-11-03",
-  "scrape": "2026-11-03",
+  "updated": "2026-11-04",
+  "scrape": "2026-11-04",
   "findings": [
     {
       "id": "issue-15507-closed-as-essay",
@@ -577,6 +577,24 @@
     {
       "id": "boundary-contracts",
       "path": "lanes/05-trials-papers/boundary-contracts.md",
+      "lane": "05-trials-papers",
+      "status": "watching"
+    },
+    {
+      "id": "gated-sdd-audit",
+      "path": "lanes/05-trials-papers/gated-sdd-audit.md",
+      "lane": "05-trials-papers",
+      "status": "watching"
+    },
+    {
+      "id": "delegated-scope",
+      "path": "lanes/05-trials-papers/delegated-scope.md",
+      "lane": "05-trials-papers",
+      "status": "watching"
+    },
+    {
+      "id": "eval-instrument",
+      "path": "lanes/05-trials-papers/eval-instrument.md",
       "lane": "05-trials-papers",
       "status": "watching"
     }

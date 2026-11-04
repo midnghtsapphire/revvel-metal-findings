@@ -7,6 +7,8 @@
   "lane": "04-spec-to-code",
   "status": "watching",
   "urls": [
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.36.0",
+    "https://pypi.org/project/mcp-hangar/2.36.0/",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.10",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.9",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.35.0",
@@ -121,3 +123,14 @@
 **Revvel hit (2026-11-02):** one more pattern for whatever holds the coder's tool policy: a reload must never quietly drop a policy that was in force (2.34.10), and if policy state is stored, failing to read it must stop startup rather than run without it (2.35.0). If trialled, move the pin to **`==2.34.10`**; take 2.35.0 only for multi-replica / durable groups (new stored tables). Never below 2.34.2; no 2.34.6. Still watching.
 
 **Honesty (2026-11-02):** CAN-PARTIAL. Verified 2026-11-02 (America/Denver): GitHub releases API bodies v2.34.9, v2.34.10, v2.35.0; release pages and PRs #2167 / #2170 200; PyPI JSON (2.34.10 and 2.35.0 upload times, `requires_dist`). Not trialled.
+
+**Update 2026-11-04 -- 2.36.0 (minor).** GitHub release 2026-11-04 06:34 MST; PyPI 2.36.0. MIT.
+
+- Every refusal (gate, `tool:invoke` denial, L7 deny / require_approval, upstream key mismatch, rate limit) now starts with one bounded line `Refused by MCP Hangar (<gate>): <reason>. <next step>` and carries `_meta["io.mcp-hangar/toolFailure"]` (plus `io.mcp-hangar/authorizationDenial` on a denied approval) (#1918, #2189).
+- Those two `_meta` keys are stripped from anything an upstream sends, so they can only mean a Hangar refusal (#1918).
+- Over stdio, Hangar ends an approval wait itself after `approvals.stdio_wait_seconds` (default 50) before the MCP TypeScript SDK's 60 s request timeout; the caller gets `approval_timeout` and the approval moves to `expired`, so a late approve is refused (#2190).
+- Rate-limited calls and dispatch key mismatches now publish `ToolCallRefused` and write an audit record (#2189).
+
+**Revvel hit (2026-11-04):** if the coder's MCP approvals run over stdio, **pin ==2.36.0** (a held call used to die as a transport timeout and a late approval could still land); otherwise ==2.34.10 stays fine. Any script that parses refusal text must read `_meta["io.mcp-hangar/toolFailure"]`, not the message. Never below 2.34.2.
+
+**Honesty (2026-11-04):** CAN-PARTIAL. Verified 2026-11-04 (America/Denver): GitHub releases API body v2.36.0 and publish time; PyPI JSON latest version 2.36.0. Not trialled.

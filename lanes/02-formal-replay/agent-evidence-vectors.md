@@ -7,6 +7,9 @@
   "lane": "02-formal-replay",
   "status": "watching",
   "urls": [
+    "https://github.com/probityai/agent-evidence-vectors/tree/v0.35.0",
+    "https://pypi.org/project/agent-evidence-vectors/0.34.2/",
+    "https://github.com/probityai/agent-evidence-vectors/releases/tag/dsse-npm-v0.1.0",
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/v0.31.0",
     "https://pypi.org/project/agent-evidence-vectors/0.31.2/",
     "https://github.com/probityai/agent-evidence-vectors/tree/v0.32.0",
@@ -125,3 +128,12 @@ Related, same repo: tag **`jcs-admit-npm-v0.1.0`** (2026-10-29 20:09 MDT) for `c
 **Revvel hit (2026-11-03):** keep the existing pins (==0.24.0 / ==0.26.1 / ==0.28.0 / ==0.29.2-3 / ==0.30.0; never ==0.29.1). Any later move to >= 0.32.1 must rewrite every `vectors:` path to `corpora/...` in the same change. CI step still needs owner OK.
 
 **Honesty (2026-11-03):** CAN-PARTIAL. Verified 2026-11-03 (America/Denver): PyPI JSON (0.32.1 / 0.33.0 upload times, license; 0.32.0 absent), tags + compare API v0.32.0...v0.33.0 (59 commits read by title), contents API `corpora/` at v0.33.0, tree page 200. Corpora not run or diffed.
+
+**Update 2026-11-04 -- 0.33.1, 0.34.1, 0.34.2 on PyPI; v0.35.0 tagged; @probityai/dsse on npm.**
+
+- PyPI: **0.33.1** (2026-11-03 11:49 MST), **0.34.1** (19:12 MST), **0.34.2** (23:04 MST); 0.34.0 tagged but not on PyPI. Tag **v0.35.0** (`35b2afb497`) cut, not yet on PyPI. No GitHub release pages for these; release pages exist for `dsse-npm-v0.1.0` (first `@probityai/dsse` npm package, 2026-11-04 01:40 MST) and `agent-evidence-vocabulary-v0.9.0` (adds a `multi_agent_run` section).
+- New since 0.33.0 (commit titles, compare API): receipt-signature vectors for three verifier fixes (0.34.x); a version lock + pin-refresh run (#433); RFC 8785 vectors published as a Go module (#436); Vanta connector dropped from the repo (#437); new **containment-journal** corpus (#441), extended in v0.35.0 to retrievals and tool calls (#450).
+
+**Revvel hit (2026-11-04):** nothing forces a move. Keep existing pins (never ==0.29.1); the `corpora/` path rewrite still applies to any pin >= 0.32.1. The receipt-signature vectors are the first family that could test an **attested**-style receipt verifier if one becomes a required check; revisit then. Wait for v0.35.0 on PyPI before using containment-journal.
+
+**Honesty (2026-11-04):** CAN-PARTIAL. Verified 2026-11-04 (America/Denver): PyPI JSON upload times, tags API, compare API v0.33.0...v0.35.0 (commit titles only), releases API for the dsse npm and vocabulary releases. Corpora not run or diffed.
