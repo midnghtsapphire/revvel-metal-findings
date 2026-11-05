@@ -7,6 +7,8 @@
   "lane": "04-spec-to-code",
   "status": "watching",
   "urls": [
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.36.1",
+    "https://pypi.org/project/mcp-hangar/2.36.1/",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.36.0",
     "https://pypi.org/project/mcp-hangar/2.36.0/",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.34.10",
@@ -134,3 +136,9 @@
 **Revvel hit (2026-11-04):** if the coder's MCP approvals run over stdio, **pin ==2.36.0** (a held call used to die as a transport timeout and a late approval could still land); otherwise ==2.34.10 stays fine. Any script that parses refusal text must read `_meta["io.mcp-hangar/toolFailure"]`, not the message. Never below 2.34.2.
 
 **Honesty (2026-11-04):** CAN-PARTIAL. Verified 2026-11-04 (America/Denver): GitHub releases API body v2.36.0 and publish time; PyPI JSON latest version 2.36.0. Not trialled.
+
+**Update 2026-11-05 -- 2.36.1 (fix):** GitHub release and PyPI 2026-11-04 (13:56 / 14:20 MST). One fix (#2193): `init` now names the tools it moved that more than one server serves, since the front door lists such a name for neither. No security change.
+
+**Revvel hit (2026-11-05):** if you pin ==2.36.0 for stdio approvals, ==2.36.1 is a safe drop-in and tells you which duplicate tool names went dark after `init`; otherwise ==2.34.10 stays fine. Never below 2.34.2.
+
+**Honesty (2026-11-05):** CAN-PARTIAL. Verified 2026-11-05 (America/Denver): GitHub releases API body v2.36.1; PyPI JSON latest 2.36.1 upload time. Not trialled.

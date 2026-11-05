@@ -7,6 +7,7 @@
   "lane": "04-spec-to-code",
   "status": "active",
   "urls": [
+    "https://github.com/verax-ai/verax/releases/tag/v0.8.2",
     "https://github.com/verax-ai/verax",
     "https://www.npmjs.com/package/@verax-ai/body",
     "https://verax-ai.com",
@@ -50,3 +51,9 @@
 **Update 2026-10-30 -- 0.8.0 (security):** GitHub release 2026-10-29 12:20 MDT; npm `@verax-ai/body` 0.8.0 12:15 MDT. **#251:** a held call is now bound to the hash of the arguments that will actually be forwarded; approve, retry, the ledger API and reconcile all compare against that hash. `verax approve` refuses an unbound row (`approve-row-unbound`), the operator door refuses it (`row-unbound`), and the spend cap counts the amount actually sent. Before this, what the operator approved and what ran could differ. Also: data/result classes and media handling (#247, #249; masker `@conarium-ai/mask` pinned 0.3.5; images and audio reach the agent as blocks) and dependency advisories cleared (body-parser 2.4.0, fast-uri 3.1.9, zod 4.6.7; #243).
 
 **Revvel action:** pin **>= 0.8.0** (==0.8.0) for any trial that uses held calls / operator approval; this is the same approved-call = dispatched-call rule the **agent-evidence-vectors** approval-binding corpus tests. The 0.7.0 advice (keys outside the state dir) still applies. Verified 2026-10-30 (America/Denver) via GitHub releases API body, release and PR #251 pages 200, npm registry JSON (0.8.0 time); repo still Apache-2.0.
+
+**Update 2026-11-05 -- 0.8.2 (fixes, script-visible):** GitHub release 2026-11-04 14:16 MST; npm `@verax-ai/body` 0.8.2. `verax halt` / `resume` on a wrong path used to print `halted`, exit 0 and leave the body allowing calls; they now exit 1 with `not-a-state-dir` and create nothing (same fix for `verax watch --on-silence halt`, which now reports `halt-failed`, exit 3). `verax witness --help` used to start a real witness and write a private key and token into a `--help` directory; help flags now print help and exit 0. `verax verify` no longer ends with a bare `VERIFIED` unless keys, tail checkpoint and anchored rollback are all covered; a default install ends `VERIFIED (internal consistency only)`. Summary separators changed from the middle dot to `|`; `--json` unchanged.
+
+**Revvel action (2026-11-05):** pin **==0.8.2** for any trial. Any script checking verify output must read `--json` or the exit code, not an exact `VERIFIED` last line. If `verax witness --help` was ever run on <=0.8.1, stop that process and delete the `--help` directory (it holds a key). 0.8.0 / 0.7.0 advice still applies.
+
+**Honesty (2026-11-05):** CAN-PARTIAL. Verified 2026-11-05 (America/Denver): GitHub releases API body v0.8.2; `npm view @verax-ai/body version` = 0.8.2. Not run.

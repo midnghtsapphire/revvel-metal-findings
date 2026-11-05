@@ -7,6 +7,7 @@
   "lane": "02-formal-replay",
   "status": "watching",
   "urls": [
+    "https://pypi.org/project/agent-evidence-vectors/0.35.0/",
     "https://github.com/probityai/agent-evidence-vectors/tree/v0.35.0",
     "https://pypi.org/project/agent-evidence-vectors/0.34.2/",
     "https://github.com/probityai/agent-evidence-vectors/releases/tag/dsse-npm-v0.1.0",
@@ -137,3 +138,9 @@ Related, same repo: tag **`jcs-admit-npm-v0.1.0`** (2026-10-29 20:09 MDT) for `c
 **Revvel hit (2026-11-04):** nothing forces a move. Keep existing pins (never ==0.29.1); the `corpora/` path rewrite still applies to any pin >= 0.32.1. The receipt-signature vectors are the first family that could test an **attested**-style receipt verifier if one becomes a required check; revisit then. Wait for v0.35.0 on PyPI before using containment-journal.
 
 **Honesty (2026-11-04):** CAN-PARTIAL. Verified 2026-11-04 (America/Denver): PyPI JSON upload times, tags API, compare API v0.33.0...v0.35.0 (commit titles only), releases API for the dsse npm and vocabulary releases. Corpora not run or diffed.
+
+**Update 2026-11-05 -- 0.35.0 on PyPI:** `agent-evidence-vectors` **0.35.0** uploaded 2026-11-04 10:48 MST (tag v0.35.0 noted last scrape). It carries the containment-journal corpus extended to retrievals and tool calls (#450).
+
+**Revvel hit (2026-11-05):** containment-journal is now installable; use ==0.35.0 only for that corpus (it has the `corpora/` paths). Keep every other existing pin; never ==0.29.1.
+
+**Honesty (2026-11-05):** CAN-PARTIAL. Verified 2026-11-05 (America/Denver): PyPI JSON latest version and upload time. Corpus not run.
