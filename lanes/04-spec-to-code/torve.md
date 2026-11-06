@@ -7,6 +7,7 @@
   "lane": "04-spec-to-code",
   "status": "watching",
   "urls": [
+    "https://github.com/morzecrew/torve/releases/tag/v0.9.1",
     "https://github.com/morzecrew/torve/releases/tag/v0.9.0",
     "https://github.com/morzecrew/torve/releases/tag/v0.8.0",
     "https://github.com/morzecrew/torve",
@@ -17,7 +18,7 @@
   "license": "MIT",
   "metal": 1,
   "determinism": 4,
-  "revvel_hit": "Borrow the gate layer only: `torve gates run --base origin/main` (exit code is the outcome) with builtin `scope`, `no-test-tampering`, `red-on-base`, `acceptance`, `decisions-reported` gates, and `torve gates check` (sabotage suite proving each gate can fail). New in 0.8.0: `@suite` gate rule, a failing test convicts only if red at head and not red on the merge base (inherited reds recorded, never convict), and an `evidence` shadow gate naming each decision row no changed test proves. Its planner/night runner/sandbox loop would be a second pipeline: do not adopt it. Pin ==0.8.0 if trialled; 0.9.0 changes the contract format (v3) and row-check timing, wait.",
+  "revvel_hit": "Borrow the gate layer only: `torve gates run --base origin/main` (exit code is the outcome) with builtin `scope`, `no-test-tampering`, `red-on-base`, `acceptance`, `decisions-reported` gates, and `torve gates check` (sabotage suite proving each gate can fail). New in 0.8.0: `@suite` gate rule, a failing test convicts only if red at head and not red on the merge base (inherited reds recorded, never convict), and an `evidence` shadow gate naming each decision row no changed test proves. Its planner/night runner/sandbox loop would be a second pipeline: do not adopt it. Pin ==0.8.0 if trialled; 0.9.0/0.9.1 stay on contract v3 (critic review, $3/90min critic defaults in 0.9.1) — wait.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-27"
 }
@@ -34,3 +35,10 @@
 **Revvel hit (2026-11-05):** the inherited-red rule is the cheapest borrow yet: revvel's deliver:* gate should convict a PR only for tests that are red at the head **and** green on the merge base, so a flaky or pre-broken main does not block a clean WR. The three gaming cases are good fixtures for revvel's own `no-test-tampering` check. Pin ==0.8.0 for any gate trial; skip 0.9.0 until contract v3 settles.
 
 **Honesty (2026-11-05):** CAN-PARTIAL. Verified 2026-11-05 (America/Denver): GitHub releases API bodies and publish times for v0.8.0 and v0.9.0; repo API (MIT, pushed 2026-11-05). Not run.
+
+**Update 2026-11-06 -- 0.9.1 (still skip):** GitHub / PyPI **v0.9.1** (2026-11-06 01:20 MST / 08:20 UTC). Critic-mode defaults: stop a unit at **$3** notional spend across attempts (`budget_exhausted`); default **90 minutes** wallclock when the contract omits `budget.wallclock_minutes`. Review-finding fixes (last-review-only rounds, findings without cited lines anchor to phased landed files, empty worktrees judged at HEAD, timeout kills child processes, `spec archive` keeps `execution/` landings). Still the contract-v3 / critic family from 0.9.0.
+
+**Revvel hit (2026-11-06):** pin stays **==0.8.0** for any gate trial; skip 0.9.1 with 0.9.0 until contract v3 settles. The $3 / 90min critic budgets are irrelevant while the planner/critic loop is out of scope.
+
+**Honesty (2026-11-06):** CAN-PARTIAL. Verified 2026-11-06 (America/Denver): GitHub releases API body v0.9.1 publish 2026-11-06T08:20:18Z; raw CHANGELOG 0.9.1; PyPI torve 0.9.1 upload 2026-11-06T08:19:49Z; release page 200. Not run.
+

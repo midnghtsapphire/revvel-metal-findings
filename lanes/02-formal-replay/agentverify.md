@@ -11,15 +11,17 @@
     "https://pypi.org/project/agentverify/",
     "https://github.com/simukappu/agentverify/releases/tag/v0.5.0",
     "https://github.com/simukappu/agentverify/blob/main/CHANGELOG.md",
-    "https://github.com/simukappu/agentverify/releases/tag/v0.8.0"
+    "https://github.com/simukappu/agentverify/releases/tag/v0.8.0",
+    "https://github.com/simukappu/agentverify/releases/tag/v0.9.0",
+    "https://pypi.org/project/agentverify/0.9.0/"
   ],
   "license": "MIT",
   "metal": 2,
   "determinism": 5,
-  "revvel_hit": "deliver:* CI -- pytest cassette replay of tool sequences / budgets / forbidden tools next to chronos-dst and unflake; no second orchestrator. Pin ==0.7.1 (re-recorded cassettes). 0.8.0 (2026-10-29) adds assert_tool_calls_allowed but makes generated tool-call ids random per run and adds wall-clock cassette expiry: adopt only with fixed ids and max_age unset. Never below 0.5.0 (replay could reach the real provider)",
+  "revvel_hit": "deliver:* CI -- pytest cassette replay of tool sequences / budgets / forbidden tools next to chronos-dst and unflake; no second orchestrator. Pin ==0.7.1 (re-recorded cassettes). 0.9.0 (2026-11-06) adds record-missing cassette mode, iter_request_texts, assert_no_credential_urls, and drift warn/fail on replayed tool results; still inherits 0.8.0 caveats (random per-run tool-call ids, wall-clock max_age): adopt 0.9.0 only with fixed ids and max_age unset. Never below 0.5.0 (replay could reach the real provider)",
   "honesty": "CAN",
   "acquired": "2026-09-24",
-  "updated": "2026-10-30"
+  "updated": "2026-11-06"
 }
 ```
 
@@ -57,3 +59,10 @@
 **Revvel hit (2026-10-30):** `assert_tool_calls_allowed` is the useful part: the coder may only call listed tools with arguments inside a schema, checked in replay. Two determinism caveats: random tool-call ids leak into `to_dict()` (snapshot diffs change every run unless ids are fixed), and `max_age` depends on the wall clock (the same cassette can pass today and fail next month). Stay on **==0.7.1**, or move to **==0.8.0** only with fixed ids and `max_age` unset (or warn-only).
 
 **Honesty (2026-10-30):** CAN. Verified 2026-10-30 (America/Denver): GitHub releases API body v0.8.0, release page 200, PyPI JSON (0.8.0 upload time, MIT). Not run.
+
+**Update 2026-11-06 -- 0.9.0:** GitHub release / PyPI **0.9.0** (2026-11-06 05:09 MST / 12:09 UTC). Additive over 0.8.0: `--cassette-mode=record-missing` (record only missing cassettes, replay the rest); `iter_request_texts` (every text a request sent the model, with where it sits); `assert_no_credential_urls` (fails when a URL sent to the model carries a token/key/signature; values never printed); cassette `drift="warn"|"fail"` also compares replayed tool results, message roles, and parameters with the recording (off by default). Fixes: `--cassette-report` skips non-cassette files; pytest failures point at the test, not agentverify frames. Docs split into `docs/cassettes.md`, `docs/tool-results.md`, API reference. No new breaking changes beyond 0.8.0.
+
+**Revvel hit (2026-11-06):** `assert_no_credential_urls` and tool-result drift checks are useful for deliver:* cassettes once on 0.9.x. Pin stays **==0.7.1**. If/when moving past 0.7.1, prefer **==0.9.0** over 0.8.0 (same caveats: fixed tool-call ids, `max_age` unset or warn-only).
+
+**Honesty (2026-11-06):** CAN. Verified 2026-11-06 (America/Denver): PyPI JSON 0.9.0 upload 2026-11-06T12:09:37Z; GitHub releases API v0.9.0; raw CHANGELOG.md 0.9.0 / 0.8.0 sections; pypi.org/project/agentverify/0.9.0/ 200. Not run.
+
