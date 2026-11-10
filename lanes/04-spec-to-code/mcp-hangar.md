@@ -7,6 +7,9 @@
   "lane": "04-spec-to-code",
   "status": "watching",
   "urls": [
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.36.3",
+    "https://pypi.org/project/mcp-hangar/2.36.3/",
+    "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.36.2",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.36.1",
     "https://pypi.org/project/mcp-hangar/2.36.1/",
     "https://github.com/mcp-hangar/mcp-hangar/releases/tag/v2.36.0",
@@ -38,7 +41,7 @@
   "revvel_hit": "Runtime twin of agentgate's lock: tool-schema digest pinning fails the coder's call closed when an upstream rewrites a tool description; `mcp-hangar pin --check` exits 1 in CI; pinned tools are served with only pinned fields. 2.34.2 fixes several silent pin bypasses; 2.34.4 binds a discovery approval to the definition's full SHA-256 digest (409 on change); 2.34.5 makes a refused/failed approval answer approved:false and keep the change pending; 2.34.8 fixes a cross-tenant group leak; 2.34.9 makes `decide()` the only access-decision path and puts `GET /api/system` behind `mcp_servers:read`; 2.34.10 stops a config reload from dropping REST/discovery-registered servers and their policies. If trialled, pin ==2.34.10 (2.35.0 only if you want durable multi-replica groups; it adds stored state the gateway must read to start); never below 2.34.2; 2.34.6 is not on PyPI. Watching because it is a full fleet enforcement plane (Python, RBAC/OIDC, SIEM) and mcp-gate already holds the proxy slot.",
   "honesty": "CAN-PARTIAL",
   "acquired": "2026-10-12",
-  "updated": "2026-11-02"
+  "updated": "2026-11-10"
 }
 ```
 
@@ -142,3 +145,5 @@
 **Revvel hit (2026-11-05):** if you pin ==2.36.0 for stdio approvals, ==2.36.1 is a safe drop-in and tells you which duplicate tool names went dark after `init`; otherwise ==2.34.10 stays fine. Never below 2.34.2.
 
 **Honesty (2026-11-05):** CAN-PARTIAL. Verified 2026-11-05 (America/Denver): GitHub releases API body v2.36.1; PyPI JSON latest 2.36.1 upload time. Not trialled.
+
+**Update 2026-11-10:** **v2.36.3** (GitHub release 2026-11-10 14:23 UTC, PyPI 14:46 UTC) publishes everything from **v2.36.2**, which was tagged but never published (release test failed). 2.36.2 fixes: a tenant's server listings show only servers its calls may reach (#2200), policy member scopes kept separate from tenants (#2196), internal server ids reserved (#2213), **tighter tool-access policy cache invalidation** (#2214). Pin moves to **==2.36.3 if approvals run over stdio** (replaces ==2.36.1); else ==2.34.10 stays; never install 2.36.2 (not on PyPI). Verified: GitHub releases API bodies for v2.36.3/v2.36.2, PyPI JSON. Not run.
