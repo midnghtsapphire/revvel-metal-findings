@@ -73,3 +73,9 @@ Field note: **bitexact-llm**'s README (commit `29e5cb56d9`, 2026-10-30 18:44 MDT
 **Revvel hit (2026-11-03):** unchanged: `vllm==0.33.0` if trialled; a GPTQ-quantized coder needs the next release and the vosti 4-axis check before relying on BI.
 
 **Honesty (2026-11-03):** CAN-PARTIAL. Verified 2026-11-03 (America/Denver): pulls API (#60479 merged_at, merge SHA), issues API (#39096 / #62365 / #62017 open), releases API (no release after 0.33.0rc3). Not run.
+
+**Update 2026-11-19 -- vLLM v0.34.0** (GitHub release 2026-11-16 16:22 MST). Release notes list batch-invariance coverage for LFM2 ShortConv (#62367), FlashInfer FP8 bmm and W4A16 NVFP4 (#62192), **GPTQ (#60479)**, FA sliding window (#65627) and `aten::mm` out_dtype overloads (#60047).
+
+**Revvel hit (2026-11-19):** self-hosted only: trial target moves `vllm==0.33.0 -> ==0.34.0`; a GPTQ-quantized coder no longer needs to wait, but still run infer-determinism and the vosti 4-axis check before trusting BI.
+
+**Honesty (2026-11-19):** CAN-PARTIAL. Verified 2026-11-19 (America/Denver): releases API tag list and v0.34.0 body (batch-invariance line). Not run.
