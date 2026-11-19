@@ -144,3 +144,9 @@ Related, same repo: tag **`jcs-admit-npm-v0.1.0`** (2026-10-29 20:09 MDT) for `c
 **Revvel hit (2026-11-05):** containment-journal is now installable; use ==0.35.0 only for that corpus (it has the `corpora/` paths). Keep every other existing pin; never ==0.29.1.
 
 **Honesty (2026-11-05):** CAN-PARTIAL. Verified 2026-11-05 (America/Denver): PyPI JSON latest version and upload time. Corpus not run.
+
+**Update 2026-11-19 -- 0.36.3 / 0.37.0 / 0.37.1:** PyPI 0.36.3 (2026-11-07), 0.37.0 (2026-11-15), 0.37.1 (2026-11-19 04:20 UTC). Release notes: counts block required on every corpus manifest, connector-scope-record corpus (0.36.x); field-readiness corpora path fix and pins (0.37.1, #629); trade-booking missing-file and LP-timeout cases (#664); archived-repo link gate in CI. Separate `jcs-admit` npm 0.1.1 release (2026-11-15).
+
+**Revvel hit (2026-11-19):** nothing forces a move. Keep existing pins (never ==0.29.1); ==0.35.0 stays the containment-journal pin. Use ==0.37.1 (not 0.37.0, whose field-readiness paths were fixed in 0.37.1) only if a new corpus is needed.
+
+**Honesty (2026-11-19):** CAN-PARTIAL. Verified 2026-11-19 (America/Denver): PyPI JSON upload times, releases API (PR titles only). Corpora not run.

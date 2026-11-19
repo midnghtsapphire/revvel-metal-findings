@@ -77,3 +77,9 @@ v0.2.0 (2026-10-12 13:31 MDT): lockfile schema `v0.0.3`, stricter `--verify`, `-
 **Revvel action (2026-11-03):** if Audrey says yes, install `--pin v0.4.1` (v0.4.0 / v0.3.0 still fine); otherwise unchanged. Still needs her OK.
 
 **Honesty (2026-11-03):** CAN-PARTIAL. Verified 2026-11-03 (America/Denver): releases API body for v0.4.1, release page 200. Not trialled.
+
+**Update 2026-11-19 -- v0.5.0** (GitHub release 2026-11-18 21:52 MST). New `--fail-on-warning` exits 1 on warnings (#299); full-SHA `uses` now need an exact lock key and action files are refused as paths (#300); the tool never writes action files (#304); reusable-workflow calls no longer get an action's sub-path rewrite (#263); tag-before-branch reverse lookup of SHA pins (#297); same-repo composite SHA pins kept (#298); Windows/macOS test runs.
+
+**Revvel action (2026-11-19):** if Audrey says yes, install `--pin v0.5.0` and run `--verify --fail-on-warning` in the existing workflows so warnings can't pass silently. #300 may reject a previously accepted full-SHA lock; regenerate the lockfile once on adoption. Still needs her OK.
+
+**Honesty (2026-11-19):** CAN-PARTIAL. Verified 2026-11-19 (America/Denver): releases API (tag list + v0.5.0 body). Not trialled.

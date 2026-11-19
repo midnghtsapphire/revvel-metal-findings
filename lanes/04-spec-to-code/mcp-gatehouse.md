@@ -49,3 +49,9 @@ Schema fix 2026-10-12: added the required `metal` / `determinism` scores that th
 **Revvel hit (2026-11-03):** still only relevant if revvel-standards ships its own Python MCP server. If so: pin `mcp-gatehouse==0.5.0`, keep `mcp>=2.2.0` + `validate_token_resource` (2026-10-29 note), and set `fallback` to deny so a host that can't relay elicitation never auto-approves (see mcp-destructive-approval, 2611.02527).
 
 **Honesty (2026-11-03):** CAN-PARTIAL. Verified 2026-11-03 (America/Denver): releases API body for v0.5.0, release page 200, PyPI JSON 0.5.0 (`requires_dist`, MIT, upload time). Not trialled.
+
+**2026-11-19 update:** **0.6.0** (PyPI 2026-11-15) is **breaking**: authorization is a runtime invariant; every tool call needs a verified caller, an explicit policy and a decision on the record it acts on, and anything missing fails closed (migration notes in CHANGELOG). **0.6.1** (2026-11-16/17): a refused stale approval names each changed field (`order.total: 812.00 -> 812.01`), the next question starts `Changed since you were last asked: ...`, audit logs field names only; approval still binds to the exact record state.
+
+**Revvel hit (2026-11-19):** still only if revvel-standards ships its own Python MCP server. Then pin `mcp-gatehouse==0.6.1` (go straight past 0.5.0; plan the 0.6.0 migration). The 'show what changed since last asked' rule is worth borrowing for any human approval card in the deliver:* gate.
+
+**Honesty (2026-11-19):** CAN-PARTIAL. Verified 2026-11-19 (America/Denver): PyPI JSON (0.6.0/0.6.1 upload times), CHANGELOG.md on main. Not trialled.
